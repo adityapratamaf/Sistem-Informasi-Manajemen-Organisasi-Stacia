@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LogistikController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,5 +23,8 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', function () {
-    return view('dashboard');
+    return view('dashboard.dashboard');
 });
+
+// ========== LOGISTIK ==========
+Route::resource('logistik', LogistikController::class);

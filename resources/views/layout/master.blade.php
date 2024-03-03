@@ -26,7 +26,17 @@
 
     <link rel="stylesheet" href="{{ asset('template/plugins/daterangepicker/daterangepicker.css') }}">
 
+    {{-- Summernote --}}
     <link rel="stylesheet" href="{{ asset('template/plugins/summernote/summernote-bs4.min.css') }}">
+
+    {{-- Toastr --}}
+    <link rel="stylesheet" href="{{ asset('template/plugins/toastr/toastr.min.css') }}">
+
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{ asset('template/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('/template/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('template/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 
     {{-- <script nonce="828b2fe7-5fe9-4506-9d71-c42a859d8829">
         try {
@@ -110,7 +120,7 @@
         {{-- LOADER --}}
         <div class="preloader flex-column justify-content-center align-items-center">
             <img class="animation__shake" src="{{ asset('template/dist/img/AdminLTELogo.png') }}" alt="AdminLTELogo"
-                height="60" width="60">
+                height="100" width="auto">
         </div>
         {{-- LOADER --}}
 
@@ -136,7 +146,6 @@
 
     </div>
 
-
     <script src="{{ asset('template/plugins/jquery/jquery.min.js') }}"></script>
 
     <script src="{{ asset('template/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
@@ -152,16 +161,36 @@
     <script src="{{ asset('template/plugins/sparklines/sparkline.js') }}"></script>
 
     <script src="{{ asset('template/plugins/jqvmap/jquery.vmap.min.js') }}"></script>
+
     <script src="{{ asset('template/plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script>
 
     <script src="{{ asset('template/plugins/jquery-knob/jquery.knob.min.js') }}"></script>
 
     <script src="{{ asset('template/plugins/moment/moment.min.js') }}"></script>
+
     <script src="{{ asset('template/plugins/daterangepicker/daterangepicker.js') }}"></script>
 
     <script src="{{ asset('template/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
 
+    <!-- DataTables -->
+    <script src="{{ asset('template/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('template/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('template/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('template/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('template/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('template/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('template/plugins/jszip/jszip.min.js') }}"></script>
+    <script src="{{ asset('template/plugins/pdfmake/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('template/plugins/pdfmake/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('template/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('template/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('template/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+
+    {{-- Summernote --}}
     <script src="{{ asset('template/plugins/summernote/summernote-bs4.min.js') }}"></script>
+
+    {{-- Toastr --}}
+    <script src="{{ asset('template/plugins/toastr/toastr.min.js') }}"></script>
 
     <script src="{{ asset('template/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 
@@ -170,6 +199,64 @@
     <script src="{{ asset('template/dist/js/demo.js') }}"></script>
 
     <script src="{{ asset('template/dist/js/pages/dashboard.js') }}"></script>
+
+    {{-- Toastr  --}}
+    <script>
+        @if (Session::has('pesan'))
+            toastr.option = {
+                "progressBar": true,
+            }
+            toastr.{{ Session::get('alert') }}("{{ Session::get('pesan') }}");
+        @endif
+    </script>
+    {{-- Toastr  --}}
+
+    {{-- Summernote --}}
+    <script>
+        $(document).ready(function() {
+            $('#summernote').summernote();
+        });
+    </script>
+    {{-- Summernote --}}
+
+    {{-- Preview Image --}}
+    <script>
+        function previewImage() {
+            document.getElementById("image-preview").style.display = "block";
+            var oFReader = new FileReader();
+            oFReader.readAsDataURL(document.getElementById("image-source").files[0]);
+
+            oFReader.onload = function(oFREvent) {
+                document.getElementById("image-preview").src = oFREvent.target.result;
+            };
+        };
+    </script>
+    {{-- Preview Image --}}
+
+    <!-- DataTables -->
+    <script>
+        $(function() {
+            $("#example1").DataTable({
+                "paging": true,
+                "searching": true,
+                "responsive": true,
+                "lengthChange": true,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
+    <!-- DataTables -->
+
 </body>
 
 </html>
