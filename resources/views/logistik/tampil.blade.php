@@ -13,8 +13,12 @@
                 <div class="row mb-0">
                     <div class="col-sm-6">
                         {{-- <h5 class="m-0 float-sm-left"> # </h5> --}}
-                        <a href="/logistik/create" class="m-0 float-sm-left btn btn-primary btn-sm" data-toggle="tooltip"
-                            data-placement="top" title="Tambah"> <i class="fas fa-database"></i> </a>
+                        <a href="/logistik/create" class="mx-2 float-sm-left btn btn-primary btn-sm" data-toggle="tooltip"
+                            data-placement="top" title="Tambah"> <i class="fas fa-database"></i>
+                        </a>
+                        <a href="#" class="mx-2 float-sm-left btn btn-success btn-sm" data-toggle="tooltip"
+                            data-placement="top" title="Print"> <i class="fas fa-print"></i>
+                        </a>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -77,18 +81,18 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="/cast/.." class="btn btn-outline-secondary btn-sm mr-2"
-                                                data-toggle="tooltip" data-placement="top" title="Detail"> <i
-                                                    class="fas fa-sticky-note"></i>
+                                            <a href="/logistik/{{ $data->id }}"
+                                                class="btn btn-outline-secondary btn-sm mx-2" data-toggle="tooltip"
+                                                data-placement="top" title="Detail"> <i class="fas fa-sticky-note"></i>
                                             </a>
-                                            <a href="/cast/../edit" class="btn btn-outline-info btn-sm mr-2"
-                                                data-toggle="tooltip" data-placement="top" title="Ubah"> <i
-                                                    class="fas fa-pen-alt"></i>
+                                            <a href="/logistik/{{ $data->id }}/edit"
+                                                class="btn btn-outline-info btn-sm mx-2" data-toggle="tooltip"
+                                                data-placement="top" title="Ubah"> <i class="fas fa-pen-alt"></i>
                                             </a>
-                                            <form action="/logistik/.." class="d-inline">
+                                            <form action="/logistik/{{ $data->id }}" class="d-inline" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button class="btn btn-outline-danger btn-sm mr-2" data-toggle="tooltip"
+                                                <button class="btn btn-outline-danger btn-sm mx-2" data-toggle="tooltip"
                                                     data-placement="top" title="Hapus"> <i class="fas fa-trash-alt"></i>
                                                 </button>
                                             </form>

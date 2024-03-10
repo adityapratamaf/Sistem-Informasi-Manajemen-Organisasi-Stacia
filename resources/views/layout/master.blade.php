@@ -38,6 +38,17 @@
         href="{{ asset('/template/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('template/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 
+    {{-- Print Area --}}
+    <script type="text/javascript">
+        function printArea(area) {
+            var printPage = document.getElementById(area).innerHTML;
+            var oriPage = document.body.innerHTML;
+            document.body.innerHTML = printPage;
+            window.print();
+            document.body.innerHTML = oriPage;
+        }
+    </script>
+
     {{-- <script nonce="828b2fe7-5fe9-4506-9d71-c42a859d8829">
         try {
             (function(w, d) {

@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
+// Hapus File Lama 
+use File;
+
 class LogistikController extends Controller
 {
     /**
@@ -28,7 +31,9 @@ class LogistikController extends Controller
      */
     public function create()
     {
-        //
+        // ===== Daftar Data =====
+
+        // Pengalihan Halaman
         return view('logistik.tambah');
     }
 
@@ -40,6 +45,8 @@ class LogistikController extends Controller
      */
     public function store(Request $request)
     {
+        // ===== Tambah Data =====
+
         // Validasi Jika Tidak Di Isi
         $this->validate($request, [
             'nama' => 'required',
@@ -54,7 +61,7 @@ class LogistikController extends Controller
 
         // Unggah File
         $fileFoto   = time() . '.' . $request->foto->extension();
-        $request->foto->move(public_path('anggota'), $fileFoto);
+        $request->foto->move(public_path('logistik-foto'), $fileFoto);
 
         // Simpan Data Ke Database
         $logistik = new Logistik;
@@ -86,7 +93,13 @@ class LogistikController extends Controller
      */
     public function show($id)
     {
-        //
+        // ===== Detail Data =====
+
+        // Ambil Data Berdasarkan ID Yang Di Pilih
+        $logistik = DB::table('logistik')->where('id', $id)->first();
+
+        // Pengalihan Halaman
+        return view('logistik.detail', ['logistik' => $logistik]);
     }
 
     /**
@@ -97,7 +110,13 @@ class LogistikController extends Controller
      */
     public function edit($id)
     {
-        //
+        // ===== Ubah Data =====
+
+        // Ambil Data Berdasarkan ID Yang Di Pilih
+        $logistik = DB::table('logistik')->where('id', $id)->first();
+
+        // Pengalihan Halaman
+        return view('logistik.ubah', ['logistik' => $logistik]);
     }
 
     /**
@@ -109,7 +128,54 @@ class LogistikController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // ===== Ubah Data =====
+
+        // Validasi Jika Tidak Di Isi
+        $this->validate($request, [
+            'nama' => 'required',
+            'nomor' => 'required',
+            'merek' => 'required',
+            'tahun_pembelian' => 'required',
+            'keterangan' => 'required',
+            'status' => 'required',
+            'pemakaian' => 'required',
+            'foto' => 'image|mimes:jpg,png,jpeg'
+        ]);
+
+        // Model
+        $logistik = Logistik::find($id);
+
+        // Fungsi Hapus & Ubah File 
+        if ($request->has('foto')) {
+            $path = 'logistik-foto/';
+            File::delete($path . $logistik->foto);
+
+            // Unggah File
+            $fileFoto   = time() . '.' . $request->foto->extension();
+            $request->foto->move(public_path('logistik-foto'), $fileFoto);
+
+            $logistik->foto = $fileFoto;
+            $logistik->save();
+        }
+
+        // Simpan Data Ke Database
+        $logistik->nama = $request['nama'];
+        $logistik->nomor = $request['nomor'];
+        $logistik->merek = $request['merek'];
+        $logistik->tahun_pembelian = $request['tahun_pembelian'];
+        $logistik->keterangan = $request['keterangan'];
+        $logistik->status = $request['status'];
+        $logistik->pemakaian = $request['pemakaian'];
+        $logistik->save();
+
+        // Notifikasi
+        $notifikasi = array(
+            'pesan' => 'DATA BERHASIL DI UBAH',
+            'alert' => 'success',
+        );
+
+        // Pengalihan Halaman
+        return Redirect('/logistik')->with($notifikasi);
     }
 
     /**
@@ -120,6 +186,24 @@ class LogistikController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // ===== Hapus Data =====
+
+        // Model
+        $logistik = Logistik::find($id);
+
+        // Hapus File
+        $path = 'logistik-foto/';
+        File::delete($path . $logistik->foto);
+
+        $logistik->delete();
+
+        // Notifikasi
+        $notifikasi = array(
+            'pesan' => 'DATA BERHASIL DI HAPUS',
+            'alert' => 'success',
+        );
+
+        // Pengalihan Halaman
+        return Redirect('/logistik')->with($notifikasi);
     }
 }
