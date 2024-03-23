@@ -2,9 +2,9 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
     {{-- PROFILE --}}
-    <a href="index3.html" class="brand-link">
-        <img src="{{ asset('template/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" height="100" width="auto"
-            class="brand-image img-circle elevation-3" style="opacity: .8">
+    <a href="../../index3.html" class="brand-link mt-1 d-flex">
+        <img src="{{ asset('template/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image"
+            style="opacity: .8">
         <span class="brand-text font-weight-light">AdminLTE 3</span>
     </a>
     {{-- PROFILE --}}
@@ -67,11 +67,119 @@
                     </a>
                 </li>
 
+                <li class="nav-item {{ \Route::is('dashboard.dashboard') ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ \Route::is('dashboard.dashboard') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-archive"></i>
+                        <p>
+                            Dokumen
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="./index.html"
+                                class="nav-link {{ \Route::is('dashboard.dashboard') ? 'active' : '' }}">
+                                <i class="fas fa-file-alt nav-icon"></i>
+                                <p>Surat Masuk</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="./index.html"
+                                class="nav-link {{ \Route::is('dashboard.dashboard') ? 'active' : '' }}">
+                                <i class="fas fa-file-alt nav-icon"></i>
+                                <p>Surat Keluar</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="./index.html"
+                                class="nav-link {{ \Route::is('dashboard.dashboard') ? 'active' : '' }}">
+                                <i class="fas fa-file-alt nav-icon"></i>
+                                <p>Surat Keterangan</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="./index.html"
+                                class="nav-link {{ \Route::is('dashboard.dashboard') ? 'active' : '' }}">
+                                <i class="fas fa-book nav-icon"></i>
+                                <p>Proposal</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="./index.html"
+                                class="nav-link {{ \Route::is('dashboard.dashboard') ? 'active' : '' }}">
+                                <i class="fas fa-book nav-icon"></i>
+                                <p>Laporan</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li class="nav-item">
-                    <a href="/logistik" class="nav-link {{ \Route::is('logistik.*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-toolbox"></i>
+                    <a href="/logistik" class="nav-link {{ \Route::is('logistik.*') ? 'active' : '' }}"
+                        data-toggle="tooltip" data-placement="top" title="Logistik">
+                        <i class="nav-icon fas fa-tools"></i>
                         <p>
                             Logistik
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/logistik" class="nav-link {{ \Route::is('program.*') ? 'active' : '' }}"
+                        data-toggle="tooltip" data-placement="top" title="Logistik">
+                        <i class="nav-icon fas fa-briefcase"></i>
+                        <p>
+                            Program
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/logistik" class="nav-link {{ \Route::is('keuangan.*') ? 'active' : '' }}"
+                        data-toggle="tooltip" data-placement="top" title="Logistik">
+                        <i class="nav-icon fas fa-wallet"></i>
+                        <p>
+                            Keuangan
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-header">Manajemen</li>
+
+                <li class="nav-item">
+                    <a href="/pengumuman" class="nav-link {{ \Route::is('pengumuman.*') ? 'active' : '' }}"
+                        data-toggle="tooltip" data-placement="top" title="Pengumuman">
+                        <i class="nav-icon fas fa-bullhorn"></i>
+                        <p>
+                            Pengumuman
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/anggota" class="nav-link {{ \Route::is('anggota.*') ? 'active' : '' }}"
+                        data-toggle="tooltip" data-placement="top" title="Anggota">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Pengurus
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/anggota" class="nav-link {{ \Route::is('anggota.*') ? 'active' : '' }}"
+                        data-toggle="tooltip" data-placement="top" title="Anggota">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>
+                            Anggota
                         </p>
                     </a>
                 </li>

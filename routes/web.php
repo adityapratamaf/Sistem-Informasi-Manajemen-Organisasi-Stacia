@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LogistikController;
+use App\Http\Controllers\PengumumanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,17 +15,25 @@ use App\Http\Controllers\LogistikController;
 |
 */
 
+// ========== WELCOME LARAVEL ==========
 // Route::get('/', function () {
 //     return view('welcome');
 // });
 
-// Route::get('/', function () {
-//     return view('layout.master');
-// });
+// ========== TEMPLATE ==========
+Route::get('/master', function () {
+    return view('layout.master');
+});
 
+// ========== DASHBOARD ==========
 Route::get('/', function () {
     return view('dashboard.dashboard');
 });
 
 // ========== LOGISTIK ==========
+// Download 
+Route::get('logistik/download', [LogistikController::class, 'download']);
 Route::resource('logistik', LogistikController::class);
+
+// ========== PENGUMUMAN ==========
+Route::resource('pengumuman', PengumumanController::class);

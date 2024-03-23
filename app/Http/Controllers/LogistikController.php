@@ -19,8 +19,12 @@ class LogistikController extends Controller
      */
     public function index()
     {
-        //Halaman Index
+        //  ===== Daftar Data =====
+
+        // Model
         $logistik = DB::table('logistik')->get();
+
+        // Pengalihan Halaman
         return view('logistik.tampil', ['logistik' => $logistik]);
     }
 
@@ -31,7 +35,7 @@ class LogistikController extends Controller
      */
     public function create()
     {
-        // ===== Daftar Data =====
+        // ===== Tambah Data =====
 
         // Pengalihan Halaman
         return view('logistik.tambah');
@@ -45,9 +49,9 @@ class LogistikController extends Controller
      */
     public function store(Request $request)
     {
-        // ===== Tambah Data =====
+        // ===== Request Tambah Data =====
 
-        // Validasi Jika Tidak Di Isi
+        // Validasi Jika Form Tidak Di Isi
         $this->validate($request, [
             'nama' => 'required',
             'nomor' => 'required',
@@ -56,7 +60,7 @@ class LogistikController extends Controller
             'keterangan' => 'required',
             'status' => 'required',
             'pemakaian' => 'required',
-            'foto' => 'required|image|mimes:jpg,png,jpeg'
+            'foto' => 'required|image|mimes:jpeg,jpg,png|max:2048',
         ]);
 
         // Unggah File
@@ -128,9 +132,9 @@ class LogistikController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // ===== Ubah Data =====
+        // ===== Request Ubah Data =====
 
-        // Validasi Jika Tidak Di Isi
+        // Validasi Jika Form Tidak Di Isi
         $this->validate($request, [
             'nama' => 'required',
             'nomor' => 'required',
@@ -139,7 +143,7 @@ class LogistikController extends Controller
             'keterangan' => 'required',
             'status' => 'required',
             'pemakaian' => 'required',
-            'foto' => 'image|mimes:jpg,png,jpeg'
+            'foto' => 'image|mimes:jpeg,jpg,png|max:2048'
         ]);
 
         // Model
@@ -195,6 +199,7 @@ class LogistikController extends Controller
         $path = 'logistik-foto/';
         File::delete($path . $logistik->foto);
 
+        // Hapus Data
         $logistik->delete();
 
         // Notifikasi
@@ -205,5 +210,21 @@ class LogistikController extends Controller
 
         // Pengalihan Halaman
         return Redirect('/logistik')->with($notifikasi);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function download()
+    {
+        // ===== Download PDF Data =====
+
+        // Model
+        $logistik = DB::table('logistik')->get();
+
+        // Pengalihan Halaman
+        return view('logistik.cetak', ['logistik' => $logistik]);
     }
 }

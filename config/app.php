@@ -69,7 +69,8 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    // Ganti Waktu Lokal Indonesia
+    'timezone' => 'Asia/Jakarta',
 
     /*
     |--------------------------------------------------------------------------
@@ -82,7 +83,8 @@ return [
     |
     */
 
-    'locale' => 'en',
+    // Ganti Waktu Lokal Indonesia
+    'locale' => 'id',
 
     /*
     |--------------------------------------------------------------------------
@@ -108,7 +110,8 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
+    // Ganti Waktu Lokal Indonesia
+    'faker_locale' => 'id_ID',
 
     /*
     |--------------------------------------------------------------------------

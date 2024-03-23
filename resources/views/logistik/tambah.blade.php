@@ -199,10 +199,10 @@
                                             <div class="custom-file">
                                                 <input type="file" name="foto" class="custom-file-input"
                                                     onchange="previewImage();" id="image-source">
-                                                <label class="custom-file-label">Pilih Foto</label>
+                                                <label class="custom-file-label">Foto</label>
                                             </div>
                                             <div class="input-group-append">
-                                                <span class="input-group-text">Upload</span>
+                                                <span class="input-group-text">Unggah</span>
                                             </div>
                                         </div>
                                         <div class="product-image-thumb mt-2">
@@ -223,7 +223,7 @@
 
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary btn-sm toastrDefaultSuccess" data-toggle="tooltip"
-                                data-placement="bottom" title="Simpan"> <i class="fas fa-save fa-lg"></i> </i>
+                                data-placement="bottom" title="Simpan"> <i class="fas fa-database"></i> </i>
                             </button>
                         </div>
                     </form>
