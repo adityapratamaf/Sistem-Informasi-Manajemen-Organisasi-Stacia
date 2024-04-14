@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LogistikController;
 use App\Http\Controllers\PengumumanController;
+use App\Http\Controllers\SuratMasukController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,3 +38,6 @@ Route::resource('logistik', LogistikController::class);
 
 // ========== PENGUMUMAN ==========
 Route::resource('pengumuman', PengumumanController::class);
+
+// ========== SURAT MASUK ==========
+Route::resource('suratmasuk', SuratMasukController::class);

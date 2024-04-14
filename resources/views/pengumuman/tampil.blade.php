@@ -32,6 +32,7 @@
             <div class="container-fluid">
 
                 <div class="card card-primary card-outline">
+
                     <div class="card-header">
                         <h3 class="card-title"> <b>Daftar Data Pengumuman</b> </h3>
                     </div>

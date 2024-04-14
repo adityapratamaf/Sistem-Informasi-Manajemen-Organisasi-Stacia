@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="{{ asset('template/dist/img/AdminLTELogo.png') }}">
     <title>@yield('judul')</title>
 
     <link rel="stylesheet"

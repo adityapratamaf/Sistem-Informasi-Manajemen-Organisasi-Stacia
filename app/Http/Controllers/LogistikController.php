@@ -213,7 +213,7 @@ class LogistikController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Download a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */

@@ -28,9 +28,11 @@
 
 
         <section class="content">
+            
             <div class="container-fluid">
 
                 <div class="card card-primary card-outline">
+
                     <div class="card-header">
                         <h3 class="card-title"> <b>Tambah Data Pengumuman</b> </h3>
                     </div>
@@ -38,11 +40,12 @@
                     <form action="/pengumuman/{{ $pengumuman->id }}" method="POST">
                         @csrf
                         @method('PUT')
+
                         <div class="card-body">
 
                             <div class="row">
-
                                 <div class="col-md-12">
+
                                     <div class="form-group">
                                         <label for="judul">Judul</label>
                                         <input type="text" name="judul" class="form-control" placeholder="Judul"
