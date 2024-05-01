@@ -212,6 +212,35 @@
 
     <script src="{{ asset('template/dist/js/pages/dashboard.js') }}"></script>
 
+    {{-- Toast Bootstrap  --}}
+    <script>
+        $(function() {
+            $(".toast").toast({
+                delay: 15000
+            });
+            $(".toast").toast("show");
+        });
+    </script>
+
+    {{-- HTML --}}
+    {{-- @if (\Session::has('success'))
+            <div class="position-fixed bottom-0 right-0 p-3" style="z-index: 5; right: 0; bottom: 0; min-height: 500px;">
+                <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                        <strong class="mr-auto">{{ \Session::get('success') }}</strong>
+                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="toast-body">
+                        <p>{{ \Session::get('success') }}</p>
+                    </div>
+                </div>
+            </div>
+        @endif --}}
+    {{-- HTML --}}
+    {{-- Toast Bootstrap  --}}
+
     {{-- Toastr  --}}
     <script>
         @if (Session::has('pesan'))

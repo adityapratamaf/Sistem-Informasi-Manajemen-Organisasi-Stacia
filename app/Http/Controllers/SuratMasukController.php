@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
+// Hapus File Lama
+use File;
+
 class SuratMasukController extends Controller
 {
     /**
@@ -80,6 +83,9 @@ class SuratMasukController extends Controller
 
         // Pengalihan Halaman
         return Redirect('/suratmasuk')->with($notifikasi);
+
+        // Pengalihan Halaman TB
+        // return redirect('/suratmasuk')->with('success', 'Data Tersimpan');
     }
 
     /**
@@ -107,7 +113,13 @@ class SuratMasukController extends Controller
      */
     public function edit($id)
     {
-        //
+        // ===== Ubah Data =====
+
+        // Ambil Data Berdasarkan ID Yang Di Pilih
+        $suratmasuk = DB::table('surat_masuk')->where('id', $id)->first();
+
+        // Pengalihan Halaman
+        return view('suratmasuk.ubah', ['suratmasuk' => $suratmasuk]);
     }
 
     /**
@@ -119,7 +131,48 @@ class SuratMasukController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // ===== Request Ubah Data =====
+        $this->validate($request, [
+            'nomor' => 'required',
+            'tanggal' => 'required',
+            'perihal' => 'required',
+            'asal' => 'required',
+            'isi' => 'required',
+            'file' => 'mimes:pdf|max:2048',
+        ]);
+
+        // Model
+        $suratmasuk = SuratMasuk::find($id);
+
+        // Fungsi Hapus & Ubah File
+        if ($request->has('file')) {
+            $path = 'suratmasuk-file/';
+            File::delete($path . $suratmasuk->file);
+
+            // Unggah File
+            $fileSurat = time() . '.' . $request->file->extension();
+            $request->file->move(public_path('suratmasuk-file'), $fileSurat);
+
+            $suratmasuk->file = $fileSurat;
+            $suratmasuk->save;
+        }
+
+        // Simpan Data Ke Database
+        $suratmasuk->nomor = $request['nomor'];
+        $suratmasuk->tanggal = $request['tanggal'];
+        $suratmasuk->perihal = $request['perihal'];
+        $suratmasuk->asal = $request['asal'];
+        $suratmasuk->isi = $request['isi'];
+        $suratmasuk->save();
+
+        // Notifikasi
+        $notifikasi = array(
+            'pesan' => 'DATA BERHASIL DI UBAH',
+            'alert' => 'success',
+        );
+
+        // Pengalihan Halaman
+        return Redirect('/suratmasuk')->with($notifikasi);
     }
 
     /**
@@ -130,6 +183,41 @@ class SuratMasukController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // ===== Hapus Data =====
+
+        // Model
+        $suratmasuk = SuratMasuk::find($id);
+
+        // Hapus File
+        $path = 'suratmasuk-file/';
+        File::delete($path . $suratmasuk->file);
+
+        // Hapus Data
+        $suratmasuk->delete();
+
+        // Notifikasi
+        $notifikasi = array(
+            'pesan' => 'DATA BERHASIL DI HAPUS',
+            'alert' => 'success',
+        );
+
+        // Pengalihan Halaman
+        return Redirect('/suratmasuk')->with($notifikasi);
+    }
+
+    /**
+     * Download a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function download()
+    {
+        // ===== Download PDF Data =====
+
+        // Model
+        $suratmasuk = DB::table('surat_masuk')->get();
+
+        // Pengalihan Halaman
+        return view('suratmasuk.cetak', ['suratmasuk' => $suratmasuk]);
     }
 }

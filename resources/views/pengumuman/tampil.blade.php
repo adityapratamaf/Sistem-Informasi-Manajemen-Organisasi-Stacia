@@ -67,7 +67,8 @@
                                                 data-toggle="tooltip" data-placement="top" title="Ubah"> <i
                                                     class="fas fa-pen-alt"></i>
                                             </a>
-                                            <form action="/pengumuman/{{ $data->id }}" class="d-inline" method="POST">
+                                            <form action="/pengumuman/{{ $data->id }}" class="d-inline" method="POST"
+                                                onclick="return confirm('Hapus Data ?')">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger btn-sm mx-2" data-toggle="tooltip"

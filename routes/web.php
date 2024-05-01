@@ -32,7 +32,6 @@ Route::get('/', function () {
 });
 
 // ========== LOGISTIK ==========
-// Download 
 Route::get('logistik/download', [LogistikController::class, 'download']);
 Route::resource('logistik', LogistikController::class);
 
@@ -40,4 +39,5 @@ Route::resource('logistik', LogistikController::class);
 Route::resource('pengumuman', PengumumanController::class);
 
 // ========== SURAT MASUK ==========
+Route::get('suratmasuk/download', [SuratMasukController::class, 'download']);
 Route::resource('suratmasuk', SuratMasukController::class);
