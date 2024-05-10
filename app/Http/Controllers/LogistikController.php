@@ -22,7 +22,7 @@ class LogistikController extends Controller
         //  ===== Daftar Data =====
 
         // Model
-        $logistik = DB::table('logistik')->get();
+        $logistik = DB::table('logistik')->orderBy('created_at', 'DESC')->get();
 
         // Pengalihan Halaman
         return view('logistik.tampil', ['logistik' => $logistik]);

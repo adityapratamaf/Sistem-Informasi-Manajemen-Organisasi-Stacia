@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LogistikController;
 use App\Http\Controllers\PengumumanController;
+use App\Http\Controllers\SuratKeluarController;
 use App\Http\Controllers\SuratMasukController;
+use App\Models\SuratKeluar;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,3 +43,7 @@ Route::resource('pengumuman', PengumumanController::class);
 // ========== SURAT MASUK ==========
 Route::get('suratmasuk/download', [SuratMasukController::class, 'download']);
 Route::resource('suratmasuk', SuratMasukController::class);
+
+// ========== SURAT KELUAR ==========
+Route::get('suratkeluar/download', [SuratKeluarController::class, 'download']);
+Route::resource('suratkeluar', SuratKeluarController::class);

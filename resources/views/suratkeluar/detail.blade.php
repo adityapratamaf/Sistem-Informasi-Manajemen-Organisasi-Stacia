@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('judul')
-    Surat Masuk
+    Surat Keluar
 @endsection
 
 @section('isi')
@@ -18,7 +18,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Dokumen</a></li>
-                            <li class="breadcrumb-item"><a href="#">Surat Masuk</a></li>
+                            <li class="breadcrumb-item"><a href="#">Surat Keluar</a></li>
                             <li class="breadcrumb-item active">Detail</li>
                         </ol>
                     </div>
@@ -32,7 +32,7 @@
 
                 <div class="card card-primary card-outline">
                     <div class="card-header">
-                        <h3 class="card-title"> <b>Detail Data Surat Masuk</b> </h3>
+                        <h3 class="card-title"> <b>Detail Data Surat Keluar</b> </h3>
                     </div>
 
                     <div class="card-body">
@@ -42,12 +42,12 @@
                                 <div class="row">
 
                                     <div class="col-12 col-sm-6">
-                                        <iframe src="{{ asset('suratmasuk-file/' . $suratmasuk->file) }}" height="400"
+                                        <iframe src="{{ asset('suratkeluar-file/' . $suratkeluar->file) }}" height="400"
                                             width="550" class="card"></iframe>
                                     </div>
 
                                     <div class="col-12 col-sm-6">
-                                        <h2 class="my-3"> <b>{{ $suratmasuk->asal }}</b> </h2>
+                                        <h2 class="my-3"> <b>{{ $suratkeluar->tujuan }}</b> </h2>
                                         <hr>
                                         <div class="row">
                                             <div class="col">
@@ -56,9 +56,9 @@
                                                 <p>Perihal</p>
                                             </div>
                                             <div class="col">
-                                                <p>: {{ $suratmasuk->nomor }}</p>
-                                                <p>: {{ $suratmasuk->tanggal }}</p>
-                                                <p>: {{ $suratmasuk->perihal }}</p>
+                                                <p>: {{ $suratkeluar->nomor }}</p>
+                                                <p>: {{ $suratkeluar->tanggal }}</p>
+                                                <p>: {{ $suratkeluar->perihal }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -78,14 +78,14 @@
                                     <div class="tab-content p-3" id="nav-tabContent">
                                         <div class="tab-pane fade show active" id="keterangan" role="tabpanel"
                                             aria-labelledby="keterangan-tab">
-                                            <div class="summernote">{!! $suratmasuk->isi !!}</div>
+                                            <div class="summernote">{!! $suratkeluar->isi !!}</div>
                                         </div>
 
                                         <div class="tab-pane fade" id="memuat" role="tabpanel"
                                             aria-labelledby="memuat-tab">
-                                            Pembuatan Data : {{ $suratmasuk->created_at }}
+                                            Pembuatan Data : {{ $suratkeluar->created_at }}
                                             <br>
-                                            Pembaharuan Data : {{ $suratmasuk->updated_at }}
+                                            Pembaharuan Data : {{ $suratkeluar->updated_at }}
                                         </div>
 
                                     </div>

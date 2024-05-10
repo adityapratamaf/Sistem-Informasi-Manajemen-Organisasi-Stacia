@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('judul')
-    Surat Masuk
+    Surat Keluar
 @endsection
 
 @section('isi')
@@ -13,17 +13,17 @@
                 <div class="row mb-0">
                     <div class="col-sm-6">
                         {{-- <h5 class="m-0 float-sm-left"> # </h5> --}}
-                        <a href="/suratmasuk/create" class="mx-2 float-sm-left btn btn-primary btn-sm" data-toggle="tooltip"
+                        <a href="/suratkeluar/create" class="mx-2 float-sm-left btn btn-primary btn-sm" data-toggle="tooltip"
                             data-placement="top" title="Tambah"> <i class="fas fa-database"></i>
                         </a>
-                        <a href="/suratmasuk/download" class="mx-2 float-sm-left btn btn-danger btn-sm"
+                        <a href="/suratkeluar/download" class="mx-2 float-sm-left btn btn-danger btn-sm"
                             data-toggle="tooltip" data-placement="top" title="Print"> <i class="fas fa-print"></i>
                         </a>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Dokumen</a></li>
-                            <li class="breadcrumb-item"><a href="#">Surat Masuk</a></li>
+                            <li class="breadcrumb-item"><a href="#">Surat Keluar</a></li>
                             <li class="breadcrumb-item active">Daftar</li>
                         </ol>
                     </div>
@@ -37,7 +37,7 @@
 
                 <div class="card card-primary card-outline">
                     <div class="card-header">
-                        <h3 class="card-title"> <b>Daftar Surat Masuk</b> </h3>
+                        <h3 class="card-title"> <b>Daftar Surat Keluar</b> </h3>
                     </div>
 
                     <div class="card-body">
@@ -56,29 +56,29 @@
                                     <th>Nomor</th>
                                     <th>Tanggal</th>
                                     <th>Perihal</th>
-                                    <th>Asal</th>
+                                    <th>Tujuan</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
 
-                                @forelse ($suratmasuk as $key => $data)
+                                @forelse ($suratkeluar as $key => $data)
                                     <tr>
                                         <td class="text-center">{{ $key + 1 }}</td>
                                         <td>{{ $data->nomor }}</td>
                                         <td>{{ $data->tanggal }}</td>
                                         <td>{{ $data->perihal }}</td>
-                                        <td>{{ $data->asal }}</td>
+                                        <td>{{ $data->tujuan }}</td>
                                         <td>
-                                            <a href="/suratmasuk/{{ $data->id }}" class="btn btn-secondary btn-sm mx-2"
+                                            <a href="/suratkeluar/{{ $data->id }}" class="btn btn-secondary btn-sm mx-2"
                                                 data-toggle="tooltip" data-placement="top" title="Detail"> <i
                                                     class="fas fa-sticky-note"></i>
                                             </a>
-                                            <a href="/suratmasuk/{{ $data->id }}/edit" class="btn btn-info btn-sm mx-2"
+                                            <a href="/suratkeluar/{{ $data->id }}/edit" class="btn btn-info btn-sm mx-2"
                                                 data-toggle="tooltip" data-placement="top" title="Ubah"> <i
                                                     class="fas fa-pen-alt"></i>
                                             </a>
-                                            <form action="/suratmasuk/{{ $data->id }}" class="d-inline" method="POST"
+                                            <form action="/suratkeluar/{{ $data->id }}" class="d-inline" method="POST"
                                                 onclick="return confirm('Hapus Data ?')">
                                                 @csrf
                                                 @method('DELETE')

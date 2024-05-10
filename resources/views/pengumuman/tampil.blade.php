@@ -38,7 +38,7 @@
                     </div>
 
                     <div class="card-body">
-                        <table id="example2" class="table table-bordered table-striped">
+                        <table id="example2" class="table table-bordered table-striped table-hover">
                             <colgroup>
                                 <col width="5%">
                                 <col width="30%">

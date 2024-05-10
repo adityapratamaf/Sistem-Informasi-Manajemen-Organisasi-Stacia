@@ -19,7 +19,7 @@ class PengumumanController extends Controller
         // ===== Daftar Data =====
 
         // Model
-        $pengumuman = DB::table('pengumuman')->get();
+        $pengumuman = DB::table('pengumuman')->orderBy('created_at', 'DESC')->get();
 
         // Pengalihan Halaman
         return view('pengumuman.tampil', ['pengumuman' => $pengumuman]);

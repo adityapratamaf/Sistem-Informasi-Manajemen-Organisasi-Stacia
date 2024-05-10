@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SuratMasuk;
+use App\Models\SuratKeluar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 // Hapus File Lama
 use File;
 
-class SuratMasukController extends Controller
+class SuratKeluarController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,11 +21,11 @@ class SuratMasukController extends Controller
     {
         // ===== Daftar Data =====
 
-        // Model
-        $suratmasuk = DB::table('surat_masuk')->orderBy('created_at', 'DESC')->get();
+        // Daftar Data
+        $suratkeluar = DB::table('surat_keluar')->orderBy('created_at', 'DESC')->get();
 
         // Pengalihan Halaman
-        return view('suratmasuk.tampil', ['suratmasuk' => $suratmasuk]);
+        return view('suratkeluar.daftar', ['suratkeluar' => $suratkeluar]);
     }
 
     /**
@@ -38,7 +38,7 @@ class SuratMasukController extends Controller
         // ===== Tambah Data =====
 
         // Pengalihan Halaman
-        return view('suratmasuk.tambah');
+        return view('suratkeluar.tambah');
     }
 
     /**
@@ -56,24 +56,24 @@ class SuratMasukController extends Controller
             'nomor' => 'required',
             'tanggal' => 'required',
             'perihal' => 'required',
-            'asal' => 'required',
+            'tujuan' => 'required',
             'isi' => 'required',
             'file' => 'required|mimes:pdf|max:2048',
         ]);
 
         // Unggah File
         $fileSurat = time() . '.' . $request->file->extension();
-        $request->file->move(public_path('suratmasuk-file'), $fileSurat);
+        $request->file->move(public_path('suratkeluar-file'), $fileSurat);
 
         // Simpan Data Ke Database
-        $suratmasuk = new SuratMasuk;
-        $suratmasuk->nomor = $request->nomor;
-        $suratmasuk->tanggal = $request->tanggal;
-        $suratmasuk->perihal = $request->perihal;
-        $suratmasuk->asal = $request->asal;
-        $suratmasuk->isi = $request->isi;
-        $suratmasuk->file = $fileSurat;
-        $suratmasuk->save();
+        $suratkeluar = new SuratKeluar();
+        $suratkeluar->nomor = $request->nomor;
+        $suratkeluar->tanggal = $request->tanggal;
+        $suratkeluar->perihal = $request->perihal;
+        $suratkeluar->tujuan = $request->tujuan;
+        $suratkeluar->isi = $request->isi;
+        $suratkeluar->file = $fileSurat;
+        $suratkeluar->save();
 
         // Notifikasi
         $notifikasi = array(
@@ -82,10 +82,7 @@ class SuratMasukController extends Controller
         );
 
         // Pengalihan Halaman
-        return Redirect('/suratmasuk')->with($notifikasi);
-
-        // Pengalihan Halaman TB
-        // return redirect('/suratmasuk')->with('success', 'Data Tersimpan');
+        return Redirect('/suratkeluar')->with($notifikasi);
     }
 
     /**
@@ -99,10 +96,10 @@ class SuratMasukController extends Controller
         // ===== Detail Data =====
 
         // Ambil Data Berdasarkan ID Yang Di Pilih
-        $suratmasuk = DB::table('surat_masuk')->where('id', $id)->first();
+        $suratkeluar = DB::table('surat_keluar')->where('id', $id)->first();
 
         // Pengalihan Halaman
-        return view('suratmasuk.detail', ['suratmasuk' => $suratmasuk]);
+        return view('suratkeluar.detail', ['suratkeluar' => $suratkeluar]);
     }
 
     /**
@@ -116,10 +113,10 @@ class SuratMasukController extends Controller
         // ===== Ubah Data =====
 
         // Ambil Data Berdasarkan ID Yang Di Pilih
-        $suratmasuk = DB::table('surat_masuk')->where('id', $id)->first();
+        $suratkeluar = DB::table('surat_keluar')->where('id', $id)->first();
 
         // Pengalihan Halaman
-        return view('suratmasuk.ubah', ['suratmasuk' => $suratmasuk]);
+        return view('suratkeluar.ubah', ['suratkeluar' => $suratkeluar]);
     }
 
     /**
@@ -138,34 +135,34 @@ class SuratMasukController extends Controller
             'nomor' => 'required',
             'tanggal' => 'required',
             'perihal' => 'required',
-            'asal' => 'required',
+            'tujuan' => 'required',
             'isi' => 'required',
             'file' => 'mimes:pdf|max:2048',
         ]);
 
         // Model
-        $suratmasuk = SuratMasuk::find($id);
+        $suratkeluar = SuratKeluar::find($id);
 
         // Fungsi Hapus & Ubah File
         if ($request->has('file')) {
-            $path = 'suratmasuk-file/';
-            File::delete($path . $suratmasuk->file);
+            $path = 'suratkeluar-file/';
+            File::delete($path . $suratkeluar->file);
 
             // Unggah File
             $fileSurat = time() . '.' . $request->file->extension();
-            $request->file->move(public_path('suratmasuk-file'), $fileSurat);
+            $request->file->move(public_path('suratkeluar-file'), $fileSurat);
 
-            $suratmasuk->file = $fileSurat;
-            $suratmasuk->save;
+            $suratkeluar->file = $fileSurat;
+            $suratkeluar->save;
         }
 
         // Simpan Data Ke Database
-        $suratmasuk->nomor = $request['nomor'];
-        $suratmasuk->tanggal = $request['tanggal'];
-        $suratmasuk->perihal = $request['perihal'];
-        $suratmasuk->asal = $request['asal'];
-        $suratmasuk->isi = $request['isi'];
-        $suratmasuk->save();
+        $suratkeluar->nomor = $request['nomor'];
+        $suratkeluar->tanggal = $request['tanggal'];
+        $suratkeluar->perihal = $request['perihal'];
+        $suratkeluar->tujuan = $request['tujuan'];
+        $suratkeluar->isi = $request['isi'];
+        $suratkeluar->save();
 
         // Notifikasi
         $notifikasi = array(
@@ -174,7 +171,7 @@ class SuratMasukController extends Controller
         );
 
         // Pengalihan Halaman
-        return Redirect('/suratmasuk')->with($notifikasi);
+        return Redirect('/suratkeluar')->with($notifikasi);
     }
 
     /**
@@ -188,14 +185,14 @@ class SuratMasukController extends Controller
         // ===== Hapus Data =====
 
         // Model
-        $suratmasuk = SuratMasuk::find($id);
+        $suratkeluar = SuratKeluar::find($id);
 
         // Hapus File
-        $path = 'suratmasuk-file/';
-        File::delete($path . $suratmasuk->file);
+        $path = 'suratkeluar-file/';
+        File::delete($path . $suratkeluar->file);
 
         // Hapus Data
-        $suratmasuk->delete();
+        $suratkeluar->delete();
 
         // Notifikasi
         $notifikasi = array(
@@ -204,7 +201,7 @@ class SuratMasukController extends Controller
         );
 
         // Pengalihan Halaman
-        return Redirect('/suratmasuk')->with($notifikasi);
+        return Redirect('/suratkeluar')->with($notifikasi);
     }
 
     /**
@@ -214,12 +211,12 @@ class SuratMasukController extends Controller
      */
     public function download()
     {
-        // ===== Download PDF =====
+        // ===== Download PDF Data =====
 
         // Model
-        $suratmasuk = DB::table('surat_masuk')->get();
+        $suratkeluar = DB::table('surat_keluar')->get();
 
         // Pengalihan Halaman
-        return view('suratmasuk.cetak', ['suratmasuk' => $suratmasuk]);
+        return view('suratkeluar.cetak', ['suratkeluar' => $suratkeluar]);
     }
 }
