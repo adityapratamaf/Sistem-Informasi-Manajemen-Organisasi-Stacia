@@ -19,9 +19,9 @@ use App\Models\SuratKeluar;
 */
 
 // ========== WELCOME LARAVEL ==========
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 // ========== TEMPLATE ==========
 Route::get('/master', function () {
@@ -29,7 +29,7 @@ Route::get('/master', function () {
 });
 
 // ========== DASHBOARD ==========
-Route::get('/', function () {
+Route::get('/dashboard', function () {
     return view('dashboard.dashboard');
 });
 

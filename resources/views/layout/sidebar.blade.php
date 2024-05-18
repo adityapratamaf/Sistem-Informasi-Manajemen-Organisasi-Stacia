@@ -59,7 +59,7 @@
                 </li> --}}
 
                 <li class="nav-item">
-                    <a href="/" class="nav-link {{ \Route::is('dashboard.dashboard') ? 'active' : '' }}">
+                    <a href="/dashboard" class="nav-link {{ \Route::is('dashboard.*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
@@ -98,24 +98,6 @@
                                 class="nav-link {{ \Route::is('dashboard.dashboard') ? 'active' : '' }}">
                                 <i class="fas fa-file-alt nav-icon"></i>
                                 <p>Surat Keterangan</p>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="./index.html"
-                                class="nav-link {{ \Route::is('dashboard.dashboard') ? 'active' : '' }}">
-                                <i class="fas fa-book nav-icon"></i>
-                                <p>Proposal</p>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="./index.html"
-                                class="nav-link {{ \Route::is('dashboard.dashboard') ? 'active' : '' }}">
-                                <i class="fas fa-book nav-icon"></i>
-                                <p>Laporan P J</p>
                             </a>
                         </li>
                     </ul>
