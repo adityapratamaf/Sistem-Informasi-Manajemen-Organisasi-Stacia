@@ -195,7 +195,7 @@
                 <li class="nav-header">Konfigurasi</li>
 
                 <li class="nav-item">
-                    <a href="/anggota" class="nav-link {{ \Route::is('anggota.*') ? 'active' : '' }}"
+                    <a href="/logout" class="nav-link {{ \Route::is('anggota.*') ? 'active' : '' }}"
                         data-toggle="tooltip" data-placement="top" title="Keluar">
                         <i class="nav-icon fas fa-sign-out-alt"></i>
                         <p>
