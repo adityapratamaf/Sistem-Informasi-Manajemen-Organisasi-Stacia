@@ -30,71 +30,6 @@
         <section class="content">
             <div class="container-fluid">
 
-                {{-- CARD DASHBOARD --}}
-                {{-- <div class="row">
-                    <div class="col-lg-3 col-6">
-
-                        <div class="small-box bg-info">
-                            <div class="inner">
-                                <h3>150</h3>
-                                <p>New Orders</p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-bag"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-6">
-
-                        <div class="small-box bg-success">
-                            <div class="inner">
-                                <h3>53<sup style="font-size: 20px">%</sup></h3>
-                                <p>Bounce Rate</p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-stats-bars"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-6">
-
-                        <div class="small-box bg-warning">
-                            <div class="inner">
-                                <h3>44</h3>
-                                <p>User Registrations</p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-person-add"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-6">
-
-                        <div class="small-box bg-danger">
-                            <div class="inner">
-                                <h3>65</h3>
-                                <p>Unique Visitors</p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-pie-graph"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
-
-                </div> --}}
-                {{-- CARD DASHBOARD --}}
-
                 <div class="card card-primary card-outline">
                     <div class="card-header">
                         <h3 class="card-title"> <b>Tambah Data Logistik</b> </h3>
@@ -110,7 +45,7 @@
                                     <div class="form-group">
                                         <label for="nama">Nama</label>
                                         <input type="text" name="nama" class="form-control" placeholder="Nama"
-                                            autocomplete="off">
+                                            autocomplete="off" value="{{ old('nama') }}">
                                     </div>
                                     @error('nama')
                                         <div class="alert alert-danger">
@@ -121,7 +56,7 @@
                                     <div class="form-group">
                                         <label for="merek">Merek</label>
                                         <input type="text" name="merek" class="form-control" placeholder="Merek"
-                                            autocomplete="off">
+                                            autocomplete="off" value="{{ old('merek') }}">
                                     </div>
                                     @error('merek')
                                         <div class="alert alert-danger">
@@ -145,7 +80,7 @@
 
                                     <div class="form-group">
                                         <label for="merek">Keterangan</label>
-                                        <textarea name="keterangan" id="summernote" class="form-control" placeholder="Keterangan"></textarea>
+                                        <textarea name="keterangan" id="summernote" class="form-control" placeholder="Keterangan">{{ old('keterangan') }}</textarea>
                                     </div>
                                     @error('merek')
                                         <div class="alert alert-danger">
@@ -160,7 +95,7 @@
                                     <div class="form-group">
                                         <label for="nomor">Nomor</label>
                                         <input type="text" name="nomor" class="form-control" placeholder="Nomor"
-                                            autocomplete="off">
+                                            autocomplete="off" value="{{ old('nomor') }}">
                                     </div>
                                     @error('nomor')
                                         <div class="alert alert-danger">
@@ -171,7 +106,8 @@
                                     <div class="form-group">
                                         <label for="tahun_pembelian">Tahun Pembelian</label>
                                         <input type="number" name="tahun_pembelian" class="form-control"
-                                            placeholder="Tahun Pembelian" autocomplete="off">
+                                            placeholder="Tahun Pembelian" autocomplete="off"
+                                            value="{{ old('tahun_pembelian') }}">
                                     </div>
                                     @error('tahun_pembelian')
                                         <div class="alert alert-danger">
@@ -222,8 +158,9 @@
                         </div>
 
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary btn-sm toastrDefaultSuccess" data-toggle="tooltip"
-                                data-placement="bottom" title="Simpan"> <i class="fas fa-database"></i> </i>
+                            <button type="submit" class="btn btn-primary btn-sm toastrDefaultSuccess"
+                                data-toggle="tooltip" data-placement="bottom" title="Simpan"> <i
+                                    class="fas fa-database"></i> </i>
                             </button>
                         </div>
                     </form>

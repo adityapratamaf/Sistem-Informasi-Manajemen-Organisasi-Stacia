@@ -17,23 +17,17 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'nama',
-        'username',
-        'email',
-        'password',
-        'role',
-        'status',
-    ];
+
+    // protected $table = 'users';
+    protected $fillable = ['nama', 'username', 'email', 'password', 'role', 'status'];
 
     /**
      * The attributes that should be hidden for serialization.
-     *
+     * php artisan make:controller PostController --resource
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        'password', 'remember_token'
     ];
 
     /**
@@ -44,4 +38,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function anggota()
+    {
+        return $this->hasOne(Anggota::class, 'users_id');
+    }
 }

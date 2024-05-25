@@ -5,7 +5,7 @@
     <a href="../../index3.html" class="brand-link mt-1 d-flex">
         <img src="{{ asset('template/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image"
             style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+        <span class="brand-text font-weight-light">STACIA UMJ</span>
     </a>
     {{-- PROFILE --}}
 
@@ -18,7 +18,7 @@
                     alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Alexander Pierce</a>
+                <a href="#" class="d-block">User</a>
             </div>
         </div>
 
@@ -59,7 +59,7 @@
                 </li> --}}
 
                 <li class="nav-item">
-                    <a href="/dashboard" class="nav-link {{ \Route::is('dashboard.*') ? 'active' : '' }}">
+                    <a href="/dashboard" class="nav-link {{ \Route::is('dashboard.dashboard') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
@@ -173,7 +173,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="/anggota" class="nav-link {{ \Route::is('anggota.*') ? 'active' : '' }}"
+                    <a href="/anggota" class="nav-link {{ \Route::is('pengurus.*') ? 'active' : '' }}"
                         data-toggle="tooltip" data-placement="top" title="Anggota">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
@@ -195,7 +195,7 @@
                 <li class="nav-header">Konfigurasi</li>
 
                 <li class="nav-item">
-                    <a href="/logout" class="nav-link {{ \Route::is('anggota.*') ? 'active' : '' }}"
+                    <a href="/logout" class="nav-link {{ \Route::is('logout.*') ? 'active' : '' }}"
                         data-toggle="tooltip" data-placement="top" title="Keluar">
                         <i class="nav-icon fas fa-sign-out-alt"></i>
                         <p>

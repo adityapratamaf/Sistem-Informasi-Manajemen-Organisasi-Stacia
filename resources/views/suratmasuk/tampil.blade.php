@@ -41,14 +41,14 @@
                     </div>
 
                     <div class="card-body">
-                        <table id="example2" class="table table-bordered table-striped table-hover">
+                        <table id="example2" class="table table-hover table-condensed">
                             <colgroup>
                                 <col width="1%">
-                                <col width="10%">
-                                <col width="10%">
+                                <col width="25%">
+                                <col width="25%">
                                 <col width="15%">
                                 <col width="15%">
-                                <col width="10%">
+                                <col width="15%">
                             </colgroup>
                             <thead>
                                 <tr>

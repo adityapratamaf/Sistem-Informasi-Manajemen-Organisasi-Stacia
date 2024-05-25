@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Log in (v2)</title>
+    <link rel="icon" href="{{ asset('template/dist/img/AdminLTELogo.png') }}">
+    <title>MAPALA STACIA UMJ</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -25,11 +26,10 @@
             <div class="card-header" style="display: flex; align-items: center; justify-content: center;">
                 <img src="{{ asset('template/dist/img/AdminLTELogo.png') }}" class="brand-image-small"
                     style="height: 45px; margin-right: 20px;">
-                <a href="" class="h1" style="margin: 0;"><b>Stacia</b>UMJ</a>
+                <a href="" class="h1" style="margin: 0;"><b>STACIA </b>UMJ</a>
             </div>
 
             <div class="card-body">
-                {{-- <p class="login-box-msg">Session</p> --}}
 
                 @error('username')
                     <div class="alert alert-danger" style="text-align: center;">

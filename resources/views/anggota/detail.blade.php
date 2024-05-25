@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('judul')
-    Logistik
+    Anggota
 @endsection
 
 @section('isi')
@@ -17,7 +17,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Logistik</a></li>
+                            <li class="breadcrumb-item"><a href="#">Anggota</a></li>
                             <li class="breadcrumb-item active">Detail</li>
                         </ol>
                     </div>
@@ -31,7 +31,7 @@
 
                 <div class="card card-primary card-outline">
                     <div class="card-header">
-                        <h3 class="card-title"> <b>Detail Data Logistik</b> </h3>
+                        <h3 class="card-title"> <b>Detail Data Anggota</b> </h3>
                     </div>
 
                     <div class="card-body">
@@ -40,58 +40,57 @@
 
                                 <div class="row">
                                     <div class="col-12 col-sm-6 px-3">
-                                        <img src="{{ asset('logistik-foto/' . $logistik->foto) }}"
-                                            class="card product-image" height="400" width="550" alt="Product Image">
-                                        {{-- <div class="col-12 product-image-thumbs">
-                                            <div class="product-image-thumb active"><img
-                                                    src="{{ asset('logistik-foto/' . $logistik->foto) }}"
-                                                    alt="Product Image">
-                                            </div>
-                                            <div class="product-image-thumb"><img
-                                                    src="{{ asset('logistik-foto/' . $logistik->foto) }}"
-                                                    alt="Product Image">
-                                            </div>
-                                            <div class="product-image-thumb"><img
-                                                    src="{{ asset('logistik-foto/' . $logistik->foto) }}"
-                                                    alt="Product Image">
-                                            </div>
-                                            <div class="product-image-thumb"><img
-                                                    src="{{ asset('logistik-foto/' . $logistik->foto) }}"
-                                                    alt="Product Image">
-                                            </div>
-                                            <div class="product-image-thumb"><img
-                                                    src="{{ asset('logistik-foto/' . $logistik->foto) }}"
-                                                    alt="Product Image">
-                                            </div>
-                                        </div> --}}
+                                        <img src="{{ asset('anggota-foto/' . $anggota->foto) }}" class="card product-image"
+                                            height="400" width="550">
                                     </div>
 
                                     <div class="col-12 col-sm-6 px-3">
-                                        <h2 class="my-3"> <b>{{ $logistik->nama }}</b> </h2>
+                                        <h2 class="my-3"> <b>{{ $anggota->user->nama }}</b> </h2>
                                         <hr>
                                         <div class="row">
                                             <div class="col">
-                                                <p>Nomor</p>
-                                                <p>Merek</p>
-                                                <p>Tahun Pembelian</p>
-                                                <p>Status</p>
-                                                <p>Pemakaian</p>
+                                                <p>Nomor Registrasi Anggota</p>
+                                                <p>Status Anggota</p>
+                                                <p>Tempat Tanggal Lahir</p>
+                                                <p>Email</p>
+                                                <p>Telepon</p>
+                                                <p>Alamat</p>
+                                                <p>Username</p>
+                                                <p>Jenis Akun</p>
+                                                <p>Status Akun</p>
                                             </div>
                                             <div class="col">
-                                                <p>: {{ $logistik->nomor }}</p>
-                                                <p>: {{ $logistik->merek }}</p>
-                                                <p>: {{ $logistik->tahun_pembelian }}</p>
-                                                <p>: @if ($logistik->status == 1)
-                                                        <span class="badge badge-success">LAYAK</span>
-                                                    @else
-                                                        <span class="badge badge-danger">TIDAK LAYAK</span>
+                                                <p>: {{ $anggota->nra }}</p>
+                                                <p>:
+                                                    @if ($anggota->user->role == 1)
+                                                        Anggota Biasa
+                                                    @elseif ($anggota->jenis_anggota == 2)
+                                                        Anggota Istimewa
+                                                    @elseif ($anggota->jenis_anggota == 3)
+                                                        Anggota Luar Biasa
+                                                    @elseif ($anggota->jenis_anggota == 4)
+                                                        Anggota Kehormatan
                                                     @endif
                                                 </p>
-                                                <p>
-                                                    : @if ($logistik->pemakaian == 1)
-                                                        <span class="badge badge-success">TERSEDIA</span>
+                                                <p>: {{ $anggota->tempat_lahir }},
+                                                    {{ $anggota->tanggal_lahir }} </p>
+                                                {{-- <p>{{ $anggota->tanggal_lahir->translatedformat('d F Y') }}</p> --}}
+                                                <p>: {{ $anggota->user->email }}</p>
+                                                <p>: {{ $anggota->telepon }}</p>
+                                                <p>: {{ $anggota->alamat }}</p>
+                                                <p>: {{ $anggota->user->username }}</p>
+                                                <p>:
+                                                    @if ($anggota->user->role == 1)
+                                                        Administrator
                                                     @else
-                                                        <span class="badge badge-warning">TIDAK TERSEDIA</span>
+                                                        User
+                                                    @endif
+                                                </p>
+                                                <p>:
+                                                    @if ($anggota->user->status == 1)
+                                                        Aktif
+                                                    @else
+                                                        Tidak Aktif
                                                     @endif
                                                 </p>
                                             </div>
@@ -105,7 +104,7 @@
                                         <div class="nav nav-tabs" id="product-tab" role="tablist">
                                             <a class="nav-item nav-link active" id="keterangan-tab" data-toggle="tab"
                                                 href="#keterangan" role="tab" aria-controls="keterangan"
-                                                aria-selected="true">Keterangan
+                                                aria-selected="true">Pengalaman
                                             </a>
                                             <a class="nav-item nav-link" id="memuat-tab" data-toggle="tab" href="#memuat"
                                                 role="tab" aria-controls="memuat" aria-selected="false">Riwayat
@@ -115,14 +114,14 @@
                                     <div class="tab-content p-3" id="nav-tabContent">
                                         <div class="tab-pane fade show active" id="keterangan" role="tabpanel"
                                             aria-labelledby="keterangan-tab">
-                                            <div class="summernote">{!! $logistik->keterangan !!}</div>
+                                            <div class="summernote">{!! $anggota->pengalaman !!}</div>
                                         </div>
 
                                         <div class="tab-pane fade" id="memuat" role="tabpanel"
                                             aria-labelledby="memuat-tab">
-                                            Pembuatan Data : {{ $logistik->created_at }}
+                                            Pembuatan Data : {{ $anggota->created_at }}
                                             <br>
-                                            Pembaharuan Data : {{ $logistik->updated_at }}
+                                            Pembaharuan Data : {{ $anggota->updated_at }}
                                         </div>
 
                                     </div>
