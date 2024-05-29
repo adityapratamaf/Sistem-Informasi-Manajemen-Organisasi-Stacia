@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SuratKeluar;
-use Illuminate\Http\Request;
+use App\Models\SuratKeterangan;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
 // Hapus File Lama
 use File;
 
-class SuratKeluarController extends Controller
+class SuratKeteranganController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,10 +22,10 @@ class SuratKeluarController extends Controller
         // ===== Daftar Data =====
 
         // Model
-        $suratkeluar = DB::table('surat_keluar')->orderBy('created_at', 'DESC')->get();
+        $suratketerangan = DB::table('surat_keterangan')->orderBy('created_at', 'DESC')->get();
 
         // Pengalihan Halaman
-        return view('suratkeluar.daftar', ['suratkeluar' => $suratkeluar]);
+        return view('suratketerangan.daftar', ['suratketerangan' => $suratketerangan]);
     }
 
     /**
@@ -38,7 +38,7 @@ class SuratKeluarController extends Controller
         // ===== Tambah Data =====
 
         // Pengalihan Halaman
-        return view('suratkeluar.tambah');
+        return view('suratketerangan.tambah');
     }
 
     /**
@@ -56,21 +56,19 @@ class SuratKeluarController extends Controller
             'nomor' => 'required',
             'tanggal' => 'required',
             'perihal' => 'required',
-            'tujuan' => 'required',
             'isi' => 'required',
             'file' => 'required|mimes:pdf|max:2048',
         ]);
 
         // Unggah File
         $fileSurat = time() . '.' . $request->file->extension();
-        $request->file->move(public_path('suratkeluar-file'), $fileSurat);
+        $request->file->move(public_path('suratketerangan-file'), $fileSurat);
 
         // Simpan Data Ke Database
-        $suratkeluar = new SuratKeluar();
+        $suratkeluar = new SuratKeterangan();
         $suratkeluar->nomor = $request->nomor;
         $suratkeluar->tanggal = $request->tanggal;
         $suratkeluar->perihal = $request->perihal;
-        $suratkeluar->tujuan = $request->tujuan;
         $suratkeluar->isi = $request->isi;
         $suratkeluar->file = $fileSurat;
         $suratkeluar->save();
@@ -82,7 +80,7 @@ class SuratKeluarController extends Controller
         );
 
         // Pengalihan Halaman
-        return Redirect('/suratkeluar')->with($notifikasi);
+        return Redirect('/suratketerangan')->with($notifikasi);
     }
 
     /**
@@ -95,11 +93,11 @@ class SuratKeluarController extends Controller
     {
         // ===== Detail Data =====
 
-        // Ambil Data Berdasarkan ID Yang Di Pilih
-        $suratkeluar = DB::table('surat_keluar')->where('id', $id)->first();
+        // Ambil Data Berdasarkan ID Yang Di Pilih 
+        $suratketerangan = DB::table('surat_keterangan')->where('id', $id)->first();
 
         // Pengalihan Halaman
-        return view('suratkeluar.detail', ['suratkeluar' => $suratkeluar]);
+        return view('suratketerangan.detail', ['suratketerangan' => $suratketerangan]);
     }
 
     /**
@@ -112,11 +110,11 @@ class SuratKeluarController extends Controller
     {
         // ===== Ubah Data =====
 
-        // Ambil Data Berdasarkan ID Yang Di Pilih
-        $suratkeluar = DB::table('surat_keluar')->where('id', $id)->first();
+        // Ambil Data Berdasarkan ID Yang Di PIlih
+        $suratketerangan = DB::table('surat_keterangan')->where('id', $id)->first();
 
         // Pengalihan Halaman
-        return view('suratkeluar.ubah', ['suratkeluar' => $suratkeluar]);
+        return view('suratketerangan.ubah', ['suratketerangan' => $suratketerangan]);
     }
 
     /**
@@ -135,34 +133,32 @@ class SuratKeluarController extends Controller
             'nomor' => 'required',
             'tanggal' => 'required',
             'perihal' => 'required',
-            'tujuan' => 'required',
             'isi' => 'required',
             'file' => 'mimes:pdf|max:2048',
         ]);
 
         // Model
-        $suratkeluar = SuratKeluar::find($id);
+        $suratketerangan = SuratKeterangan::find($id);
 
         // Fungsi Hapus & Ubah File
         if ($request->has('file')) {
-            $path = 'suratkeluar-file/';
-            File::delete($path . $suratkeluar->file);
+            $path = 'suratketerangan-file/';
+            File::delete($path . $suratketerangan->file);
 
             // Unggah File
             $fileSurat = time() . '.' . $request->file->extension();
-            $request->file->move(public_path('suratkeluar-file'), $fileSurat);
+            $request->file->move(public_path('suratketerangan-file'), $fileSurat);
 
-            $suratkeluar->file = $fileSurat;
-            $suratkeluar->save;
+            $suratketerangan->file = $fileSurat;
+            $suratketerangan->save;
         }
 
         // Simpan Data Ke Database
-        $suratkeluar->nomor = $request['nomor'];
-        $suratkeluar->tanggal = $request['tanggal'];
-        $suratkeluar->perihal = $request['perihal'];
-        $suratkeluar->tujuan = $request['tujuan'];
-        $suratkeluar->isi = $request['isi'];
-        $suratkeluar->save();
+        $suratketerangan->nomor = $request['nomor'];
+        $suratketerangan->tanggal = $request['tanggal'];
+        $suratketerangan->perihal = $request['perihal'];
+        $suratketerangan->isi = $request['isi'];
+        $suratketerangan->save();
 
         // Notifikasi
         $notifikasi = array(
@@ -171,7 +167,7 @@ class SuratKeluarController extends Controller
         );
 
         // Pengalihan Halaman
-        return Redirect('/suratkeluar')->with($notifikasi);
+        return Redirect('/suratketerangan')->with($notifikasi);
     }
 
     /**
@@ -185,14 +181,14 @@ class SuratKeluarController extends Controller
         // ===== Hapus Data =====
 
         // Model
-        $suratkeluar = SuratKeluar::find($id);
+        $suratketerangan = SuratKeterangan::find($id);
 
         // Hapus File
-        $path = 'suratkeluar-file/';
-        File::delete($path . $suratkeluar->file);
+        $path = 'suratketerangan-file/';
+        File::delete($path . $suratketerangan->file);
 
         // Hapus Data
-        $suratkeluar->delete();
+        $suratketerangan->delete();
 
         // Notifikasi
         $notifikasi = array(
@@ -201,7 +197,7 @@ class SuratKeluarController extends Controller
         );
 
         // Pengalihan Halaman
-        return Redirect('/suratkeluar')->with($notifikasi);
+        return Redirect('/suratketerangan')->with($notifikasi);
     }
 
     /**

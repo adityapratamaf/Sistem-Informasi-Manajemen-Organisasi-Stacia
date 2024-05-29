@@ -69,7 +69,7 @@
 
                 <li class="nav-item {{ \Route::is('.*') ? 'menu-open' : '' }}">
                     <a href="#"
-                        class="nav-link {{ \Route::is('suratkeluar.*', 'suratmasuk.*') ? 'active' : '' }}">
+                        class="nav-link {{ \Route::is('suratkeluar.*', 'suratmasuk.*', 'suratketerangan.*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-archive"></i>
                         <p>
                             Dokumen
@@ -94,8 +94,8 @@
                     </ul>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="./index.html"
-                                class="nav-link {{ \Route::is('dashboard.dashboard') ? 'active' : '' }}">
+                            <a href="/suratketerangan"
+                                class="nav-link {{ \Route::is('suratketerangan.*') ? 'active' : '' }}">
                                 <i class="fas fa-file-alt nav-icon"></i>
                                 <p>Surat Keterangan</p>
                             </a>

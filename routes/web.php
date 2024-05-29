@@ -7,6 +7,7 @@ use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\SuratKeluarController;
 use App\Http\Controllers\SuratMasukController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SuratKeteranganController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -61,3 +62,6 @@ Route::resource('suratkeluar', SuratKeluarController::class);
 
 // ========== AGGOTA ==========
 Route::resource('anggota', AnggotaController::class);
+
+// ========== AGGOTA ==========
+Route::resource('suratketerangan', SuratKeteranganController::class);
