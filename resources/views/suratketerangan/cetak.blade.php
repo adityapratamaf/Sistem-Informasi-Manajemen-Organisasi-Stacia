@@ -77,7 +77,7 @@
                 </th>
                 <th>
                     <div>
-                        <h1> <b>DAFTAR DATA LOGISTIK <br> MAPALA STACIA UMJ </b> </h1>
+                        <h1> <b>DAFTAR DATA SURAT KETERANGAN <br> MAPALA STACIA UMJ </b> </h1>
                         <font size="3">Universitas Muhammadiyah Jakarta</font> <br>
                         <font size="2">Jl. K.H. Ahmad Dahlan, Cireundeu, Ciputat Timur, Kota
                             Tangerang Selatan, Banten 15419</font>
@@ -93,54 +93,23 @@
         <table id="table">
             <colgroup>
                 <col width="3%">
-                <col width="10%">
-                <col width="10%">
-                <col width="10%">
-                <col width="10%">
-                <col width="10%">
-                <col width="10%">
-                <col width="15%">
-                <col width="10%">
+                <col width="20%">
+                <col width="20%">
+                <col width="20%">
             </colgroup>
             <tr>
                 <th>No</th>
                 <th>Nomor</th>
-                <th>Nama</th>
-                <th>Merek</th>
-                <th>Tahun Pembelian</th>
-                <th>Status</th>
-                <th>Pemakaian</th>
-                <th>Keterangan</th>
-                <th>Foto</th>
+                <th>Tanggal</th>
+                <th>Perihal</th>
             </tr>
             <?php $nomor = 1; ?>
-            @foreach ($logistik as $data)
+            @foreach ($suratketerangan as $data)
                 <tr>
                     <td>{{ $nomor++ }}</td>
                     <td>{{ $data->nomor }}</td>
-                    <td>{{ $data->nama }}</td>
-                    <td>{{ $data->merek }}</td>
-                    <td>{{ $data->tahun_pembelian }}</td>
-                    <td>
-                        @if ($data->status == 1)
-                            Layak
-                        @else
-                            Tidak Layak
-                        @endif
-                    </td>
-                    <td>
-                        @if ($data->pemakaian == 1)
-                            Tersedia
-                        @else
-                            Tidak Tersedia
-                        @endif
-                    </td>
-                    <td>
-                        <div class="summernote">{!! $data->keterangan !!}</div>
-                    </td>
-                    <td>
-                        <img src="{{ asset('logistik-foto/' . $data->foto) }}" width="100px;">
-                    </td>
+                    <td>{{ $data->tanggal }}</td>
+                    <td>{{ $data->perihal }}</td>
                 </tr>
             @endforeach
         </table>

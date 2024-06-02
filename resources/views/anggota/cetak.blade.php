@@ -63,6 +63,12 @@
             background-color: DodgerBlue;
             color: white;
         }
+
+        @media print {
+            @page {
+                size: landscape;
+            }
+        }
     </style>
 
 </head>
@@ -77,7 +83,7 @@
                 </th>
                 <th>
                     <div>
-                        <h1> <b>DAFTAR DATA LOGISTIK <br> MAPALA STACIA UMJ </b> </h1>
+                        <h1> <b>DAFTAR DATA ANGGOTA <br> MAPALA STACIA UMJ </b> </h1>
                         <font size="3">Universitas Muhammadiyah Jakarta</font> <br>
                         <font size="2">Jl. K.H. Ahmad Dahlan, Cireundeu, Ciputat Timur, Kota
                             Tangerang Selatan, Banten 15419</font>
@@ -93,54 +99,42 @@
         <table id="table">
             <colgroup>
                 <col width="3%">
-                <col width="10%">
-                <col width="10%">
-                <col width="10%">
-                <col width="10%">
-                <col width="10%">
-                <col width="10%">
-                <col width="15%">
-                <col width="10%">
+                <col width="20%">
+                <col width="20%">
+                <col width="20%">
+                <col width="20%">
+                <col width="20%">
+                <col width="20%">
             </colgroup>
             <tr>
                 <th>No</th>
-                <th>Nomor</th>
+                <th>NRA</th>
                 <th>Nama</th>
-                <th>Merek</th>
-                <th>Tahun Pembelian</th>
-                <th>Status</th>
-                <th>Pemakaian</th>
-                <th>Keterangan</th>
-                <th>Foto</th>
+                <th>Status Anggota</th>
+                <th>Tempat Tanggal Lahir</th>
+                <th>Email</th>
+                <th>Telepon</th>
             </tr>
             <?php $nomor = 1; ?>
-            @foreach ($logistik as $data)
+            @foreach ($anggota as $data)
                 <tr>
                     <td>{{ $nomor++ }}</td>
-                    <td>{{ $data->nomor }}</td>
-                    <td>{{ $data->nama }}</td>
-                    <td>{{ $data->merek }}</td>
-                    <td>{{ $data->tahun_pembelian }}</td>
+                    <td>{{ $data->nra }}</td>
+                    <td>{{ $data->user->nama }}</td>
                     <td>
-                        @if ($data->status == 1)
-                            Layak
-                        @else
-                            Tidak Layak
+                        @if ($data->user->role == 1)
+                            Anggota Biasa
+                        @elseif ($data->jenis_anggota == 2)
+                            Anggota Istimewa
+                        @elseif ($data->jenis_anggota == 3)
+                            Anggota Luar Biasa
+                        @elseif ($data->jenis_anggota == 4)
+                            Anggota Kehormatan
                         @endif
                     </td>
-                    <td>
-                        @if ($data->pemakaian == 1)
-                            Tersedia
-                        @else
-                            Tidak Tersedia
-                        @endif
-                    </td>
-                    <td>
-                        <div class="summernote">{!! $data->keterangan !!}</div>
-                    </td>
-                    <td>
-                        <img src="{{ asset('logistik-foto/' . $data->foto) }}" width="100px;">
-                    </td>
+                    <td>{{ $data->tempat_lahir }}, {{ $data->tanggal_lahir }}</td>
+                    <td>{{ $data->user->email }}</td>
+                    <td>{{ $data->telepon }}</td>
                 </tr>
             @endforeach
         </table>

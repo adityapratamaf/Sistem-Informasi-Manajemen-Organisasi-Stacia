@@ -74,6 +74,7 @@ class AnggotaController extends Controller
         $user = new User();
         $user->nama = $request->input('nama');
         $user->username = $request->input('username');
+        $user->username = $request->input('nra');
         $user->email = $request->input('email');
         // $user->password = bcrypt($request->input('password')); // Password Baru (Non Auto Generate)
         $user->password = bcrypt($request->input('username'));
@@ -256,5 +257,21 @@ class AnggotaController extends Controller
 
         // Pengalihan Halaman
         return redirect('/anggota')->with($notifikasi);
+    }
+
+    /**
+     * Download a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function download()
+    {
+        // ===== Download PDF Data =====
+
+        // Model
+        $anggota = Anggota::with('user')->get();
+
+        // Pengalihan Halaman
+        return view('anggota.cetak', ['anggota' => $anggota]);
     }
 }

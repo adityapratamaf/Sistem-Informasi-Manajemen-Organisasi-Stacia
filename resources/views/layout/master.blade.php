@@ -312,6 +312,8 @@
     </script>
     <!-- DataTables -->
 
+    @stack('script')
+
 </body>
 
 </html>

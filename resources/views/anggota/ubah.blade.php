@@ -4,6 +4,25 @@
     Anggota
 @endsection
 
+@push('script')
+    <script>
+        // Ambil Elemen Checkbox & Input
+        const checkbox = document.getElementById('on');
+        const input = document.getElementById('ubah');
+
+        // Tambahkan Event Listener Di Checkbox
+        checkbox.addEventListener('change', function() {
+            // Jika Checkbox Di Centang, Aktifkan Tombol
+            if (this.checked) {
+                input.disabled = false;
+            } else {
+                // Jika Checkbox Tidak Di Centang, Nonaktifkan Input Form
+                input.disabled = true;
+            }
+        });
+    </script>
+@endpush
+
 @section('isi')
     {{-- ======================================== --}}
     <div class="content-wrapper">
@@ -176,8 +195,9 @@
 
                                     <div class="form-group">
                                         <label for="password">Password</label>
-                                        <input type="password" name="password" class="form-control"
-                                            placeholder="Password" autocomplete="off" value="">
+                                        <input type="checkbox" id="on">
+                                        <input type="password" id="ubah" name="password" class="form-control"
+                                            placeholder="Password" autocomplete="off" value="" disabled>
                                     </div>
                                     {{-- @error('password')
                                         <div class="alert alert-danger">

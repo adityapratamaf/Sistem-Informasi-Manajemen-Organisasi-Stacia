@@ -122,6 +122,11 @@
         Mahasiswa Pecinta Alam STACIA Universitas Muhammadiyah Jakarta
     </div>
 
+    {{-- Print --}}
+    <script type="text/javascript">
+        window.print();
+    </script>
+    {{-- Print --}}
 </body>
 
 </html>

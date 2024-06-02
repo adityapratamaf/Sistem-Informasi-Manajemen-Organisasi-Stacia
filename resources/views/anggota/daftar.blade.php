@@ -17,7 +17,7 @@
                             data-placement="top" title="Tambah"> <i class="fas fa-database"></i>
                         </a>
                         <a href="/anggota/download" class="mx-2 float-sm-left btn btn-danger btn-sm" data-toggle="tooltip"
-                            data-placement="top" title="Print"> <i class="fas fa-print"></i>
+                            data-placement="top" title="Print" target="_blank"> <i class="fas fa-print"></i>
                         </a>
                     </div>
                     <div class="col-sm-6">

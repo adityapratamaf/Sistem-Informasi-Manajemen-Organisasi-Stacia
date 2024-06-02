@@ -210,9 +210,9 @@ class SuratKeteranganController extends Controller
         // ===== Download PDF Data =====
 
         // Model
-        $suratkeluar = DB::table('surat_keluar')->get();
+        $suratketerangan = DB::table('surat_keterangan')->get();
 
         // Pengalihan Halaman
-        return view('suratkeluar.cetak', ['suratkeluar' => $suratkeluar]);
+        return view('suratketerangan.cetak', ['suratketerangan' => $suratketerangan]);
     }
 }

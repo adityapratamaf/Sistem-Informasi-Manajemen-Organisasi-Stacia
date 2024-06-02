@@ -61,7 +61,9 @@ Route::get('suratkeluar/download', [SuratKeluarController::class, 'download']);
 Route::resource('suratkeluar', SuratKeluarController::class);
 
 // ========== AGGOTA ==========
+Route::get('anggota/download', [AnggotaController::class, 'download']);
 Route::resource('anggota', AnggotaController::class);
 
-// ========== AGGOTA ==========
+// ========== SURAT KETERANGAN ==========
+Route::get('suratketerangan/download', [SuratKeteranganController::class, 'download']);
 Route::resource('suratketerangan', SuratKeteranganController::class);
