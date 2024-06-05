@@ -8,6 +8,7 @@ use App\Http\Controllers\SuratKeluarController;
 use App\Http\Controllers\SuratMasukController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SuratKeteranganController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -37,33 +38,30 @@ Route::post('/store', [AuthController::class, 'store']);
 route::get('/logout', [AuthController::class, 'logout']);
 
 // ========== MIDDLEWARE ==========
-// Route::middleware(['auth'])->group(function () {
-// });
+Route::group(['middleware' => 'auth'], function () {
+    // ========== DASHBOARD ==========
+    Route::resource('dashboard', DashboardController::class);
 
-// ========== DASHBOARD ==========
-Route::get('/dashboard', function () {
-    return view('dashboard.dashboard');
-});
+    // ========== LOGISTIK ==========
+    Route::get('logistik/download', [LogistikController::class, 'download']);
+    Route::resource('logistik', LogistikController::class);
 
-// ========== LOGISTIK ==========
-Route::get('logistik/download', [LogistikController::class, 'download']);
-Route::resource('logistik', LogistikController::class);
+    // ========== PENGUMUMAN ==========
+    Route::resource('pengumuman', PengumumanController::class);
 
-// ========== PENGUMUMAN ==========
-Route::resource('pengumuman', PengumumanController::class);
+    // ========== SURAT MASUK ==========
+    Route::get('suratmasuk/download', [SuratMasukController::class, 'download']);
+    Route::resource('suratmasuk', SuratMasukController::class);
 
-// ========== SURAT MASUK ==========
-Route::get('suratmasuk/download', [SuratMasukController::class, 'download']);
-Route::resource('suratmasuk', SuratMasukController::class);
+    // ========== SURAT KELUAR ==========
+    Route::get('suratkeluar/download', [SuratKeluarController::class, 'download']);
+    Route::resource('suratkeluar', SuratKeluarController::class);
 
-// ========== SURAT KELUAR ==========
-Route::get('suratkeluar/download', [SuratKeluarController::class, 'download']);
-Route::resource('suratkeluar', SuratKeluarController::class);
+    // ========== AGGOTA ==========
+    Route::get('anggota/download', [AnggotaController::class, 'download']);
+    Route::resource('anggota', AnggotaController::class);
 
-// ========== AGGOTA ==========
-Route::get('anggota/download', [AnggotaController::class, 'download']);
-Route::resource('anggota', AnggotaController::class);
-
-// ========== SURAT KETERANGAN ==========
-Route::get('suratketerangan/download', [SuratKeteranganController::class, 'download']);
-Route::resource('suratketerangan', SuratKeteranganController::class);
+    // ========== SURAT KETERANGAN ==========
+    Route::get('suratketerangan/download', [SuratKeteranganController::class, 'download']);
+    Route::resource('suratketerangan', SuratKeteranganController::class);
+}); // ========== MIDDLEWARE ==========

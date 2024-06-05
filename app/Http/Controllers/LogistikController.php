@@ -85,17 +85,6 @@ class LogistikController extends Controller
             'alert' => 'success',
         );
 
-        //     // Notifikasi Upload File > 2 MB
-        //     } catch (\Illuminate\Validation\ValidationException $e) {
-        //     // Tangkap kesalahan validasi dan siapkan pesan notifikasi
-        //     $notifikasi = array(
-        //         'pesan' => 'Ukuran foto tidak boleh lebih dari 2 MB.',
-        //         'alert' => 'danger',
-        //     );
-
-        //     return Redirect('/logistik/create')->with($notifikasi);
-        // }
-
         // Pengalihan Halaman
         return Redirect('/logistik')->with($notifikasi);
     }

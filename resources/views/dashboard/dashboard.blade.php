@@ -28,14 +28,14 @@
         <section class="content">
             <div class="container-fluid">
 
-                {{-- CARD DASHBOARD --}}
+                {{-- CARD DASHBOARD 1 --}}
                 <div class="row">
                     <div class="col-lg-3 col-6">
 
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h3>150</h3>
-                                <p>New Orders</p>
+                                <h3>{{ $totalAnggota }}</h3>
+                                <p>Anggota</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-bag"></i>
@@ -49,8 +49,8 @@
 
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h3>53<sup style="font-size: 20px">%</sup></h3>
-                                <p>Bounce Rate</p>
+                                <h3>{{ $totalLogistik }}</h3>
+                                <p>Logistik</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-stats-bars"></i>
@@ -91,13 +91,59 @@
                     </div>
 
                 </div>
-                {{-- CARD DASHBOARD --}}
+                {{-- CARD DASHBOARD 1 --}}
+
+                {{-- CARD DASHBOARD 2 --}}
+                <div class="row">
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Surat Masuk</span>
+                                <span class="info-box-number">
+                                    {{ $totalSuratMasuk }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box mb-3">
+                            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-thumbs-up"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Surat Keluar</span>
+                                <span class="info-box-number">{{ $totalSuratKeluar }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="clearfix hidden-md-up"></div>
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box mb-3">
+                            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-shopping-cart"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Surat Keterangan</span>
+                                <span class="info-box-number">{{ $totalSuratKeterangan }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box mb-3">
+                            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-users"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">New Members</span>
+                                <span class="info-box-number">6</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{-- CARD DASHBOARD 2 --}}
 
 
                 <div class="row">
-
                     <section class="col-lg-6 connectedSortable">
-
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">
@@ -122,7 +168,8 @@
                                         style="position: relative; height: 300px;">
                                         <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
                                     </div>
-                                    <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
+                                    <div class="chart tab-pane" id="sales-chart"
+                                        style="position: relative; height: 300px;">
                                         <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
                                     </div>
                                 </div>
@@ -179,7 +226,7 @@
                         </div>
 
 
-                        <div class="card bg-gradient-info">
+                        {{-- <div class="card bg-gradient-info">
                             <div class="card-header border-0">
                                 <h3 class="card-title">
                                     <i class="fas fa-th mr-1"></i>
@@ -223,7 +270,7 @@
 
                             </div>
 
-                        </div>
+                        </div> --}}
 
 
                         <div class="card bg-gradient-success">

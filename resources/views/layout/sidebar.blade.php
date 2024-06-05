@@ -18,7 +18,7 @@
                     alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">User</a>
+                <a href="#" class="d-block">Administrator</a>
             </div>
         </div>
 
@@ -40,26 +40,8 @@
 
                 <li class="nav-header">Menu</li>
 
-                {{-- <li class="nav-item menu-open">
-                    <a href="#" class="nav-link active">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            Dashboard
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="./index.html" class="nav-link active">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Dashboard v1</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li> --}}
-
                 <li class="nav-item">
-                    <a href="/dashboard" class="nav-link {{ \Route::is('dashboard.dashboard') ? 'active' : '' }}">
+                    <a href="/dashboard" class="nav-link {{ \Route::is('dashboard.*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
