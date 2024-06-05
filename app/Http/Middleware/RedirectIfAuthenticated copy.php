@@ -19,8 +19,12 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next, ...$guards)
     {
-        if (Auth::check()) {
-            return redirect('/dashboard'); // Ubah '/home' sesuai dengan halaman beranda Anda
+        $guards = empty($guards) ? [null] : $guards;
+
+        foreach ($guards as $guard) {
+            if (Auth::guard($guard)->check()) {
+                return redirect(RouteServiceProvider::HOME);
+            }
         }
 
         return $next($request);

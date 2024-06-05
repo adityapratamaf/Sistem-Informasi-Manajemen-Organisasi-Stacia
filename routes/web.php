@@ -33,7 +33,7 @@ Route::get('/', function () {
 // });
 
 // ========== AUTH ==========
-Route::get('/login', [AuthController::class, 'index']);
+Route::get('/login', [AuthController::class, 'index'])->middleware('guest');
 Route::post('/store', [AuthController::class, 'store']);
 route::get('/logout', [AuthController::class, 'logout']);
 
