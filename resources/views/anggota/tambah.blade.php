@@ -192,7 +192,7 @@
                                         <select name="status" class="form-control">
                                             <option value=""disabled selected>Status Akun</option>
                                             <option value="1">Aktif</option>
-                                            <option value="0">Tidak Aktif</option>
+                                            <option value="0">Non Aktif</option>
                                         </select>
                                     </div>
                                     @error('status')

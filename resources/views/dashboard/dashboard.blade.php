@@ -97,7 +97,7 @@
                 <div class="row">
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box">
-                            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
+                            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-file-alt"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Surat Masuk</span>
                                 <span class="info-box-number">
@@ -109,7 +109,7 @@
 
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box mb-3">
-                            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-thumbs-up"></i></span>
+                            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-file-alt"></i></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Surat Keluar</span>
                                 <span class="info-box-number">{{ $totalSuratKeluar }}</span>
@@ -121,7 +121,7 @@
                     <div class="clearfix hidden-md-up"></div>
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box mb-3">
-                            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-shopping-cart"></i></span>
+                            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-file-alt"></i></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Surat Keterangan</span>
                                 <span class="info-box-number">{{ $totalSuratKeterangan }}</span>
@@ -131,7 +131,7 @@
 
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box mb-3">
-                            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-users"></i></span>
+                            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-file-alt"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">New Members</span>
                                 <span class="info-box-number">6</span>
@@ -141,9 +141,78 @@
                 </div>
                 {{-- CARD DASHBOARD 2 --}}
 
+                {{-- CARD DASHBOARD 3 --}}
+                <div class="row">
+                    <div class="col-12 col-sm-6 col-md-6">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-money-check"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Total Pemasukan</span>
+                                <span class="info-box-number">
+                                    {{ $totalSuratMasuk }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix hidden-md-up"></div>
+                    <div class="col-12 col-sm-6 col-md-6">
+                        <div class="info-box mb-3">
+                            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-money-check"></i></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Total Pengeluaran</span>
+                                <span class="info-box-number">{{ $totalSuratKeterangan }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                {{-- CARD DASHBOARD 3 --}}
 
                 <div class="row">
                     <section class="col-lg-6 connectedSortable">
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fas fa-bullhorn mr-1"></i>
+                                    Pengumuman
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="tab-content p-0">
+
+                                    <div class="timeline">
+
+                                        <div class="time-label">
+                                            <span class="bg-red">10 Feb. 2014</span>
+                                        </div>
+
+
+                                        <div>
+                                            <i class="fas fa-envelope bg-blue"></i>
+                                            <div class="timeline-item">
+                                                <span class="time"><i class="fas fa-clock"></i> 12:05</span>
+                                                <h3 class="timeline-header"><a href="#">Support Team</a> sent you an
+                                                    email</h3>
+                                                <div class="timeline-body">
+                                                    Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
+                                                    weebly ning heekya handango imeem plugg dopplr jibjab, movity
+                                                    jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
+                                                    quora plaxo ideeli hulu weebly balihoo...
+                                                </div>
+                                                <div class="timeline-footer">
+                                                    <a class="btn btn-primary btn-sm">Read more</a>
+                                                    <a class="btn btn-danger btn-sm">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">

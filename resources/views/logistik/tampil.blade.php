@@ -67,16 +67,16 @@
                                         <td>{{ $data->nama }}</td>
                                         <td>
                                             @if ($data->status == 1)
-                                                <span class="badge badge-success">LAYAK</span>
+                                                <span class="badge badge-success">Layak</span>
                                             @else
-                                                <span class="badge badge-warning">TIDAK LAYAK</span>
+                                                <span class="badge badge-warning">Tidak Layak</span>
                                             @endif
                                         </td>
                                         <td>
                                             @if ($data->pemakaian == 1)
-                                                <span class="badge badge-success">TERSEDIA</span>
+                                                <span class="badge badge-success">Tersedia</span>
                                             @else
-                                                <span class="badge badge-warning">TIDAK TERSEDIA</span>
+                                                <span class="badge badge-warning">Tidak Tersedia</span>
                                             @endif
                                         </td>
                                         <td>

@@ -79,9 +79,9 @@
                                         </td>
                                         <td>
                                             @if ($data->user->status == 1)
-                                                <span class="badge badge-success">AKTIF</span>
+                                                <span class="badge badge-success">Aktif</span>
                                             @else
-                                                <span class="badge badge-danger">TIDAK AKTIF</span>
+                                                <span class="badge badge-danger">Non Aktif</span>
                                             @endif
                                         </td>
                                         <td>
