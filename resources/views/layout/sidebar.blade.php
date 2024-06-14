@@ -177,6 +177,15 @@
                 <li class="nav-header">Konfigurasi</li>
 
                 <li class="nav-item">
+                    <a href="/profil" class="nav-link {{ \Route::is('profil.*') ? 'active' : '' }}"
+                        data-toggle="tooltip" data-placement="top" title="Profil">
+                        <i class="nav-icon fas fa-user-cog"></i>
+                        <p>
+                            Profil
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="/logout" class="nav-link {{ \Route::is('logout.*') ? 'active' : '' }}"
                         data-toggle="tooltip" data-placement="top" title="Keluar">
                         <i class="nav-icon fas fa-sign-out-alt"></i>

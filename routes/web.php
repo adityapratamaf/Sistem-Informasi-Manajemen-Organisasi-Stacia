@@ -9,6 +9,7 @@ use App\Http\Controllers\SuratMasukController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SuratKeteranganController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProfilController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -64,4 +65,7 @@ Route::group(['middleware' => 'auth'], function () {
     // ========== SURAT KETERANGAN ==========
     Route::get('suratketerangan/download', [SuratKeteranganController::class, 'download']);
     Route::resource('suratketerangan', SuratKeteranganController::class);
+
+    // ========== PROFIL ==========
+    Route::resource('profil', ProfilController::class);
 }); // ========== MIDDLEWARE ==========
