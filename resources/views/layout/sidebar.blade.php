@@ -5,7 +5,7 @@
     <a href="../../index3.html" class="brand-link mt-1 d-flex">
         <img src="{{ asset('template/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image"
             style="opacity: .8">
-        <span class="brand-text font-weight-light">STACIA UMJ</span>
+        <span class="brand-text font-weight-light"> <b>STACIA </b>UMJ</span>
     </a>
     {{-- PROFILE --}}
 
@@ -14,8 +14,8 @@
 
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="{{ asset('template/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2"
-                    alt="User Image">
+                <img src="{{ asset('anggota-foto/' . Auth::user()->anggota->foto) }}" class="img-circle elevation-2"
+                    alt="Profil">
             </div>
             <div class="info">
                 <a href="#" class="d-block">{{ Auth::user()->nama }}</a>
@@ -96,6 +96,16 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="/peminjaman" class="nav-link {{ \Route::is('peminjaman.*') ? 'active' : '' }}"
+                        data-toggle="tooltip" data-placement="top" title="Peminjaman">
+                        <i class="nav-icon fas fa-luggage-cart"></i>
+                        <p>
+                            Peminjaman
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="/logistik" class="nav-link {{ \Route::is('program.*') ? 'active' : '' }}"
                         data-toggle="tooltip" data-placement="top" title="Logistik">
                         <i class="nav-icon fas fa-briefcase"></i>
@@ -155,8 +165,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="/anggota" class="nav-link {{ \Route::is('pengurus.*') ? 'active' : '' }}"
-                        data-toggle="tooltip" data-placement="top" title="Anggota">
+                    <a href="/pengurus" class="nav-link {{ \Route::is('pengurus.*') ? 'active' : '' }}"
+                        data-toggle="tooltip" data-placement="top" title="Pengurus">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             Pengurus

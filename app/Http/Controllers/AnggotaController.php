@@ -74,10 +74,12 @@ class AnggotaController extends Controller
         $user = new User();
         $user->nama = $request->input('nama');
         $user->username = $request->input('username');
-        $user->username = $request->input('nra');
+        // Auto Generate Username By Nama
+        // $nama = $request->input('nama');
+        // $user->username = strtolower(str_replace(' ', '.', $nama));
         $user->email = $request->input('email');
         // $user->password = bcrypt($request->input('password')); // Password Baru (Non Auto Generate)
-        $user->password = bcrypt($request->input('username'));
+        $user->password = bcrypt($request->input('username')); // Auto Generate Password By Username
         $user->role = $request->input('role');
         $user->status = $request->input('status');
         $user->save();

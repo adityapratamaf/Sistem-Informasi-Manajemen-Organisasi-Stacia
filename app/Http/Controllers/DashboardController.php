@@ -9,6 +9,7 @@ use App\Models\SuratKeluar;
 use App\Models\SuratKeterangan;
 use App\Models\SuratMasuk;
 use App\Models\User;
+use App\Models\Pengumuman;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -29,6 +30,7 @@ class DashboardController extends Controller
         $totalSuratMasuk = SuratMasuk::count();
         $totalSuratKeluar = SuratKeluar::count();
         $totalSuratKeterangan = SuratKeterangan::count();
-        return view('dashboard.dashboard', compact('user', 'totalAnggota', 'totalLogistik', 'totalSuratMasuk', 'totalSuratKeluar', 'totalSuratKeterangan'));
+        $dataPengumuman = Pengumuman::orderByRaw('created_at DESC')->limit(1)->get();
+        return view('dashboard.dashboard', compact('user', 'totalAnggota', 'totalLogistik', 'totalSuratMasuk', 'totalSuratKeluar', 'totalSuratKeterangan', 'dataPengumuman'));
     }
 }

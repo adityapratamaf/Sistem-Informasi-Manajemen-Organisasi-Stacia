@@ -9,6 +9,7 @@ use App\Http\Controllers\SuratMasukController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SuratKeteranganController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\ProfilController;
 use Illuminate\Support\Facades\Auth;
 
@@ -68,4 +69,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // ========== PROFIL ==========
     Route::resource('profil', ProfilController::class);
+
+    // ========== PENGURUS ==========
+    Route::resource('pengurus', PengurusController::class);
 }); // ========== MIDDLEWARE ==========

@@ -62,7 +62,7 @@
                                             <div class="col">
                                                 <p>: {{ $anggota->nra }}</p>
                                                 <p>:
-                                                    @if ($anggota->user->role == 1)
+                                                    @if ($anggota->jenis_anggota == 1)
                                                         Anggota Biasa
                                                     @elseif ($anggota->jenis_anggota == 2)
                                                         Anggota Istimewa
@@ -72,9 +72,7 @@
                                                         Anggota Kehormatan
                                                     @endif
                                                 </p>
-                                                <p>: {{ $anggota->tempat_lahir }},
-                                                    {{ $anggota->tanggal_lahir }} </p>
-                                                {{-- <p>{{ $anggota->tanggal_lahir->translatedformat('d F Y') }}</p> --}}
+                                                <p>: {{ $anggota->tempat_lahir }}, {{ $anggota->tanggal_lahir }} </p>
                                                 <p>: {{ $anggota->user->email }}</p>
                                                 <p>: {{ $anggota->telepon }}</p>
                                                 <p>: {{ $anggota->alamat }}</p>

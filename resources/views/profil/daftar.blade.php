@@ -105,10 +105,9 @@
 
                         </div>
 
-
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">Biodata</h3>
+                                <h3 class="card-title">Profil</h3>
                             </div>
 
                             <div class="card-body">
@@ -272,12 +271,10 @@
 
                                             </div>
 
-                                            <div class="card-footer">
-                                                <button type="submit" class="btn btn-primary btn-sm"
-                                                    data-toggle="tooltip" data-placement="bottom" title="Simpan"> <i
-                                                        class="fas fa-database"></i> </i>
-                                                </button>
-                                            </div>
+                                            <button type="submit" class="btn btn-primary btn-sm" data-toggle="tooltip"
+                                                data-placement="bottom" title="Simpan"> <i class="fas fa-database"></i>
+                                                </i>
+                                            </button>
                                         </form>
 
                                     </div>
