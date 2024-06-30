@@ -125,8 +125,8 @@ class AnggotaController extends Controller
         // ===== Detail Data =====
 
         // Ambil Data Berdasarkan ID Yang Di Pilih
-        // $anggota = Anggota::with('user')->findOrFail($id);
         $anggota = Anggota::with('user')->where('id', $id)->first();
+        // $anggota = Anggota::with(['user.program'])->where('id', $id)->first();
 
         // // Pengalihan Halaman
         return view('anggota.detail', compact('anggota'));

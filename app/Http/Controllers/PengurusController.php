@@ -142,11 +142,6 @@ class PengurusController extends Controller
         $pengurus = Pengurus::find($id);
 
 
-        // // Jika data tidak ditemukan
-        // if (!$pengurus) {
-        //     abort(404); // atau atur notifikasi bahwa data tidak ditemukan
-        // }
-
         //  // Jika Ada Relasi Yang Terkait, Data Tidak Dapat Dihapus
         // if ($pengurus->penggunaan()->exists()) {
 

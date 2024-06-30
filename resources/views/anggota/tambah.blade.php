@@ -206,7 +206,8 @@
                                         <div class="input-group">
                                             <div class="custom-file">
                                                 <input type="file" name="foto" class="custom-file-input"
-                                                    onchange="previewImage();" id="image-source">
+                                                    onchange="previewImage('image-source1', 'image-preview1');"
+                                                    id="image-source1">
                                                 <label class="custom-file-label">Foto</label>
                                             </div>
                                             <div class="input-group-append">
@@ -214,7 +215,7 @@
                                             </div>
                                         </div>
                                         <div class="product-image-thumb mt-2">
-                                            <img src="{{ asset('anggota-foto/no-image.png') }}" id="image-preview"
+                                            <img src="{{ asset('anggota-foto/no-image.png') }}" id="image-preview1"
                                                 alt="Pratinjau Foto" />
                                         </div>
                                     </div>

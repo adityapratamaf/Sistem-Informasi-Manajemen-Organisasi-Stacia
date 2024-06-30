@@ -11,6 +11,7 @@ use App\Http\Controllers\SuratKeteranganController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\ProgramController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -72,4 +73,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     // ========== PENGURUS ==========
     Route::resource('pengurus', PengurusController::class);
+
+    // ========== PROGRAM ==========
+    Route::get('/program/filter', [ProgramController::class, 'filterByYear'])->name('program.filterByYear');
+    Route::post('/program/filter', [ProgramController::class, 'showByYear'])->name('program.showByYear');
+
+    Route::resource('program', ProgramController::class);
 }); // ========== MIDDLEWARE ==========

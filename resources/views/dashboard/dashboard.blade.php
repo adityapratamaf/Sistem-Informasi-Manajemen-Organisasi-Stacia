@@ -40,8 +40,7 @@
                             <div class="icon">
                                 <i class="ion ion-bag"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
+                            <a href="#" class="small-box-footer">Anggota <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
 
@@ -55,7 +54,7 @@
                             <div class="icon">
                                 <i class="ion ion-stats-bars"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i
+                            <a href="#" class="small-box-footer">Logistik <i
                                     class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
@@ -64,14 +63,13 @@
 
                         <div class="small-box bg-warning">
                             <div class="inner">
-                                <h3>44</h3>
-                                <p>User Registrations</p>
+                                <h3>{{ $dataProgram }}</h3>
+                                <p>Program</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-person-add"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
+                            <a href="#" class="small-box-footer">Program <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
 

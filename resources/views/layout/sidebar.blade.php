@@ -54,7 +54,7 @@
                         class="nav-link {{ \Route::is('suratkeluar.*', 'suratmasuk.*', 'suratketerangan.*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-archive"></i>
                         <p>
-                            Dokumen
+                            Surat
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
@@ -106,8 +106,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="/logistik" class="nav-link {{ \Route::is('program.*') ? 'active' : '' }}"
-                        data-toggle="tooltip" data-placement="top" title="Logistik">
+                    <a href="/program" class="nav-link {{ \Route::is('program.*') ? 'active' : '' }}"
+                        data-toggle="tooltip" data-placement="top" title="Program">
                         <i class="nav-icon fas fa-briefcase"></i>
                         <p>
                             Program

@@ -12,4 +12,9 @@ class Pengurus extends Model
     protected $table = 'pengurus';
 
     protected $fillable = ['tahun_periode'];
+
+    public function program()
+    {
+        return $this->hasMany(Program::class, 'pengurus_id');
+    }
 }

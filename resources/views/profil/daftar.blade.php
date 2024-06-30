@@ -136,6 +136,8 @@
                                 <ul class="nav nav-pills">
                                     <li class="nav-item"><a class="nav-link active" href="#activity"
                                             data-toggle="tab">Pengalaman</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#program" data-toggle="tab">Program</a>
+                                    </li>
                                     <li class="nav-item"><a class="nav-link" href="#settings"
                                             data-toggle="tab">Pengaturan</a>
                                     </li>
@@ -143,8 +145,8 @@
                             </div>
                             <div class="card-body">
                                 <div class="tab-content">
-                                    <div class="active tab-pane" id="activity">
 
+                                    <div class="active tab-pane" id="activity">
                                         <div class="post">
                                             <div class="user-block">
                                                 <img class="img-circle img-bordered-sm"
@@ -163,7 +165,33 @@
                                                 </p>
                                             </div>
                                         </div>
+                                    </div>
 
+                                    <div class="tab-pane" id="program">
+                                        <div class="post">
+                                            <div class="user-block">
+                                                <img class="img-circle img-bordered-sm"
+                                                    src="{{ asset('anggota-foto/' . $anggota->foto) }}" alt="user image">
+                                                <span class="username">
+                                                    <a href="#">{{ $anggota->user->nama }}</a>
+                                                    <a href="#" class="float-right btn-tool"><i
+                                                            class="fas fa-times"></i></a>
+                                                </span>
+                                                <span class="description">{{ $anggota->nra }}</span>
+                                            </div>
+
+                                            <div class="post">
+                                                @if ($anggota->user->program->isEmpty())
+                                                    <p>Tidak Terdaftar Di Program</p>
+                                                @else
+                                                    <ul>
+                                                        @foreach ($anggota->user->program as $program)
+                                                            <li>{{ $program->nama }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                @endif
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="tab-pane" id="settings">

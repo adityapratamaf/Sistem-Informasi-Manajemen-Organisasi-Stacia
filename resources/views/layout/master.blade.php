@@ -27,6 +27,8 @@
 
     <link rel="stylesheet" href="{{ asset('template/plugins/daterangepicker/daterangepicker.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('template/plugins/select2/css/select2.min.css') }}">
+
     {{-- Summernote --}}
     <link rel="stylesheet" href="{{ asset('template/plugins/summernote/summernote-bs4.min.css') }}">
 
@@ -210,6 +212,9 @@
 
     <script src="{{ asset('template/dist/js/demo.js') }}"></script>
 
+    {{-- Select2 --}}
+    <script src="{{ asset('template/plugins/select2/js/select2.min.js') }}"></script>
+
     <script src="{{ asset('template/dist/js/pages/dashboard.js') }}"></script>
 
     {{-- Toast Bootstrap  --}}
@@ -275,7 +280,7 @@
     {{-- Summernote --}}
 
     {{-- Preview Image --}}
-    <script>
+    {{-- <script>
         function previewImage() {
             document.getElementById("image-preview").style.display = "block";
             var oFReader = new FileReader();
@@ -285,7 +290,21 @@
                 document.getElementById("image-preview").src = oFREvent.target.result;
             };
         };
+    </script> --}}
+
+    <script>
+        function previewImage(sourceId, previewId) {
+            var oFReader = new FileReader();
+            oFReader.readAsDataURL(document.getElementById(sourceId).files[0]);
+
+            oFReader.onload = function(oFREvent) {
+                var previewElement = document.getElementById(previewId);
+                previewElement.style.display = "block";
+                previewElement.src = oFREvent.target.result;
+            };
+        }
     </script>
+
     {{-- Preview Image --}}
 
     <!-- DataTables -->

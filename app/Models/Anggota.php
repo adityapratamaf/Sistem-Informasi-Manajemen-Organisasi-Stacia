@@ -16,8 +16,15 @@ class Anggota extends Model
         'nra', 'tempat_lahir', 'tanggal_lahir', 'alamat', 'telepon', 'pengalaman', 'jenis_anggota', 'foto', 'users_id'
     ];
 
+    // Relasi Ke Tabel Users
     public function user()
     {
         return $this->belongsTo(User::class, 'users_id');
+    }
+
+    // Relasi Ke Tabel Program
+    public function program()
+    {
+        return $this->belongsToMany(Program::class, 'panitia', 'users_id', 'program_id');
     }
 }

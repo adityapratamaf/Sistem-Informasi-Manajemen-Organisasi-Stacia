@@ -104,15 +104,32 @@
                                                 href="#keterangan" role="tab" aria-controls="keterangan"
                                                 aria-selected="true">Pengalaman
                                             </a>
+                                            <a class="nav-item nav-link" id="program-tab" data-toggle="tab" href="#program"
+                                                role="tab" aria-controls="program" aria-selected="false">Program
+                                            </a>
                                             <a class="nav-item nav-link" id="memuat-tab" data-toggle="tab" href="#memuat"
                                                 role="tab" aria-controls="memuat" aria-selected="false">Riwayat
                                             </a>
                                         </div>
                                     </nav>
                                     <div class="tab-content p-3" id="nav-tabContent">
+
                                         <div class="tab-pane fade show active" id="keterangan" role="tabpanel"
                                             aria-labelledby="keterangan-tab">
                                             <div class="summernote">{!! $anggota->pengalaman !!}</div>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="program" role="tabpanel"
+                                            aria-labelledby="memuat-tab">
+                                            @if ($anggota->user->program->isEmpty())
+                                                <p>Tidak Terdaftar Di Program</p>
+                                            @else
+                                                <ul>
+                                                    @foreach ($anggota->user->program as $program)
+                                                        <li>{{ $program->nama }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            @endif
                                         </div>
 
                                         <div class="tab-pane fade" id="memuat" role="tabpanel"

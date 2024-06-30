@@ -39,8 +39,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // Relasi Ke Tabel Users
     public function anggota()
     {
         return $this->hasOne(Anggota::class, 'users_id');
+    }
+
+    // Relasi Ke Tabel Program
+    public function program()
+    {
+        return $this->belongsToMany(Program::class, 'panitia', 'users_id', 'program_id');
     }
 }

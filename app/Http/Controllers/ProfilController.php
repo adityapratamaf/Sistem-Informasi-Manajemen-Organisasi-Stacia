@@ -67,6 +67,8 @@ class ProfilController extends Controller
      */
     public function edit($id)
     {
+        // ===== Ubah Data =====
+
         // Ambil Data Berdasarkan ID Yang Login
         $anggota = Auth::user()->anggota;
 
@@ -83,7 +85,7 @@ class ProfilController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // ===== Request Tambah Data =====
+        // ===== Request Ubah Data =====
 
         // Temukan Data Anggota & User Terkait
         $anggota = Anggota::find($id);
