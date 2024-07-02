@@ -139,10 +139,10 @@
                                     <li class="nav-item"><a class="nav-link" href="#program" data-toggle="tab">Program</a>
                                     </li>
                                     <li class="nav-item"><a class="nav-link" href="#settings"
-                                            data-toggle="tab">Pengaturan</a>
-                                    </li>
+                                            data-toggle="tab">Pengaturan</a></li>
                                 </ul>
                             </div>
+
                             <div class="card-body">
                                 <div class="tab-content">
 
@@ -153,16 +153,12 @@
                                                     src="{{ asset('anggota-foto/' . $anggota->foto) }}" alt="user image">
                                                 <span class="username">
                                                     <a href="#">{{ $anggota->user->nama }}</a>
-                                                    <a href="#" class="float-right btn-tool"><i
-                                                            class="fas fa-times"></i></a>
                                                 </span>
                                                 <span class="description">{{ $anggota->nra }}</span>
                                             </div>
 
                                             <div class="summernote">
-                                                <p>
-                                                    {!! $anggota->pengalaman !!}
-                                                </p>
+                                                {!! $anggota->pengalaman !!}
                                             </div>
                                         </div>
                                     </div>
@@ -174,8 +170,6 @@
                                                     src="{{ asset('anggota-foto/' . $anggota->foto) }}" alt="user image">
                                                 <span class="username">
                                                     <a href="#">{{ $anggota->user->nama }}</a>
-                                                    <a href="#" class="float-right btn-tool"><i
-                                                            class="fas fa-times"></i></a>
                                                 </span>
                                                 <span class="description">{{ $anggota->nra }}</span>
                                             </div>
@@ -277,8 +271,9 @@
                                                         <div class="input-group">
                                                             <div class="custom-file">
                                                                 <input type="file" name="foto"
-                                                                    class="custom-file-input" onchange="previewImage();"
-                                                                    id="image-source">
+                                                                    class="custom-file-input"
+                                                                    onchange="previewImage('image-source1', 'image-preview1');"
+                                                                    id="image-source1">
                                                                 <label class="custom-file-label">Foto</label>
                                                             </div>
                                                             <div class="input-group-append">
@@ -287,7 +282,7 @@
                                                         </div>
                                                         <div class="product-image-thumb mt-2">
                                                             <img src="{{ asset('anggota-foto/' . $anggota->foto) }}"
-                                                                id="image-preview" alt="Pratinjau Foto" />
+                                                                id="image-preview1" alt="Pratinjau Foto" />
                                                         </div>
                                                     </div>
                                                     @error('foto')
@@ -308,8 +303,8 @@
                                     </div>
 
                                 </div>
-
                             </div>
+
                         </div>
 
                     </div>

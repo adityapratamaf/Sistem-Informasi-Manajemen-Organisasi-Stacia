@@ -183,8 +183,10 @@
                                                 Bendahara</option>
                                             <option value="4" {{ $anggota->user->role == 4 ? 'selected' : '' }}>
                                                 Logistik</option>
-                                            <option value="5" {{ $anggota->user->role == 5 ? 'selected' : '' }}>User
-                                            </option>
+                                            <option value="5" {{ $anggota->user->role == 5 ? 'selected' : '' }}>
+                                                Kepala Bidang</option>
+                                            <option value="6" {{ $anggota->user->role == 5 ? 'selected' : '' }}>
+                                                User</option>
                                         </select>
                                     </div>
                                     @error('role')

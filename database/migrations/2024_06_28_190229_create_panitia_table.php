@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreign('users_id')->references('id')->on('users')->onDelete('restrict');
             $table->unsignedBigInteger('program_id');
             $table->foreign('program_id')->references('id')->on('program')->onDelete('restrict');
+            $table->string('role')->default('panitia');
             $table->timestamps();
         });
     }

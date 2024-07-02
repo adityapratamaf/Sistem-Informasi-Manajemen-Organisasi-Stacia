@@ -155,7 +155,8 @@
                                             <option value="2">Sekertaris</option>
                                             <option value="3">Bendahara</option>
                                             <option value="4">Logistik</option>
-                                            <option value="5">User</option>
+                                            <option value="5">Kepala Bidang</option>
+                                            <option value="6">User</option>
                                         </select>
                                     </div>
                                     @error('role')

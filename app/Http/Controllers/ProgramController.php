@@ -288,4 +288,20 @@ class ProgramController extends Controller
         // Pengalihan Halaman
         return redirect('/program')->with($notifikasi);
     }
+
+    /**
+     * Download a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function download()
+    {
+        // ===== Download PDF Data =====
+
+        // Model
+        $program = DB::table('program')->get();
+
+        // Pengalihan Halaman
+        return view('program.cetak', ['program' => $program]);
+    }
 }

@@ -37,57 +37,53 @@
 
                     <div class="card-body">
 
-                        <div class="card card-solid">
-                            <div class="card-body">
-                                <div class="row">
+                        <div class="card-body">
+                            <div class="row">
 
-                                    <div class="col-12 col-sm-6">
-                                        <iframe src="{{ asset('suratketerangan-file/' . $suratketerangan->file) }}"
-                                            height="400" width="550" class="card"></iframe>
-                                    </div>
+                                <div class="col-12 col-sm-6">
+                                    <iframe src="{{ asset('suratketerangan-file/' . $suratketerangan->file) }}"
+                                        height="400" width="550" class="card"></iframe>
+                                </div>
 
-                                    <div class="col-12 col-sm-6">
-                                        <h2 class="my-3"> <b>{{ $suratketerangan->perihal }}</b> </h2>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col">
-                                                <p>Nomor</p>
-                                                <p>Tanggal</p>
-                                                <p>Perihal</p>
-                                            </div>
-                                            <div class="col">
-                                                <p>: {{ $suratketerangan->nomor }}</p>
-                                                <p>: {{ $suratketerangan->tanggal }}</p>
-                                            </div>
+                                <div class="col-12 col-sm-6">
+                                    <h2 class="my-3"> <b>{{ $suratketerangan->perihal }}</b> </h2>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col">
+                                            <p>Nomor</p>
+                                            <p>Tanggal</p>
+                                            <p>Perihal</p>
+                                        </div>
+                                        <div class="col">
+                                            <p>: {{ $suratketerangan->nomor }}</p>
+                                            <p>: {{ $suratketerangan->tanggal }}</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row mt-3">
-                                    <nav class="w-100">
-                                        <div class="nav nav-tabs" id="product-tab" role="tablist">
-                                            <a class="nav-item nav-link active" id="keterangan-tab" data-toggle="tab"
-                                                href="#keterangan" role="tab" aria-controls="keterangan"
-                                                aria-selected="true">Isi
-                                            </a>
-                                            <a class="nav-item nav-link" id="memuat-tab" data-toggle="tab" href="#memuat"
-                                                role="tab" aria-controls="memuat" aria-selected="false">Riwayat
-                                            </a>
-                                        </div>
-                                    </nav>
-                                    <div class="tab-content p-3" id="nav-tabContent">
-                                        <div class="tab-pane fade show active" id="keterangan" role="tabpanel"
-                                            aria-labelledby="keterangan-tab">
-                                            <div class="summernote">{!! $suratketerangan->isi !!}</div>
-                                        </div>
-                                        <div class="tab-pane fade" id="memuat" role="tabpanel"
-                                            aria-labelledby="memuat-tab">
-                                            Pembuatan Data : {{ $suratketerangan->created_at }}
-                                            <br>
-                                            Pembaharuan Data : {{ $suratketerangan->updated_at }}
-                                        </div>
+                            </div>
+                            <div class="row mt-3">
+                                <nav class="w-100">
+                                    <div class="nav nav-tabs" id="product-tab" role="tablist">
+                                        <a class="nav-item nav-link active" id="keterangan-tab" data-toggle="tab"
+                                            href="#keterangan" role="tab" aria-controls="keterangan"
+                                            aria-selected="true">Isi
+                                        </a>
+                                        <a class="nav-item nav-link" id="memuat-tab" data-toggle="tab" href="#memuat"
+                                            role="tab" aria-controls="memuat" aria-selected="false">Riwayat
+                                        </a>
+                                    </div>
+                                </nav>
+                                <div class="tab-content p-3" id="nav-tabContent">
+                                    <div class="tab-pane fade show active" id="keterangan" role="tabpanel"
+                                        aria-labelledby="keterangan-tab">
+                                        <div class="summernote">{!! $suratketerangan->isi !!}</div>
+                                    </div>
+                                    <div class="tab-pane fade" id="memuat" role="tabpanel" aria-labelledby="memuat-tab">
+                                        Pembuatan Data : {{ $suratketerangan->created_at }}
+                                        <br>
+                                        Pembaharuan Data : {{ $suratketerangan->updated_at }}
                                     </div>
                                 </div>
-
                             </div>
 
                         </div>

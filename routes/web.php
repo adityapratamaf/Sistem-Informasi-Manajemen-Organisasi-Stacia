@@ -75,8 +75,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('pengurus', PengurusController::class);
 
     // ========== PROGRAM ==========
-    Route::get('/program/filter', [ProgramController::class, 'filterByYear'])->name('program.filterByYear');
-    Route::post('/program/filter', [ProgramController::class, 'showByYear'])->name('program.showByYear');
-
+    Route::get('program/download', [ProgramController::class, 'download']);
     Route::resource('program', ProgramController::class);
 }); // ========== MIDDLEWARE ==========

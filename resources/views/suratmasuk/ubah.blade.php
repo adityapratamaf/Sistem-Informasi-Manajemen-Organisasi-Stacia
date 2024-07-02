@@ -106,7 +106,8 @@
                                         <div class="input-group">
                                             <div class="custom-file">
                                                 <input type="file" name="file" class="custom-file-input"
-                                                    onchange="previewImage();" id="image-source">
+                                                    onchange="previewImage('image-source1', 'image-preview1');"
+                                                    id="image-source1">
                                                 <label class="custom-file-label">File</label>
                                             </div>
                                             <div class="input-group-append">
@@ -115,7 +116,7 @@
                                         </div>
                                         <div class="product-image-thumb mt-2">
                                             <embed src="{{ asset('suratmasuk-file/' . $suratmasuk->file) }}" width="95"
-                                                height="88" id="image-preview" alt="Pratinjau File" />
+                                                height="88" id="image-preview1" alt="Pratinjau File" />
                                         </div>
                                     </div>
                                     @error('file')

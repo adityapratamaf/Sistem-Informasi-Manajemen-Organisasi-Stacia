@@ -23,6 +23,8 @@ return new class extends Migration
             $table->text('pengalaman');
             $table->string('jenis_anggota');
             $table->string('foto');
+            $table->unsignedBigInteger('users_id');
+            $table->foreign('users_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

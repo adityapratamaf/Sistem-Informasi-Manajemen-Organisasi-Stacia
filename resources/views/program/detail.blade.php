@@ -36,13 +36,38 @@
 
                     <div class="card-body">
 
-                        {{-- <divaa class="card card-solid"> --}}
                         <div class="card-body">
                             <div class="row">
-
                                 <div class="col-12 col-sm-6">
-                                    <iframe src="{{ asset('proposal-file/' . $program->proposal) }}" height="400"
-                                        width="550" class="card"></iframe>
+                                    {{-- <iframe src="{{ asset('proposal-file/' . $program->proposal) }}" height="400"
+                                        width="550" class="card">
+                                    </iframe> --}}
+
+                                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item active">
+                                                <iframe src="{{ asset('proposal-file/' . $program->proposal) }}"
+                                                    height="400" width="550" class="card">
+                                                </iframe>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <iframe src="{{ asset('lpj-file/' . $program->lpj) }}" height="400"
+                                                    width="550" class="card">
+                                                </iframe>
+                                            </div>
+                                        </div>
+                                        <button class="carousel-control-prev" type="button"
+                                            data-target="#carouselExampleControls" data-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button"
+                                            data-target="#carouselExampleControls" data-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
+                                        </button>
+                                    </div>
+
                                 </div>
 
                                 <div class="col-12 col-sm-6">
@@ -117,8 +142,6 @@
                             </div>
 
                         </div>
-
-                        {{-- </divaa> --}}
 
                     </div>
 

@@ -41,7 +41,7 @@
                                 <div class="row">
                                     <div class="col-12 col-sm-6 px-3">
                                         <img src="{{ asset('anggota-foto/' . $anggota->foto) }}" class="card product-image"
-                                            height="400" width="550">
+                                            style="max-height: 400px; max-width: 550px;">
                                     </div>
 
                                     <div class="col-12 col-sm-6 px-3">
