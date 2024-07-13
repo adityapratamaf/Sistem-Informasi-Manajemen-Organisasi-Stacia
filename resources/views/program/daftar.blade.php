@@ -29,7 +29,6 @@
 
         <section class="content">
             <div class="container-fluid">
-
                 <div class="card card-primary card-outline">
 
                     <div class="card-header">
@@ -41,17 +40,17 @@
                             <colgroup>
                                 <col width="1%">
                                 <col width="25%">
-                                <col width="25%">
-                                <col width="15%">
-                                <col width="15%">
-                                <col width="15%">
+                                <col width="20%">
+                                <col width="10%">
+                                <col width="10%">
+                                <col width="20%">
                             </colgroup>
                             <thead>
                                 <tr>
                                     <th class="text-center">No</th>
                                     <th>Nama</th>
-                                    <th>Tanggal</th>
-                                    <th>Jenis</th>
+                                    <th>Statistik</th>
+                                    <th>Periode</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -61,17 +60,35 @@
                                 @forelse ($program as $key => $data)
                                     <tr>
                                         <td class="text-center">{{ $key + 1 }}</td>
-                                        <td>{{ $data->nama }}</td>
-                                        <td>{{ $data->tgl_mulai }} - {{ $data->tgl_selesai }}</td>
                                         <td>
-                                            @if ($data->jenis == '1')
-                                                <span class="badge badge-primary">Wajib</span>
-                                            @elseif ($data->jenis == '2')
-                                                <span class="badge badge-primary">Pilihan</span>
-                                            @elseif ($data->jenis == '3')
-                                                <span class="badge badge-primary">Insidentil</span>
-                                            @endif
+                                            {{ $data->nama }}
+                                            <br>
+                                            <small>
+                                                <i class="fas fa-stamp"></i> :
+                                                @if ($data->jenis == '1')
+                                                    <span>Wajib</span>
+                                                @elseif ($data->jenis == '2')
+                                                    <span>Pilihan</span>
+                                                @elseif ($data->jenis == '3')
+                                                    <span>Insidentil</span>
+                                                @endif
+                                                <br>
+                                                <i class="fas fa-calendar"></i> :
+                                                {{ date('d M Y', strtotime($data->tgl_mulai)) }} -
+                                                {{ date('d M Y', strtotime($data->tgl_selesai)) }}
+                                            </small>
                                         </td>
+                                        <td>
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar"
+                                                    style="width: {{ number_format($data->persentaseProgres, 0) }}%;"
+                                                    aria-valuenow="{{ number_format($data->persentaseProgres, 0) }}"
+                                                    aria-valuemin="0" aria-valuemax="100">
+                                                    {{ number_format($data->persentaseProgres, 0) }}%</div>
+                                            </div>
+
+                                        </td>
+                                        <td>{{ $data->pengurus->tahun_periode }}</td>
                                         <td>
                                             @if ($data->status == 'Tunggu')
                                                 <span class="badge badge-primary">Tunggu</span>
@@ -86,6 +103,10 @@
                                             @endif
                                         </td>
                                         <td>
+                                            <a href="program/pekerjaan/{{ $data->id }}"
+                                                class="btn btn-success btn-sm mx-2" data-toggle="tooltip"
+                                                data-placement="top" title="Pekerjaan"> <i class="fas fa-server"></i>
+                                            </a>
                                             <a href="/program/{{ $data->id }}" class="btn btn-secondary btn-sm mx-2"
                                                 data-toggle="tooltip" data-placement="top" title="Detail"> <i
                                                     class="fas fa-sticky-note"></i>
@@ -115,7 +136,6 @@
                     </div>
 
                 </div>
-
             </div>
         </section>
 

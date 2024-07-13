@@ -50,4 +50,10 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Program::class, 'panitia', 'users_id', 'program_id');
     }
+
+    // Role Panitia
+    public function panitia()
+    {
+        return $this->belongsToMany(Program::class, 'panitia')->withPivot('role');
+    }
 }

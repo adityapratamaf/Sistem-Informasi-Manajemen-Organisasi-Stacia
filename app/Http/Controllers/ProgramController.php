@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Program;
 use App\Models\User;
 use App\Models\Pengurus;
+use App\Models\Tugas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -20,17 +21,27 @@ class ProgramController extends Controller
      */
     public function index()
     {
-        // ===== Daftar Data =====
+        // Model Data
+        $program = Program::with('pengurus')->orderBy('created_at', 'DESC')->get();
 
-        // Model
-        $program = DB::table('program')->orderBy('created_at', 'DESC')->get();
-        $pengurus = DB::table('pengurus')->get();
+        // Looping Untuk Setiap Program
+        foreach ($program as $data) {
+            // Ambil Semua Tugas Yang Terkait Dengan Setiap Program
+            $tugas = Tugas::where('program_id', $data->id)->get();
+
+            // Hitung Jumlah Tugas Yang Sudah Selesai
+            $jumlahSelesai = $tugas->where('status', 'Selesai')->count();
+
+            // Hitung Persentase Progres
+            $totalTugas = $tugas->count();
+            $persentaseProgres = ($totalTugas > 0) ? ($jumlahSelesai / $totalTugas) * 100 : 0;
+
+            // Tambahkan Persentase Progres Ke Dalam Program Sebagai Atribut Baru
+            $data->persentaseProgres = $persentaseProgres;
+        }
 
         // Pengalihan Halaman
-        return view('program.daftar', ['program' => $program, 'pengurus' => $pengurus]);
-
-        // $program = Program::with('pengurus')->orderBy('created_at', 'DESC')->get();
-        // return view('program.daftar', compact('program'));
+        return view('program.daftar', ['program' => $program]);
     }
 
     /**

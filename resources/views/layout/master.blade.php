@@ -262,20 +262,6 @@
         $(document).ready(function() {
             $('#summernote').summernote();
         });
-
-        // $(document).ready(function() {
-        //     $('#summernote').summernote({
-        //         toolbar: [
-        //             ['style', ['style']],
-        //             ['font', ['bold', 'italic', 'underline', 'clear']],
-        //             ['para', ['ul', 'ol', 'paragraph']],
-        //             // ['insert', ['link', 'picture', 'video']],
-        //             ['insert', ['link']],
-        //             ['view', ['fullscreen', 'codeview']],
-        //             ['help', ['help']]
-        //         ]
-        //     });
-        // });
     </script>
     {{-- Summernote --}}
 
@@ -304,7 +290,6 @@
             };
         }
     </script>
-
     {{-- Preview Image --}}
 
     <!-- DataTables -->

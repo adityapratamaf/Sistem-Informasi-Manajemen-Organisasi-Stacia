@@ -9,9 +9,12 @@ use App\Http\Controllers\SuratMasukController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SuratKeteranganController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\TugasController;
+use App\Models\Laporan;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -77,4 +80,18 @@ Route::group(['middleware' => 'auth'], function () {
     // ========== PROGRAM ==========
     Route::get('program/download', [ProgramController::class, 'download']);
     Route::resource('program', ProgramController::class);
+
+    // ========== TUGAS ==========
+    Route::get('/program/pekerjaan/{program_id}', [TugasController::class, 'index'])->name('program.pekerjaan');
+    // Route::get('/tugas/create/{program_id}', [TugasController::class, 'create'])->name('tugas.create');
+    Route::post('/tugas/store/{program_id}', [TugasController::class, 'store'])->name('tugas.store');
+    // Route::get('/tugas/edit/{tugas}', [TugasController::class, 'edit'])->name('tugas.edit');
+    Route::put('/tugas/update/{tugas}', [TugasController::class, 'update'])->name('tugas.update');
+    Route::delete('/tugas/destroy/{tugas}', [TugasController::class, 'destroy'])->name('tugas.destroy');
+
+    // ========== LAPORAN ==========
+    Route::post('/laporan/store/{program_id}', [LaporanController::class, 'store'])->name('laporan.store');
+    Route::put('/laporan/update/{laporan}', [LaporanController::class, 'update'])->name('laporan.update');
+    Route::delete('/laporan/destroy/{laporan}', [laporanController::class, 'destroy'])->name('laporan.destroy');
+    Route::get('/laporan/file/{laporan_id}', [LaporanController::class, 'download'])->name('laporan.file');
 }); // ========== MIDDLEWARE ==========

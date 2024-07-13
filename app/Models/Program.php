@@ -27,8 +27,27 @@ class Program extends Model
         return $this->belongsToMany(User::class, 'panitia', 'program_id', 'users_id');
     }
 
+    // Relasi Ke Tabel Anggota
     public function anggota()
     {
         return $this->belongsToMany(Anggota::class, 'panitia', 'program_id', 'users_id');
+    }
+
+    // Relasi Ke Tabel Tugas
+    public function tugas()
+    {
+        return $this->hasMany(Tugas::class, 'nama', 'deskripsi', 'status', 'program_id');
+    }
+
+    // Relasi Ke Tabel Laporan
+    public function Laporan()
+    {
+        return $this->hasMany(Laporan::class, 'deskripsi', 'status', 'tgl_mulai', 'tgl_selesai', 'file', 'program_id', 'tugas_id', 'users_id');
+    }
+
+    // Role Panitia
+    public function panitia()
+    {
+        return $this->belongsToMany(User::class, 'panitia')->withPivot('role');
     }
 }
