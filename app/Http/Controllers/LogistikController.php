@@ -60,8 +60,19 @@ class LogistikController extends Controller
             'keterangan' => 'required',
             'status' => 'required',
             'pemakaian' => 'required',
-            'foto' => 'required|image|mimes:jpeg,jpg,png|max:2048',
+            'foto' => 'required|image|mimes:jpeg,jpg,png',
         ]);
+
+        // Pengecekan Ukuran File
+        if ($request->file('foto')->getSize() > 2048 * 1024) {
+            // Notifikasi 
+            $notifikasi = array(
+                'pesan' => 'UKURAN FILE MAKSIMAL 2 MB',
+                'alert' => 'error',
+            );
+            // Pengalihan Halaman
+            return redirect()->back()->with($notifikasi);
+        }
 
         // Unggah File
         $fileFoto   = time() . '.' . $request->foto->extension();
@@ -79,7 +90,7 @@ class LogistikController extends Controller
         $logistik->foto = $fileFoto;
         $logistik->save();
 
-        // Notifikasi
+        // // Notifikasi
         $notifikasi = array(
             'pesan' => 'DATA BERHASIL DI SIMPAN',
             'alert' => 'success',
@@ -143,7 +154,7 @@ class LogistikController extends Controller
             'keterangan' => 'required',
             'status' => 'required',
             'pemakaian' => 'required',
-            'foto' => 'image|mimes:jpeg,jpg,png|max:2048'
+            'foto' => 'image|mimes:jpeg,jpg,png'
         ]);
 
         // Model
@@ -153,6 +164,17 @@ class LogistikController extends Controller
         if ($request->has('foto')) {
             $path = 'logistik-foto/';
             File::delete($path . $logistik->foto);
+
+            // Pengecekan Ukuran File
+            if ($request->file('foto')->getSize() > 2048 * 1024) {
+                // Notifikasi
+                $notifikasi = array(
+                    'pesan' => 'UKURAN FILE MAKSIMAL 2 MB',
+                    'alert' => 'error',
+                );
+                // Pengalihan Halaman
+                return redirect()->back()->with($notifikasi);
+            }
 
             // Unggah File
             $fileFoto   = time() . '.' . $request->foto->extension();

@@ -57,8 +57,19 @@ class SuratKeteranganController extends Controller
             'tanggal' => 'required',
             'perihal' => 'required',
             'isi' => 'required',
-            'file' => 'required|mimes:pdf|max:2048',
+            'file' => 'required|mimes:pdf',
         ]);
+
+        // Pengecekan Ukuran File
+        if ($request->file('file')->getSize() > 2048 * 1024) {
+            // Notifikasi 
+            $notifikasi = array(
+                'pesan' => 'UKURAN FILE MAKSIMAL 2 MB',
+                'alert' => 'error',
+            );
+            // Pengalihan Halaman
+            return redirect()->back()->with($notifikasi);
+        }
 
         // Unggah File
         $fileSurat = time() . '.' . $request->file->extension();
@@ -134,7 +145,7 @@ class SuratKeteranganController extends Controller
             'tanggal' => 'required',
             'perihal' => 'required',
             'isi' => 'required',
-            'file' => 'mimes:pdf|max:2048',
+            'file' => 'mimes:pdf',
         ]);
 
         // Model
@@ -144,6 +155,17 @@ class SuratKeteranganController extends Controller
         if ($request->has('file')) {
             $path = 'suratketerangan-file/';
             File::delete($path . $suratketerangan->file);
+
+            // Pengecekan Ukuran File
+            if ($request->file('file')->getSize() > 2048 * 1024) {
+                // Notifikasi 
+                $notifikasi = array(
+                    'pesan' => 'UKURAN FILE MAKSIMAL 2 MB',
+                    'alert' => 'error',
+                );
+                // Pengalihan Halaman
+                return redirect()->back()->with($notifikasi);
+            }
 
             // Unggah File
             $fileSurat = time() . '.' . $request->file->extension();

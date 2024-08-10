@@ -10,11 +10,8 @@ class Anggota extends Model
     use HasFactory;
 
     protected $table = 'anggota';
-    // protected $dates = ['tanggal_lahir'];
 
-    protected $fillable = [
-        'nra', 'tempat_lahir', 'tanggal_lahir', 'alamat', 'telepon', 'pengalaman', 'jenis_anggota', 'foto', 'users_id'
-    ];
+    protected $fillable = ['nra', 'tempat_lahir', 'tanggal_lahir', 'alamat', 'telepon', 'pengalaman', 'jenis_anggota', 'foto', 'users_id'];
 
     // Relasi Ke Tabel Users
     public function user()

@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'auth' => \App\Http\Middleware\RedirectIfNotAuthenticated::class, // Middleware Tidak Dapat Mengakses Halaman Lain Sebelum Login
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class, // Middleware Tidak Dapat Mengakses Halaman Login Setelah Login
+        'checkPanitia' => \App\Http\Middleware\CheckPanitia::class, // Middleware Jika User Yang Login Adalah Panitia Dari Suatu Program
     ];
 }

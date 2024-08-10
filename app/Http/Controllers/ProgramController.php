@@ -8,6 +8,7 @@ use App\Models\Pengurus;
 use App\Models\Tugas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 // Hapus File Lama
 use File;
@@ -80,12 +81,25 @@ class ProgramController extends Controller
             'pengurus_id'   => 'required|exists:pengurus,id',
             'users_id'      => 'required|array',
             'users_id.*'    => 'exists:users,id',
-            'proposal'      => 'file|mimes:pdf|max:2048',
-            'lpj'           => 'file|mimes:pdf|max:2048',
+            'proposal'      => 'file|mimes:pdf',
+            'lpj'           => 'file|mimes:pdf',
         ]);
 
         // Unggah File Proposal
         if ($request->hasFile('proposal')) {
+
+            // Pengecekan Ukuran File
+            if ($request->file('proposal')->getSize() > 10 * 1024 * 1024) {
+                // Notifikasi 
+                $notifikasi = array(
+                    'pesan' => 'UKURAN FILE MAKSIMAL 2 MB',
+                    'alert' => 'error',
+                );
+                // Pengalihan Halaman
+                return redirect()->back()->with($notifikasi);
+            }
+
+            // Unggah File
             $fileProposal = time() . '.' . $request->proposal->extension();
             $request->proposal->move(public_path('proposal-file'), $fileProposal);
         } else {
@@ -94,6 +108,19 @@ class ProgramController extends Controller
 
         // Unggah File LPJ
         if ($request->hasFile('lpj')) {
+
+            // Pengecekan Ukuran File
+            if ($request->file('lpj')->getSize() > 10 * 1024 * 1024) {
+                // Notifikasi 
+                $notifikasi = array(
+                    'pesan' => 'UKURAN FILE MAKSIMAL 2 MB',
+                    'alert' => 'error',
+                );
+                // Pengalihan Halaman
+                return redirect()->back()->with($notifikasi);
+            }
+
+            // Unggah File
             $fileLpj = time() . '.' . $request->lpj->extension();
             $request->lpj->move(public_path('lpj-file'), $fileLpj);
         } else {
@@ -204,8 +231,8 @@ class ProgramController extends Controller
             'pengurus_id'   => 'required|exists:pengurus,id',
             'users_id'      => 'required|array',
             'users_id.*'    => 'exists:users,id',
-            'proposal'      => 'file|mimes:pdf|max:2048',
-            'lpj'           => 'file|mimes:pdf|max:2048',
+            'proposal'      => 'file|mimes:pdf',
+            'lpj'           => 'file|mimes:pdf',
         ]);
 
         // Model
@@ -218,6 +245,17 @@ class ProgramController extends Controller
 
             // Hapus File Proposal Lama Jika Ada
             File::delete(public_path($path . $program->proposal));
+
+            // Pengecekan Ukuran File
+            if ($request->file('proposal')->getSize() > 10 * 1024 * 1024) {
+                // Notifikasi 
+                $notifikasi = array(
+                    'pesan' => 'UKURAN FILE MAKSIMAL 2 MB',
+                    'alert' => 'error',
+                );
+                // Pengalihan Halaman
+                return redirect()->back()->with($notifikasi);
+            }
 
             // Unggah File Proposal Baru
             $fileProposal = time() . '.' . $request->proposal->extension();
@@ -232,6 +270,17 @@ class ProgramController extends Controller
 
             // Hapus File LPJ Lama Jika Ada
             File::delete(public_path($path . $program->lpj));
+
+            // Pengecekan Ukuran File
+            if ($request->file('lpj')->getSize() > 10 * 1024 * 1024) {
+                // Notifikasi 
+                $notifikasi = array(
+                    'pesan' => 'UKURAN FILE MAKSIMAL 2 MB',
+                    'alert' => 'error',
+                );
+                // Pengalihan Halaman
+                return redirect()->back()->with($notifikasi);
+            }
 
             // Unggah File LPJ Baru
             $fileLpj = time() . '.' . $request->lpj->extension();

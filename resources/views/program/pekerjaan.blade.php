@@ -85,24 +85,31 @@
                             </div>
                             <div class="card-body">
 
-                                <a href="#" class="btn btn-primary btn-sm mb-3" data-toggle="modal"
-                                    data-target="#tambahtugas" data-toggle="tooltip" data-placement="top" title="Tambah">
-                                    <i class="fas fa-database"></i>
-                                </a>
+                                @if ($isPanitia)
+                                    <a href="#" class="btn btn-primary btn-sm mb-3" data-toggle="modal"
+                                        data-target="#tambahtugas" data-toggle="tooltip" data-placement="top"
+                                        title="Tambah">
+                                        <i class="fas fa-database"></i>
+                                    </a>
+                                @endif
 
                                 <table id="example2" class="table table-hover table-condensed">
                                     <colgroup>
                                         <col width="1%">
                                         <col width="30%">
                                         <col width="15%">
-                                        <col width="20%">
+                                        @if ($isPanitia)
+                                            <col width="20%">
+                                        @endif
                                     </colgroup>
                                     <thead>
                                         <tr>
                                             <th>No</th>
                                             <th>Nama</th>
                                             <th>Status</th>
-                                            <th>Aksi</th>
+                                            @if ($isPanitia)
+                                                <th>Aksi</th>
+                                            @endif
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -124,21 +131,24 @@
                                                         <span class="badge badge-success">Selesai</span>
                                                     @endif
                                                 </td>
-                                                <td>
-                                                    <a href="" class="btn btn-info btn-sm mx-2" data-toggle="modal"
-                                                        data-target="#ubahtugas{{ $data->id }}" data-toggle="tooltip"
-                                                        data-placement="top" title="Ubah"> <i class="fas fa-pen-alt"></i>
-                                                    </a>
-                                                    <form action="/tugas/destroy/{{ $data->id }}" class="d-inline"
-                                                        method="POST" onclick="return confirm('Hapus Data ?')">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button class="btn btn-danger btn-sm mx-2" data-toggle="tooltip"
-                                                            data-placement="top" title="Hapus"> <i
-                                                                class="fas fa-trash-alt"></i>
-                                                        </button>
-                                                    </form>
-                                                </td>
+                                                @if ($isPanitia)
+                                                    <td>
+                                                        <a href="" class="btn btn-info btn-sm mx-2"
+                                                            data-toggle="modal" data-target="#ubahtugas{{ $data->id }}"
+                                                            data-toggle="tooltip" data-placement="top" title="Ubah"> <i
+                                                                class="fas fa-pen-alt"></i>
+                                                        </a>
+                                                        <form action="/tugas/destroy/{{ $data->id }}" class="d-inline"
+                                                            method="POST" onclick="return confirm('Hapus Data ?')">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button class="btn btn-danger btn-sm mx-2" data-toggle="tooltip"
+                                                                data-placement="top" title="Hapus"> <i
+                                                                    class="fas fa-trash-alt"></i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                @endif
                                             </tr>
                                         @empty
                                             <tr>
@@ -159,24 +169,31 @@
 
                             <div class="card-body">
 
-                                <a href="#" class="btn btn-primary btn-sm mb-3" data-toggle="modal"
-                                    data-target="#tambahlaporan" data-toggle="tooltip" data-placement="top" title="Tambah">
-                                    <i class="fas fa-database"></i>
-                                </a>
+                                @if ($isPanitia)
+                                    <a href="#" class="btn btn-primary btn-sm mb-3" data-toggle="modal"
+                                        data-target="#tambahlaporan" data-toggle="tooltip" data-placement="top"
+                                        title="Tambah">
+                                        <i class="fas fa-database"></i>
+                                    </a>
+                                @endif
 
                                 <table id="example3" class="table table-hover table-condensed">
                                     <colgroup>
                                         <col width="1%">
                                         <col width="30%">
                                         <col width="15%">
-                                        <col width="20%">
+                                        @if ($isPanitia)
+                                            <col width="20%">
+                                        @endif
                                     </colgroup>
                                     <thead>
                                         <tr>
                                             <th>No</th>
                                             <th>Nama</th>
                                             <th>Status</th>
-                                            <th>Aksi</th>
+                                            @if ($isPanitia)
+                                                <th>Aksi</th>
+                                            @endif
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -213,21 +230,26 @@
                                                         <span class="badge badge-success">Selesai</span>
                                                     @endif
                                                 </td>
-                                                <td>
-                                                    <a href="" class="btn btn-info btn-sm mx-2" data-toggle="modal"
-                                                        data-target="#ubahlaporan{{ $data->id }}" data-toggle="tooltip"
-                                                        data-placement="top" title="Ubah"> <i class="fas fa-pen-alt"></i>
-                                                    </a>
-                                                    <form action="/laporan/destroy/{{ $data->id }}" class="d-inline"
-                                                        method="POST" onclick="return confirm('Hapus Data ?')">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button class="btn btn-danger btn-sm mx-2" data-toggle="tooltip"
-                                                            data-placement="top" title="Hapus"> <i
-                                                                class="fas fa-trash-alt"></i>
-                                                        </button>
-                                                    </form>
-                                                </td>
+                                                @if ($isPanitia)
+                                                    <td>
+                                                        <a href="" class="btn btn-info btn-sm mx-2"
+                                                            data-toggle="modal"
+                                                            data-target="#ubahlaporan{{ $data->id }}"
+                                                            data-toggle="tooltip" data-placement="top" title="Ubah"> <i
+                                                                class="fas fa-pen-alt"></i>
+                                                        </a>
+                                                        <form action="/laporan/destroy/{{ $data->id }}"
+                                                            class="d-inline" method="POST"
+                                                            onclick="return confirm('Hapus Data ?')">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button class="btn btn-danger btn-sm mx-2"
+                                                                data-toggle="tooltip" data-placement="top"
+                                                                title="Hapus"> <i class="fas fa-trash-alt"></i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                @endif
                                             </tr>
                                         @empty
                                             <tr>

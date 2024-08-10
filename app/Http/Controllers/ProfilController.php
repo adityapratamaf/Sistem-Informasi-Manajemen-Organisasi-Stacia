@@ -97,7 +97,7 @@ class ProfilController extends Controller
             'alamat' => 'required',
             'telepon' => 'required',
             'pengalaman' => 'required',
-            'foto' => 'image|mimes:jpeg,jpg,png|max:2048',
+            'foto' => 'image|mimes:jpeg,jpg,png',
         ]);
 
         // Simpan Data Ke Database User 
@@ -112,6 +112,17 @@ class ProfilController extends Controller
         if ($request->hasFile('foto')) {
             $path = 'anggota-foto/';
             File::delete($path . $anggota->foto);
+
+            // Pengecekan Ukuran File
+            if ($request->file('foto')->getSize() > 2048 * 1024) {
+                // Notifikasi 
+                $notifikasi = array(
+                    'pesan' => 'UKURAN FILE MAKSIMAL 2 MB',
+                    'alert' => 'error',
+                );
+                // Pengalihan Halaman
+                return redirect()->back()->with($notifikasi);
+            }
 
             // Unggah File
             $fileFoto   = time() . '.' . $request->foto->extension();

@@ -43,8 +43,7 @@ Route::get('/login', [AuthController::class, 'index'])->middleware('guest');
 Route::post('/store', [AuthController::class, 'store']);
 route::get('/logout', [AuthController::class, 'logout']);
 
-// ========== MIDDLEWARE ==========
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'auth'], function () { // ========== MIDDLEWARE ==========
     // ========== DASHBOARD ==========
     Route::resource('dashboard', DashboardController::class);
 
@@ -82,16 +81,18 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('program', ProgramController::class);
 
     // ========== TUGAS ==========
-    Route::get('/program/pekerjaan/{program_id}', [TugasController::class, 'index'])->name('program.pekerjaan');
-    // Route::get('/tugas/create/{program_id}', [TugasController::class, 'create'])->name('tugas.create');
-    Route::post('/tugas/store/{program_id}', [TugasController::class, 'store'])->name('tugas.store');
-    // Route::get('/tugas/edit/{tugas}', [TugasController::class, 'edit'])->name('tugas.edit');
-    Route::put('/tugas/update/{tugas}', [TugasController::class, 'update'])->name('tugas.update');
-    Route::delete('/tugas/destroy/{tugas}', [TugasController::class, 'destroy'])->name('tugas.destroy');
+    Route::group(['middleware' => ['auth', 'checkPanitia']], function () { // Midlleware Panitia
+        Route::get('/program/pekerjaan/{program_id}', [TugasController::class, 'index'])->name('program.pekerjaan');
+        Route::post('/tugas/store/{program_id}', [TugasController::class, 'store'])->name('tugas.store');
+        Route::put('/tugas/update/{tugas}', [TugasController::class, 'update'])->name('tugas.update');
+        Route::delete('/tugas/destroy/{tugas}', [TugasController::class, 'destroy'])->name('tugas.destroy');
+    });
 
     // ========== LAPORAN ==========
-    Route::post('/laporan/store/{program_id}', [LaporanController::class, 'store'])->name('laporan.store');
-    Route::put('/laporan/update/{laporan}', [LaporanController::class, 'update'])->name('laporan.update');
-    Route::delete('/laporan/destroy/{laporan}', [laporanController::class, 'destroy'])->name('laporan.destroy');
-    Route::get('/laporan/file/{laporan_id}', [LaporanController::class, 'download'])->name('laporan.file');
+    Route::group(['middleware' => ['auth', 'checkPanitia']], function () { // Midlleware Panitia
+        Route::post('/laporan/store/{program_id}', [LaporanController::class, 'store'])->name('laporan.store');
+        Route::put('/laporan/update/{laporan}', [LaporanController::class, 'update'])->name('laporan.update');
+        Route::delete('/laporan/destroy/{laporan}', [laporanController::class, 'destroy'])->name('laporan.destroy');
+        Route::get('/laporan/file/{laporan_id}', [LaporanController::class, 'download'])->name('laporan.file');
+    });
 }); // ========== MIDDLEWARE ==========

@@ -58,8 +58,19 @@ class SuratMasukController extends Controller
             'perihal' => 'required',
             'asal' => 'required',
             'isi' => 'required',
-            'file' => 'required|mimes:pdf|max:2048',
+            'file' => 'required|mimes:pdf',
         ]);
+
+        // Pengecekan Ukuran File
+        if ($request->file('file')->getSize() > 2048 * 1024) {
+            // Notifikasi 
+            $notifikasi = array(
+                'pesan' => 'UKURAN FILE MAKSIMAL 2 MB',
+                'alert' => 'error',
+            );
+            // Pengalihan Halaman
+            return redirect()->back()->with($notifikasi);
+        }
 
         // Unggah File
         $fileSurat = time() . '.' . $request->file->extension();
@@ -140,7 +151,7 @@ class SuratMasukController extends Controller
             'perihal' => 'required',
             'asal' => 'required',
             'isi' => 'required',
-            'file' => 'mimes:pdf|max:2048',
+            'file' => 'mimes:pdf',
         ]);
 
         // Model
@@ -150,6 +161,17 @@ class SuratMasukController extends Controller
         if ($request->has('file')) {
             $path = 'suratmasuk-file/';
             File::delete($path . $suratmasuk->file);
+
+            // Pengecekan Ukuran File
+            if ($request->file('file')->getSize() > 2048 * 1024) {
+                // Notifikasi 
+                $notifikasi = array(
+                    'pesan' => 'UKURAN FILE MAKSIMAL 2 MB',
+                    'alert' => 'error',
+                );
+                // Pengalihan Halaman
+                return redirect()->back()->with($notifikasi);
+            }
 
             // Unggah File
             $fileSurat = time() . '.' . $request->file->extension();

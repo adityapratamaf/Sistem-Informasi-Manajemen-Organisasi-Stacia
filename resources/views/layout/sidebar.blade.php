@@ -2,7 +2,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
     {{-- PROFILE --}}
-    <a href="../../index3.html" class="brand-link mt-1 d-flex">
+    <a href="" class="brand-link mt-1 d-flex">
         <img src="{{ asset('template/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image"
             style="opacity: .8">
         <span class="brand-text font-weight-light"> <b>STACIA </b>UMJ</span>

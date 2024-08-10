@@ -124,7 +124,7 @@
                                         </div>
                                     @enderror
 
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label for="status">Status</label>
                                         <select name="status" class="form-control">
                                             <option value="Tunggu">Tunggu</option>
@@ -134,7 +134,10 @@
                                         <div class="alert alert-danger">
                                             Data Wajib Di Isi
                                         </div>
-                                    @enderror
+                                    @enderror --}}
+
+                                    <input type="hidden" name="status" class="form-control" autocomplete="off"
+                                        value="Tunggu">
 
                                     <div class="form-group">
                                         <label for="users_id">Panitia</label>

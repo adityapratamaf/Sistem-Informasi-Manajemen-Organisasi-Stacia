@@ -67,7 +67,7 @@ class AnggotaController extends Controller
             'telepon' => 'required',
             'pengalaman' => 'required',
             'jenis_anggota' => 'required',
-            'foto' => 'required|image|mimes:jpeg,jpg,png|max:2048',
+            'foto' => 'required|image|mimes:jpeg,jpg,png',
         ]);
 
         // Simpan Data Ke Database User 
@@ -87,7 +87,18 @@ class AnggotaController extends Controller
         // Simpan ID User
         $userId = $user->id;
 
-        // // Unggah File
+        // Pengecekan Ukuran File
+        if ($request->file('foto')->getSize() > 2048 * 1024) {
+            // Notifikasi 
+            $notifikasi = array(
+                'pesan' => 'UKURAN FILE MAKSIMAL 2 MB',
+                'alert' => 'error',
+            );
+            // Pengalihan Halaman
+            return redirect()->back()->with($notifikasi);
+        }
+
+        // Unggah File
         $fileFoto   = time() . '.' . $request->foto->extension();
         $request->foto->move(public_path('anggota-foto'), $fileFoto);
 
@@ -179,7 +190,7 @@ class AnggotaController extends Controller
             'telepon' => 'required',
             'pengalaman' => 'required',
             'jenis_anggota' => 'required',
-            'foto' => 'image|mimes:jpeg,jpg,png|max:2048',
+            'foto' => 'image|mimes:jpeg,jpg,png',
         ]);
 
         // Simpan Data Ke Database User 
@@ -199,6 +210,17 @@ class AnggotaController extends Controller
         if ($request->hasFile('foto')) {
             $path = 'anggota-foto/';
             File::delete($path . $anggota->foto);
+
+            // Pengecekan Ukuran File
+            if ($request->file('foto')->getSize() > 2048 * 1024) {
+                // Notifikasi 
+                $notifikasi = array(
+                    'pesan' => 'UKURAN FILE MAKSIMAL 2 MB',
+                    'alert' => 'error',
+                );
+                // Pengalihan Halaman
+                return redirect()->back()->with($notifikasi);
+            }
 
             // Unggah File
             $fileFoto   = time() . '.' . $request->foto->extension();

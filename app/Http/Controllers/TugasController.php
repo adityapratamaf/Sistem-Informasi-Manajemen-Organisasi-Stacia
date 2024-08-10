@@ -5,13 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Program;
 use App\Models\Tugas;
 use Illuminate\Http\Request;
-use App\Models\Item;
 use App\Models\Laporan;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class TugasController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -28,8 +27,15 @@ class TugasController extends Controller
         $tugas = Tugas::where('program_id', $program_id)->orderBy('created_at', 'DESC')->get();
         $laporan = Laporan::where('program_id', $program_id)->orderBy('created_at', 'DESC')->get();
 
+        // Middleware Jika User Yang Login Adalah Panitia Dari Suatu Program
+        $isPanitia = \DB::table('panitia')
+            ->where('users_id', Auth::id())
+            ->where('program_id', $program_id)
+            ->where('role', 'panitia')
+            ->exists();
+
         // Pengalihan Halaman
-        return view('program.pekerjaan', compact('program', 'tugas', 'laporan'));
+        return view('program.pekerjaan', compact('program', 'tugas', 'laporan', 'isPanitia'));
     }
 
     /**
