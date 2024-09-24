@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Anggota;
+use App\Models\Panitia;
 
 // Hapus File Lama 
 use File;
@@ -262,6 +263,19 @@ class AnggotaController extends Controller
         // Temukan Data Anggota & User Terkait
         $anggota = Anggota::find($id);
         $user = User::find($anggota->users_id);
+
+        // Cek User Masih Terdaftar Dalam Panitia Program
+        $isPanitia = DB::table('panitia')->where('users_id', $anggota->users_id)->exists();
+
+        if ($isPanitia) {
+            // Notifikasi
+            $notifikasi = [
+                'pesan' => 'ANGGOTA MASIH TERDAFTAR PANITIA',
+                'alert' => 'error',
+            ];
+
+            return redirect('/anggota')->with($notifikasi);
+        }
 
         // Hapus Foto
         $path = 'anggota-foto/';

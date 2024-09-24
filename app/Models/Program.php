@@ -12,7 +12,16 @@ class Program extends Model
     protected $table = 'program';
 
     protected $fillalbel = [
-        'nama', 'deskripsi', 'jenis', 'status', 'tgl_mulai,', 'tgl_selesai', 'proposal', 'lpj', 'pengurus_id', 'users_id'
+        'nama',
+        'deskripsi',
+        'jenis',
+        'status',
+        'tgl_mulai,',
+        'tgl_selesai',
+        'proposal',
+        'lpj',
+        'pengurus_id',
+        'users_id'
     ];
 
     // Relasi Ke Tabel Pengurus

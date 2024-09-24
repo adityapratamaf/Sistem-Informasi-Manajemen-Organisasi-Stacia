@@ -43,7 +43,7 @@
                                 <col width="20%">
                                 <col width="10%">
                                 <col width="10%">
-                                <col width="20%">
+                                <col width="25%">
                             </colgroup>
                             <thead>
                                 <tr>
@@ -103,6 +103,10 @@
                                             @endif
                                         </td>
                                         <td>
+                                            <a href="program/keuangan/{{ $data->id }}"
+                                                class="btn btn-primary btn-sm mx-2" data-toggle="tooltip"
+                                                data-placement="top" title="Keuangan"> <i class="fas fa-shopping-bag"></i>
+                                            </a>
                                             <a href="program/pekerjaan/{{ $data->id }}"
                                                 class="btn btn-success btn-sm mx-2" data-toggle="tooltip"
                                                 data-placement="top" title="Pekerjaan"> <i class="fas fa-server"></i>

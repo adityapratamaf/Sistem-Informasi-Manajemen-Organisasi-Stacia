@@ -163,7 +163,7 @@ class LaporanController extends Controller
         $laporan->tgl_selesai = $request->tgl_selesai;
         $laporan->tugas_id = $request->tugas_id;
 
-        // Menyimpan perubahan
+        // Simpan
         $laporan->save();
 
         // Notifikasi

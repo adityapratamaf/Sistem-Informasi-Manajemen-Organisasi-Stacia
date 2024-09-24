@@ -143,11 +143,63 @@
                 <div class="row">
                     <div class="col-12 col-sm-6 col-md-6">
                         <div class="info-box">
+                            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-server"></i></span>
+                            <div class="info-box-content">
+                                <div class="row">
+                                    <div class="col">
+                                        <span class="info-box-text">Jumlah Tugas</span>
+                                        <span class="info-box-number">
+                                            {{ $jumlahTugas }}
+                                        </span>
+                                    </div>
+
+                                    <div class="col">
+                                        <span class="info-box-text">Jumlah Tugas Selesai</span>
+                                        <span class="info-box-number">
+                                            {{ $jumlahTugasSelesai }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix hidden-md-up"></div>
+                    <div class="col-12 col-sm-6 col-md-6">
+                        <div class="info-box mb-3">
+                            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-server"></i></i></span>
+                            <div class="info-box-content">
+
+                                <div class="row">
+                                    <div class="col">
+                                        <span class="info-box-text">Jumlah Laporan</span>
+                                        <span class="info-box-number">
+                                            {{ $jumlahLaporan }}</span>
+                                    </div>
+
+                                    <div class="col">
+                                        <span class="info-box-text">Jumlah Laporan Selesai</span>
+                                        <span class="info-box-number">
+                                            {{ $jumlahLaporanSelesai }}</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                {{-- CARD DASHBOARD 3 --}}
+
+                {{-- CARD DASHBOARD 4 --}}
+                <div class="row">
+                    <div class="col-12 col-sm-6 col-md-6">
+                        <div class="info-box">
                             <span class="info-box-icon bg-info elevation-1"><i class="fas fa-money-check"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Total Pemasukan</span>
                                 <span class="info-box-number">
-                                    {{ $totalSuratMasuk }}
+                                    Rp. {{ number_format($jumlahPemasukan, 0, ',', '.') }}
                                 </span>
                             </div>
                         </div>
@@ -156,7 +208,8 @@
                     <div class="clearfix hidden-md-up"></div>
                     <div class="col-12 col-sm-6 col-md-6">
                         <div class="info-box mb-3">
-                            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-money-check"></i></i></span>
+                            <span class="info-box-icon bg-warning elevation-1"><i
+                                    class="fas fa-money-check"></i></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Total Pengeluaran</span>
                                 <span class="info-box-number">{{ $totalSuratKeterangan }}</span>
@@ -165,7 +218,7 @@
                     </div>
 
                 </div>
-                {{-- CARD DASHBOARD 3 --}}
+                {{-- CARD DASHBOARD 4 --}}
 
                 <div class="row">
                     <section class="col-lg-6 connectedSortable">

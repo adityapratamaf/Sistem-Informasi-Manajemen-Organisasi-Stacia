@@ -43,6 +43,7 @@ class ProgramController extends Controller
 
         // Pengalihan Halaman
         return view('program.daftar', ['program' => $program]);
+        // return view('program.daftar', compact('program'));
     }
 
     /**
@@ -363,5 +364,24 @@ class ProgramController extends Controller
 
         // Pengalihan Halaman
         return view('program.cetak', ['program' => $program]);
+    }
+
+    public function search(Request $request)
+    {
+        // Ambil semua tahun_periode untuk dropdown filter
+        $tahunPeriode = Pengurus::select('tahun_periode')->distinct()->get();
+
+        // Ambil tahun yang dipilih dari request (jika ada)
+        $selectedYear = $request->get('tahun_periode');
+
+        // Query untuk mendapatkan data program yang difilter
+        $programs = Program::when($selectedYear, function ($query, $selectedYear) {
+            return $query->whereHas('pengurus', function ($q) use ($selectedYear) {
+                $q->where('tahun_periode', $selectedYear);
+            });
+        })->get();
+
+        // Kirim data ke view
+        return view('program.index', compact('programs', 'tahunPeriode', 'selectedYear'));
     }
 }

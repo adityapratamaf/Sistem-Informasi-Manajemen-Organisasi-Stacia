@@ -10,11 +10,13 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SuratKeteranganController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\TugasController;
 use App\Models\Laporan;
+use App\Models\Pemasukan;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -29,9 +31,9 @@ use Illuminate\Support\Facades\Auth;
 */
 
 // ========== WELCOME LARAVEL ==========
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 // ========== TEMPLATE ==========
 // Route::get('/master', function () {
@@ -79,6 +81,8 @@ Route::group(['middleware' => 'auth'], function () { // ========== MIDDLEWARE ==
     // ========== PROGRAM ==========
     Route::get('program/download', [ProgramController::class, 'download']);
     Route::resource('program', ProgramController::class);
+    Route::get('/program', [ProgramController::class, 'index'])->name('program.index');
+
 
     // ========== TUGAS ==========
     Route::group(['middleware' => ['auth', 'checkPanitia']], function () { // Midlleware Panitia
@@ -94,5 +98,13 @@ Route::group(['middleware' => 'auth'], function () { // ========== MIDDLEWARE ==
         Route::put('/laporan/update/{laporan}', [LaporanController::class, 'update'])->name('laporan.update');
         Route::delete('/laporan/destroy/{laporan}', [laporanController::class, 'destroy'])->name('laporan.destroy');
         Route::get('/laporan/file/{laporan_id}', [LaporanController::class, 'download'])->name('laporan.file');
+    });
+
+    // ========== PEMASUKAN ==========
+    Route::group(['middleware' => ['auth', 'checkPanitia']], function () { // Midlleware Panitia
+        Route::get('/program/keuangan/{program_id}', [PemasukanController::class, 'index'])->name('program.keuangan');
+        Route::post('/pemasukan/store/{program_id}', [PemasukanController::class, 'store'])->name('pemasukan.store');
+        Route::put('/pemasukan/update/{pemasukan}', [PemasukanController::class, 'update'])->name('pemasukan.update');
+        Route::delete('/pemasukan/destroy/{pemasukan}', [PemasukanController::class, 'destroy'])->name('pemasukan.destroy');
     });
 }); // ========== MIDDLEWARE ==========
