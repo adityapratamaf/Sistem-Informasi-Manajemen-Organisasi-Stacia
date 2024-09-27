@@ -135,12 +135,7 @@
                                         <label for="status">Status</label>
                                         <select name="status" class="form-control">
                                             <option value="Tunggu" {{ $program->status == 'Tunggu' ? 'selected' : '' }}>
-                                                Tunggu</option>
-                                            <option value="Proses" {{ $program->status == 'Proses' ? 'selected' : '' }}>
-                                                Proses
-                                            </option>
-                                            <option value="Tunda" {{ $program->status == 'Tunda' ? 'selected' : '' }}>
-                                                Tunda
+                                                Tunggu
                                             </option>
                                             <option value="Sukses" {{ $program->status == 'Sukses' ? 'selected' : '' }}>
                                                 Sukses

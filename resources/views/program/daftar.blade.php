@@ -92,10 +92,6 @@
                                         <td>
                                             @if ($data->status == 'Tunggu')
                                                 <span class="badge badge-primary">Tunggu</span>
-                                            @elseif ($data->status == 'Proses')
-                                                <span class="badge badge-info">Proses</span>
-                                            @elseif ($data->status == 'Tunda')
-                                                <span class="badge badge-warning">Tunda</span>
                                             @elseif ($data->status == 'Sukses')
                                                 <span class="badge badge-success">Sukses</span>
                                             @elseif ($data->status == 'Batal')

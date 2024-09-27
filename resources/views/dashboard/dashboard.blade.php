@@ -4,6 +4,69 @@
     Dashboard
 @endsection
 
+@push('script')
+    {{-- Grafik Program Masing-Masing Tampilan Status --}}
+    <script>
+        const labels = @json($labels);
+        const dataSukses = @json($dataSukses);
+        const dataBatal = @json($dataBatal);
+        const dataTunggu = @json($dataTunggu);
+
+        const ctx = document.getElementById('programChart').getContext('2d');
+        const programChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                        label: 'Program Sukses',
+                        data: dataSukses,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Program Batal',
+                        data: dataBatal,
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Program Tunggu',
+                        data: dataTunggu,
+                        backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                        borderColor: 'rgba(255, 206, 86, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100, // Maksimal 100% untuk persentase
+                        ticks: {
+                            callback: function(value) {
+                                return value + "%"; // Tambahkan simbol %
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.dataset.label + ': ' + tooltipItem.raw + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+    {{-- Grafik Program Masing-Masing Tampilan Status --}}
+@endpush
+
 @section('isi')
     {{-- ======================================== --}}
     <div class="content-wrapper">
@@ -131,7 +194,7 @@
                         <div class="info-box mb-3">
                             <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-file-alt"></i></span>
                             <div class="info-box-content">
-                                <span class="info-box-text">New Members</span>
+                                <span class="info-box-text">Dokumen</span>
                                 <span class="info-box-number">6</span>
                             </div>
                         </div>
@@ -221,8 +284,10 @@
                 {{-- CARD DASHBOARD 4 --}}
 
                 <div class="row">
+                    {{-- Kiri --}}
                     <section class="col-lg-6 connectedSortable">
 
+                        {{-- Pengumuman --}}
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">
@@ -256,19 +321,24 @@
                             </div>
                         </div>
 
-                        <div class="card">
+                        {{-- Grafik Program New --}}
+                        {{-- <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">
                                     <i class="fas fa-chart-pie mr-1"></i>
-                                    Sales
+                                    Program
                                 </h3>
                                 <div class="card-tools">
                                     <ul class="nav nav-pills ml-auto">
                                         <li class="nav-item">
-                                            <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
+                                            <a class="nav-link active" href="#chartProgramTunggu"
+                                                data-toggle="tab">Tunggu</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
+                                            <a class="nav-link" href="#chartProgramSukses" data-toggle="tab">Sukses</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#chartProgramBatal" data-toggle="tab">Batal</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -276,24 +346,58 @@
                             <div class="card-body">
                                 <div class="tab-content p-0">
 
-                                    <div class="chart tab-pane active" id="revenue-chart"
-                                        style="position: relative; height: 300px;">
-                                        <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
+                                    <div class="chart tab-pane active" id="chartProgramTunggu"
+                                        style="position: relative; width: 100%; margin: auto;">
+                                        <canvas id="chartTunggu"></canvas>
                                     </div>
-                                    <div class="chart tab-pane" id="sales-chart"
-                                        style="position: relative; height: 300px;">
-                                        <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
+
+                                    <div class="chart tab-pane" id="chartProgramSukses"
+                                        style="position: relative; width: 100%; margin: auto;">
+                                        <canvas id="chartSukses"></canvas>
+                                    </div>
+
+                                    <div class="chart tab-pane" id="chartProgramBatal"
+                                        style="position: relative; width: 100%; margin: auto;">
+                                        <canvas id="chartBatal"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> --}}
+
+                    </section>
+                    {{-- Kiri --}}
+
+                    {{-- Kanan --}}
+                    <section class="col-lg-6 connectedSortable">
+
+                        {{-- Grafik Program --}}
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fas fa-chart-pie mr-1"></i>
+                                    Program
+                                </h3>
+                                <div class="card-tools">
+                                    {{-- <ul class="nav nav-pills ml-auto">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" href="#chartProgramTunggu"
+                                                data-toggle="tab">Tunggu</a>
+                                        </li>
+                                    </ul> --}}
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="tab-content p-0">
+                                    <div class="chart tab-pane active" id="chartProgramTunggu"
+                                        style="position: relative; width: 100%; margin: auto;">
+                                        <canvas id="programChart"></canvas>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                    </section>
-
-
-                    <section class="col-lg-6 connectedSortable">
-
-                        <div class="card bg-gradient-primary">
+                        {{-- Visitors --}}
+                        {{-- <div class="card bg-gradient-primary">
                             <div class="card-header border-0">
                                 <h3 class="card-title">
                                     <i class="fas fa-map-marker-alt mr-1"></i>
@@ -335,57 +439,10 @@
                                 </div>
 
                             </div>
-                        </div>
-
-
-                        {{-- <div class="card bg-gradient-info">
-                            <div class="card-header border-0">
-                                <h3 class="card-title">
-                                    <i class="fas fa-th mr-1"></i>
-                                    Sales Graph
-                                </h3>
-                                <div class="card-tools">
-                                    <button type="button" class="btn bg-info btn-sm" data-card-widget="collapse">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                    <button type="button" class="btn bg-info btn-sm" data-card-widget="remove">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <canvas class="chart" id="line-chart"
-                                    style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                            </div>
-
-                            <div class="card-footer bg-transparent">
-                                <div class="row">
-                                    <div class="col-4 text-center">
-                                        <input type="text" class="knob" data-readonly="true" value="20"
-                                            data-width="60" data-height="60" data-fgColor="#39CCCC">
-                                        <div class="text-white">Mail-Orders</div>
-                                    </div>
-
-                                    <div class="col-4 text-center">
-                                        <input type="text" class="knob" data-readonly="true" value="50"
-                                            data-width="60" data-height="60" data-fgColor="#39CCCC">
-                                        <div class="text-white">Online</div>
-                                    </div>
-
-                                    <div class="col-4 text-center">
-                                        <input type="text" class="knob" data-readonly="true" value="30"
-                                            data-width="60" data-height="60" data-fgColor="#39CCCC">
-                                        <div class="text-white">In-Store</div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
                         </div> --}}
 
-
-                        <div class="card bg-gradient-success">
+                        {{-- Calender --}}
+                        {{-- <div class="card bg-gradient-success">
                             <div class="card-header border-0">
                                 <h3 class="card-title">
                                     <i class="far fa-calendar-alt"></i>
@@ -421,15 +478,19 @@
                                 <div id="calendar" style="width: 100%"></div>
                             </div>
 
-                        </div>
+                        </div> --}}
 
                     </section>
-
+                    {{-- Kanan --}}
                 </div>
 
-
-            </div>
         </section>
+
+    </div>
+
+
+    </div>
+    </section>
 
     </div>
     {{-- ======================================== --}}
