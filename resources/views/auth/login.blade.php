@@ -99,7 +99,7 @@
                         </div>
 
                         <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block" id="login" disabled> <i
+                            <button type="submit" class="btn btn-primary btn-block btn-sm" id="login" disabled> <i
                                     class="nav-icon fas fa-sign-in-alt"></i>
                             </button>
                         </div>

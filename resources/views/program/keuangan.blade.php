@@ -21,6 +21,7 @@
     </script>
     {{-- Summernote --}}
 
+    {{-- Data Table --}}
     <script>
         $(function() {
             $('#example3').DataTable({
@@ -34,7 +35,9 @@
             });
         });
     </script>
+    {{-- Data Table --}}
 
+    {{-- Upload File Modal --}}
     <script>
         function uploadfile() {
             var input = document.getElementById('file-input');
@@ -43,7 +46,9 @@
             label.textContent = fileName;
         }
     </script>
+    {{-- Upload File Modal --}}
 
+    {{-- Update File Modal --}}
     <script>
         function updatefile(id) {
             const input = document.getElementById('file-input-' + id);
@@ -51,34 +56,27 @@
             label.textContent = input.files[0].name;
         }
     </script>
+    {{-- Update File Modal --}}
 
+    {{-- Tooltip Rupiah --}}
     <script>
-        function formatRupiah(angka) {
-            // Menghilangkan karakter yang bukan angka
-            let number_string = angka.value.replace(/[^,\d]/g, '').toString();
-            let split = number_string.split(',');
-            let sisa = split[0].length % 3;
-            let rupiah = split[0].substr(0, sisa);
-            let ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-            // Menambahkan pemisah ribuan
-            if (ribuan) {
-                let separator = sisa ? '.' : '';
-                rupiah += separator + ribuan.join('.');
-            }
-
-            // Menambahkan kembali bagian desimal jika ada
-            rupiah = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
-            angka.value = rupiah;
-        }
-
-        // Menghilangkan pemisah ribuan saat submit
-        document.querySelector('form').addEventListener('submit', function() {
-            const jumlahInput = document.getElementById('jumlah');
-            // Menghilangkan titik sebelum mengirim
-            jumlahInput.value = jumlahInput.value.replace(/\./g, '').replace(/,/g, '.');
+        // Inisialisasi tooltip
+        $(function() {
+            $('[data-toggle="tooltip"]').tooltip();
         });
+
+        function formatRupiah(value, id) {
+            // Format angka menjadi format rupiah
+            let formattedValue = new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR'
+            }).format(value);
+
+            // Update tooltip dengan nilai formattedValue
+            $('#' + id).attr('data-original-title', formattedValue).tooltip('show');
+        }
     </script>
+    {{-- Tooltip Rupiah --}}
 @endpush
 
 @section('isi')
@@ -152,7 +150,8 @@
                                                     </small>
                                                 </td>
                                                 <td>
-                                                    Rp. {{ number_format($data->jumlah, 0, ',', '.') }}
+                                                    {{-- Rp. {{ number_format($data->jumlah, 0, ',', '.') }} --}}
+                                                    Rp. {{ number_format($data->jumlah, 2, ',', '.') }}
                                                 </td>
 
                                                 <td>
@@ -192,16 +191,16 @@
                                     <tfoot>
                                         <tr>
                                             <th colspan="2">Jumlah Pemasukan</th>
-                                            <th colspan="2">Rp. {{ number_format($totalPemasukan, 0, ',', '.') }}
+                                            <th colspan="2">Rp. {{ number_format($totalPemasukan, 2, ',', '.') }}
                                         </tr>
                                         <tr>
                                             <th colspan="2">Jumlah Pengeluaran</th>
-                                            <th colspan="2">Rp. {{ number_format($totalPengeluaran, 0, ',', '.') }}
+                                            <th colspan="2">Rp. {{ number_format($totalPengeluaran, 2, ',', '.') }}
                                         </tr>
                                         <tr>
                                             <th colspan="2">Jumlah Saldo</th>
                                             <th colspan="2" style="color: {{ $totalSaldo < 0 ? 'red' : 'green' }}">
-                                                Rp. {{ number_format($totalSaldo, 0, ',', '.') }}
+                                                Rp. {{ number_format($totalSaldo, 2, ',', '.') }}
                                             </th>
                                         </tr>
                                     </tfoot>
@@ -354,26 +353,15 @@
 
                         <div class="form-group">
                             <label for="jumlah">Jumlah</label>
-                            <input type="number" name="jumlah" class="form-control" placeholder="Jumlah"
-                                autocomplete="off" value="{{ old('jumlah') }}">
+                            <input type="number" name="jumlah" id="jumlah" class="form-control"
+                                placeholder="Jumlah" autocomplete="off" value="{{ old('jumlah') }}"
+                                oninput="formatRupiah(this.value, 'jumlah')" data-toggle="tooltip" title="0">
                         </div>
                         @error('jumlah')
                             <div class="alert alert-danger">
                                 Data Wajib Di Isi
                             </div>
                         @enderror
-
-                        {{-- <div class="form-group">
-                            <label for="jumlah">Jumlah</label>
-                            <input type="text" name="jumlah" class="form-control" placeholder="Jumlah"
-                                autocomplete="off" id="jumlah" value="{{ old('jumlah') }}"
-                                onkeyup="formatRupiah(this)">
-                        </div>
-                        @error('jumlah')
-                            <div class="alert alert-danger">
-                                Data Wajib Di Isi
-                            </div>
-                        @enderror --}}
 
                         <div class="form-group">
                             <label for="file">File</label>
@@ -452,8 +440,10 @@
 
                             <div class="form-group">
                                 <label for="jumlah">Jumlah</label>
-                                <input type="number" name="jumlah" class="form-control" placeholder="Jumlah"
-                                    autocomplete="off" value="{{ $item->jumlah }}">
+                                <input type="number" name="jumlah" id="jumlahUbah" class="form-control"
+                                    placeholder="Jumlah" autocomplete="off" value="{{ $item->jumlah }}"
+                                    oninput="formatRupiah(this.value, 'jumlahUbah')" data-toggle="tooltip"
+                                    title="0">
                             </div>
                             @error('jumlah')
                                 <div class="alert alert-danger">

@@ -262,7 +262,7 @@
                             <div class="info-box-content">
                                 <span class="info-box-text">Total Pemasukan</span>
                                 <span class="info-box-number">
-                                    Rp. {{ number_format($jumlahPemasukan, 0, ',', '.') }}
+                                    Rp. {{ number_format($jumlahPemasukan, 2, ',', '.') }}
                                 </span>
                             </div>
                         </div>
@@ -374,7 +374,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">
-                                    <i class="fas fa-chart-pie mr-1"></i>
+                                    <i class="fas fa-briefcase mr-1"></i>
                                     Program
                                 </h3>
                                 <div class="card-tools">
