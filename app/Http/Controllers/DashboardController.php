@@ -7,6 +7,7 @@ use App\Models\Anggota;
 use App\Models\Laporan;
 use App\Models\Logistik;
 use App\Models\Pemasukan;
+use App\Models\Pengeluaran;
 use App\Models\SuratKeluar;
 use App\Models\SuratKeterangan;
 use App\Models\SuratMasuk;
@@ -45,6 +46,7 @@ class DashboardController extends Controller
         $jumlahLaporan = Laporan::count();
         $jumlahLaporanSelesai = Laporan::where('status', 'Selesai')->count();
         $jumlahPemasukan = Pemasukan::sum('jumlah');
+        $jumlahPengeluaran = Pengeluaran::sum('jumlah');
 
         // Mengambil jumlah program per status dan per bulan
         $programs = DB::table('program')
@@ -71,6 +73,6 @@ class DashboardController extends Controller
             $dataTunggu[] = $program->tunggu;
         }
 
-        return view('dashboard.dashboard', compact('user', 'totalAnggota', 'totalLogistik', 'totalSuratMasuk', 'totalSuratKeluar', 'totalSuratKeterangan', 'dataPengumuman', 'dataProgram', 'dataPengurus', 'jumlahTugas', 'jumlahTugasSelesai', 'jumlahLaporan', 'jumlahLaporanSelesai', 'jumlahPemasukan', 'labels', 'dataSukses', 'dataBatal', 'dataTunggu'));
+        return view('dashboard.dashboard', compact('user', 'totalAnggota', 'totalLogistik', 'totalSuratMasuk', 'totalSuratKeluar', 'totalSuratKeterangan', 'dataPengumuman', 'dataProgram', 'dataPengurus', 'jumlahTugas', 'jumlahTugasSelesai', 'jumlahLaporan', 'jumlahLaporanSelesai', 'jumlahPemasukan', 'jumlahPengeluaran', 'labels', 'dataSukses', 'dataBatal', 'dataTunggu'));
     }
 }

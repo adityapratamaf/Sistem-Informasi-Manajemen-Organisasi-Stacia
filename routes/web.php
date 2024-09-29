@@ -11,12 +11,14 @@ use App\Http\Controllers\SuratKeteranganController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PemasukanController;
+use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\TugasController;
 use App\Models\Laporan;
 use App\Models\Pemasukan;
+use App\Models\Pengeluaran;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -106,5 +108,12 @@ Route::group(['middleware' => 'auth'], function () { // ========== MIDDLEWARE ==
         Route::post('/pemasukan/store/{program_id}', [PemasukanController::class, 'store'])->name('pemasukan.store');
         Route::put('/pemasukan/update/{pemasukan}', [PemasukanController::class, 'update'])->name('pemasukan.update');
         Route::delete('/pemasukan/destroy/{pemasukan}', [PemasukanController::class, 'destroy'])->name('pemasukan.destroy');
+    });
+
+    // ========== PENGELUARAN ==========
+    Route::group(['middleware' => ['auth', 'checkPanitia']], function () { // Midlleware Panitia
+        Route::post('/pengeluaran/store/{program_id}', [PengeluaranController::class, 'store'])->name('pengeluaran.store');
+        Route::put('/pengeluaran/update/{pengeluaran}', [PengeluaranController::class, 'update'])->name('pengeluaran.update');
+        Route::delete('/pengeluaran/destroy/{pengeluaran}', [PengeluaranController::class, 'destroy'])->name('pengeluaran-destroy');
     });
 }); // ========== MIDDLEWARE ==========

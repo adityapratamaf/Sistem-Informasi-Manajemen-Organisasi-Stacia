@@ -60,7 +60,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Profil</a></li>
-                            <li class="breadcrumb-item active">Daftar</li>
+                            <li class="breadcrumb-item active">Detail</li>
                         </ol>
                     </div>
                 </div>

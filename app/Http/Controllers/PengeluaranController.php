@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Program;
-use App\Models\Panitia;
-use App\Models\Pemasukan;
 use App\Models\Pengeluaran;
+use App\Models\Program;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 // Hapus File Lama
 use File;
 
-class PemasukanController extends Controller
+class PengeluaranController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,33 +21,7 @@ class PemasukanController extends Controller
     {
         // ===== Daftar Data =====
 
-        // Temukan Program Berdasarkan ID
-        $program = Program::findOrFail($program_id);
-
-        // Ambil Semua Pemasukan & Pengeluaran Yang Berelasi Dengan Program
-        $pemasukan = Pemasukan::where('program_id', $program_id)->orderBy('created_at', 'DESC')->get();
-        $pengeluaran = Pengeluaran::where('program_id', $program_id)->orderBy('created_at', 'DESC')->get();
-
-
-        // Middleware Jika User Yang Login Adalah Panitia Dari Suatu Program
-        // $isPanitia = \DB::table('panitia')
-        //     ->where('users_id', Auth::id())
-        //     ->where('program_id', $program_id)
-        //     ->where('role', 'panitia')
-        //     ->exists();
-
-        // Middleware Jika User Yang Login Adalah Panitia Dari Suatu Program
-        $isPanitia = Panitia::where('users_id', Auth::id())
-            ->where('program_id', $program_id)
-            ->where('role', 'panitia')
-            ->exists();
-
-        // Fungsi Untuk Mengitung Pemasukan & Pengeluaran
-        $totalPemasukan = Pemasukan::where('program_id', $program_id)->sum('jumlah');
-        $totalPengeluaran = Pengeluaran::where('program_id', $program_id)->sum('jumlah');
-        $totalSaldo = $totalPemasukan - $totalPengeluaran;
-        // Pengalihan Halaman
-        return view('program.keuangan', compact('program', 'pemasukan', 'pengeluaran', 'isPanitia', 'totalPemasukan', 'totalPengeluaran', 'totalSaldo'));
+        // Tergabung Di Dalam Index Controller Pemasukan
     }
 
     /**
@@ -75,8 +47,8 @@ class PemasukanController extends Controller
         // Validasi Jika Form Tidak Di Isi
         $request->validate([
             'nama' => 'required',
-            'tanggal' => 'required|date',
-            'jumlah' => 'required|numeric',
+            'tanggal' => 'required',
+            'jumlah' => 'required',
             'file' => 'required|mimes:pdf,jpeg,png,jpg|max:2048',
         ]);
 
@@ -84,25 +56,21 @@ class PemasukanController extends Controller
         $program = Program::findOrFail($program_id);
 
         // Unggah File
-        $filePemasukan = time() . '.' . $request->file->extension();
-        $request->file->move(public_path('pemasukan-file'), $filePemasukan);
+        $filePengeluaran = time() . '.' . $request->file->extension();
+        $request->file->move(public_path('pengeluaran-file'), $filePengeluaran);
 
-        // Membuat Pemasukan Baru & Merelasikan Dengan Program
-        $pemasukan = new Pemasukan([
+        // Membuat Pengeluaran Baru & Merelasikan Dengan Program
+        $pengeluaran = new Pengeluaran([
             'nama' => $request->input('nama'),
             'tanggal' => $request->input('tanggal'),
             'jumlah' => $request->input('jumlah'),
-            'file' => $filePemasukan,
+            'file' => $filePengeluaran,
             'program_id' => $program_id,
             'users_id' => Auth::id(),
         ]);
 
-        // // Var Dump untuk Melihat Isi Data
-        // var_dump($pemasukan->toArray());
-        // die(); // Menghentikan eksekusi script untuk melihat hasil dump
-
         // Menyimpan Data Ke Database
-        $pemasukan->save();
+        $pengeluaran->save();
 
         // Notifikasi
         $notifikasi = [
@@ -143,9 +111,9 @@ class PemasukanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pemasukan $pemasukan)
+    public function update(Request $request, Pengeluaran $pengeluaran)
     {
-        //
+        // ===== Request Ubah Data =====
 
         // Validasi Jika Form Tidak Di Isi
         $request->validate([
@@ -157,25 +125,25 @@ class PemasukanController extends Controller
 
         // ===== Fungsi Hapus & Ubah File =====
         if ($request->hasFile('file')) {
-            $path = 'pemasukan-file/';
+            $path = 'pengeluaran-file/';
 
-            // Hapus File Pemasukan Lama Jika Ada
-            File::delete(public_path($path . $pemasukan->file));
+            // Hapus File Pengeluaran Lama Jika Ada
+            File::delete(public_path($path . $pengeluaran->file));
 
-            // Unggah File Pemasukan Baru
-            $filePemasukan = time() . '.' . $request->file->extension();
-            $request->file->move(public_path($path), $filePemasukan);
+            // Unggah File Pengeluaran Baru
+            $filePengeluaran = time() . '.' . $request->file->extension();
+            $request->file->move(public_path($path), $filePengeluaran);
 
-            $pemasukan->file = $filePemasukan;
+            $pengeluaran->file = $filePengeluaran;
         }
 
-        // Update Data Pemasukan
-        $pemasukan->nama = $request->nama;
-        $pemasukan->tanggal = $request->tanggal;
-        $pemasukan->jumlah = $request->jumlah;
+        // Update Data Pengeluaran
+        $pengeluaran->nama = $request->nama;
+        $pengeluaran->tanggal = $request->tanggal;
+        $pengeluaran->jumlah = $request->jumlah;
 
         // Simpan
-        $pemasukan->save();
+        $pengeluaran->save();
 
         // Notifikasi
         $notifikasi = [
@@ -184,7 +152,7 @@ class PemasukanController extends Controller
         ];
 
         // Pengalihan Halaman
-        return redirect()->route('program.keuangan', $pemasukan->program_id)->with($notifikasi);
+        return redirect()->route('program.keuangan', $pengeluaran->program_id)->with($notifikasi);
     }
 
     /**
@@ -193,19 +161,19 @@ class PemasukanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pemasukan $pemasukan)
+    public function destroy(Pengeluaran $pengeluaran)
     {
         // ===== Hapus Data =====
 
         // Model Ambil Program ID Dari Tugas Yang Dihapus
-        $program_id = $pemasukan->program_id;
+        $program_id = $pengeluaran->program_id;
 
         // Hapus File
-        $path = 'pemasukan-file/';
-        File::delete($path . $pemasukan->file);
+        $path = 'pengeluaran-file/';
+        File::delete($path . $pengeluaran->file);
 
         // Hapus Data
-        $pemasukan->delete();
+        $pengeluaran->delete();
 
         // Notifikasi
         $notifikasi = array(

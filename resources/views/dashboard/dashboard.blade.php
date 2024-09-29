@@ -275,7 +275,9 @@
                                     class="fas fa-money-check"></i></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Total Pengeluaran</span>
-                                <span class="info-box-number">{{ $totalSuratKeterangan }}</span>
+                                <span class="info-box-number">
+                                    Rp. {{ number_format($jumlahPengeluaran, 2, ',', '.') }}
+                                </span>
                             </div>
                         </div>
                     </div>
