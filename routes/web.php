@@ -50,13 +50,18 @@ route::get('/logout', [AuthController::class, 'logout']);
 Route::group(['middleware' => 'auth'], function () { // ========== MIDDLEWARE ==========
     // ========== DASHBOARD ==========
     Route::resource('dashboard', DashboardController::class);
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.dashboard');
 
     // ========== LOGISTIK ==========
-    Route::get('logistik/download', [LogistikController::class, 'download']);
-    Route::resource('logistik', LogistikController::class);
+    Route::middleware(['checkRole:1,4'])->group(function () { // ========== MIDDLEWARE ROLE USER ==========
+        Route::get('logistik/download', [LogistikController::class, 'download']);
+        Route::resource('logistik', LogistikController::class);
+    });
 
     // ========== PENGUMUMAN ==========
-    Route::resource('pengumuman', PengumumanController::class);
+    Route::middleware(['checkRole:1'])->group(function () { // ========== MIDDLEWARE ROLE ADMIN ==========
+        Route::resource('pengumuman', PengumumanController::class);
+    });
 
     // ========== SURAT MASUK ==========
     Route::get('suratmasuk/download', [SuratMasukController::class, 'download']);
@@ -66,9 +71,10 @@ Route::group(['middleware' => 'auth'], function () { // ========== MIDDLEWARE ==
     Route::get('suratkeluar/download', [SuratKeluarController::class, 'download']);
     Route::resource('suratkeluar', SuratKeluarController::class);
 
-    // ========== AGGOTA ==========
+    // ========== ANGGOTA ==========
     Route::get('anggota/download', [AnggotaController::class, 'download']);
     Route::resource('anggota', AnggotaController::class);
+    Route::get('anggota/{user}/login', [AnggotaController::class, 'login'])->name('login');
 
     // ========== SURAT KETERANGAN ==========
     Route::get('suratketerangan/download', [SuratKeteranganController::class, 'download']);

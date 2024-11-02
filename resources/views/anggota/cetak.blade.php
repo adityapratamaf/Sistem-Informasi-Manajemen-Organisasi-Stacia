@@ -69,11 +69,28 @@
                 size: landscape;
             }
         }
+
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 50px;
+            color: rgba(0, 0, 0, 0.1);
+            white-space: nowrap;
+            pointer-events: none;
+        }
     </style>
 
 </head>
 
 <body id="body">
+
+    <div class="watermark">
+        {{ $watermarknama }}
+        <br>
+        {{ $watermarkwaktu }}
+    </div>
 
     <div id="head">
         <table id="kop">

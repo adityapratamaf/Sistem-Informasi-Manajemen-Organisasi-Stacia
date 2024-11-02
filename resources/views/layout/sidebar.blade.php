@@ -54,7 +54,7 @@
                 </li>
 
                 <li class="nav-item {{ \Route::is('.*') ? 'menu-open' : '' }}">
-                    <a href="#"
+                    <a href="surat"
                         class="nav-link {{ \Route::is('suratkeluar.*', 'suratmasuk.*', 'suratketerangan.*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-archive"></i>
                         <p>
@@ -89,15 +89,18 @@
                     </ul>
                 </li>
 
-                <li class="nav-item">
-                    <a href="/logistik" class="nav-link {{ \Route::is('logistik.*') ? 'active' : '' }}"
-                        data-toggle="tooltip" data-placement="top" title="Logistik">
-                        <i class="nav-icon fas fa-tools"></i>
-                        <p>
-                            Logistik
-                        </p>
-                    </a>
-                </li>
+                @if (Auth::check() && (Auth::user()->role == 4 || Auth::user()->role == 1))
+                    <!-- Logistik -->
+                    <li class="nav-item">
+                        <a href="/logistik" class="nav-link {{ \Route::is('logistik.*') ? 'active' : '' }}"
+                            data-toggle="tooltip" data-placement="top" title="Logistik">
+                            <i class="nav-icon fas fa-tools"></i>
+                            <p>
+                                Logistik
+                            </p>
+                        </a>
+                    </li>
+                @endif
 
                 {{-- <li class="nav-item">
                     <a href="/peminjaman" class="nav-link {{ \Route::is('peminjaman.*') ? 'active' : '' }}"
@@ -156,37 +159,38 @@
                     </ul>
                 </li> --}}
 
-                <li class="nav-header">Manajemen</li>
+                @if (Auth::check() && (Auth::user()->role == 4 || Auth::user()->role == 1))
+                    <li class="nav-header">Manajemen</li>
+                    <li class="nav-item">
+                        <a href="/pengumuman" class="nav-link {{ \Route::is('pengumuman.*') ? 'active' : '' }}"
+                            data-toggle="tooltip" data-placement="top" title="Pengumuman">
+                            <i class="nav-icon fas fa-bullhorn"></i>
+                            <p>
+                                Pengumuman
+                            </p>
+                        </a>
+                    </li>
 
-                <li class="nav-item">
-                    <a href="/pengumuman" class="nav-link {{ \Route::is('pengumuman.*') ? 'active' : '' }}"
-                        data-toggle="tooltip" data-placement="top" title="Pengumuman">
-                        <i class="nav-icon fas fa-bullhorn"></i>
-                        <p>
-                            Pengumuman
-                        </p>
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a href="/pengurus" class="nav-link {{ \Route::is('pengurus.*') ? 'active' : '' }}"
+                            data-toggle="tooltip" data-placement="top" title="Pengurus">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>
+                                Pengurus
+                            </p>
+                        </a>
+                    </li>
 
-                <li class="nav-item">
-                    <a href="/pengurus" class="nav-link {{ \Route::is('pengurus.*') ? 'active' : '' }}"
-                        data-toggle="tooltip" data-placement="top" title="Pengurus">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>
-                            Pengurus
-                        </p>
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a href="/anggota" class="nav-link {{ \Route::is('anggota.*') ? 'active' : '' }}"
-                        data-toggle="tooltip" data-placement="top" title="Anggota">
-                        <i class="nav-icon fas fa-user"></i>
-                        <p>
-                            Anggota
-                        </p>
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a href="/anggota" class="nav-link {{ \Route::is('anggota.*') ? 'active' : '' }}"
+                            data-toggle="tooltip" data-placement="top" title="Anggota">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>
+                                Anggota
+                            </p>
+                        </a>
+                    </li>
+                @endif
 
                 <li class="nav-header">Konfigurasi</li>
 

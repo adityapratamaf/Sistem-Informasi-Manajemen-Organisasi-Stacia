@@ -114,6 +114,23 @@
                                 <strong><i class="fas fa-user mr-1"></i>Username</strong>
                                 <p class="text-muted">{{ $anggota->user->username }}</p>
                                 <hr>
+                                <strong><i class="fas fa-id-card-alt mr-1"></i>Jenis Akun</strong>
+                                <p class="text-muted">
+                                    @if ($anggota->user->role == 1)
+                                        Administrator
+                                    @elseif ($anggota->jenis_anggota == 2)
+                                        Sekertaris
+                                    @elseif ($anggota->jenis_anggota == 3)
+                                        Bendahara
+                                    @elseif ($anggota->jenis_anggota == 4)
+                                        Logistik
+                                    @elseif ($anggota->jenis_anggota == 5)
+                                        Kepala Bidang
+                                    @elseif ($anggota->jenis_anggota == 6)
+                                        User
+                                    @endif
+                                </p>
+                                <hr>
                                 <strong><i class="fas fa-envelope mr-1"></i> Email</strong>
                                 <p class="text-muted">{{ $anggota->user->email }}</p>
                                 <hr>

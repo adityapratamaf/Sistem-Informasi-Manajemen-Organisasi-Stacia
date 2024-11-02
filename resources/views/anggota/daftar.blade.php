@@ -43,18 +43,20 @@
                         <table id="example2" class="table table-hover table-condensed">
                             <colgroup>
                                 <col width="1%">
+                                <col width="20%">
                                 <col width="25%">
-                                <col width="25%">
                                 <col width="15%">
                                 <col width="15%">
-                                <col width="15%">
+                                <col width="5%">
+                                <col width="20%">
                             </colgroup>
                             <thead>
                                 <tr>
                                     <th class="text-center">No</th>
                                     <th>Nomor Registrasi Anggota</th>
                                     <th>Nama</th>
-                                    <th>Anggota</th>
+                                    <th>Jenis Anggota</th>
+                                    <th>Jenis Akun</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -78,6 +80,21 @@
                                             @endif
                                         </td>
                                         <td>
+                                            @if ($data->user->role == 1)
+                                                Administrator
+                                            @elseif ($data->user->role == 2)
+                                                Sekretaris
+                                            @elseif ($data->user->role == 3)
+                                                Bendahara
+                                            @elseif ($data->user->role == 4)
+                                                Logistik
+                                            @elseif ($data->user->role == 5)
+                                                Kepala Bidang
+                                            @elseif ($data->user->role == 6)
+                                                User
+                                            @endif
+                                        </td>
+                                        <td>
                                             @if ($data->user->status == 1)
                                                 <span class="badge badge-success">Aktif</span>
                                             @else
@@ -85,6 +102,10 @@
                                             @endif
                                         </td>
                                         <td>
+                                            <a href="{{ route('login', $data->user->id) }}"
+                                                class="btn btn-success btn-sm mx-2" data-toggle="tooltip"
+                                                data-placement="top" title="Login"> <i class="fas fa-user"></i>
+                                            </a>
                                             <a href="/anggota/{{ $data->id }}" class="btn btn-secondary btn-sm mx-2"
                                                 data-toggle="tooltip" data-placement="top" title="Detail"> <i
                                                     class="fas fa-sticky-note"></i>

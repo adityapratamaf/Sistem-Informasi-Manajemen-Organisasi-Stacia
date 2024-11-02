@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Anggota;
 use App\Models\Panitia;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 // Hapus File Lama 
 use File;
@@ -309,7 +311,27 @@ class AnggotaController extends Controller
         // Model
         $anggota = Anggota::with('user')->get();
 
+        $user = Auth::user();
+        $watermarknama = $user->nama;
+
+        $waktu = Carbon::now();
+        $watermarkwaktu = $waktu->format('Y-m-d H:i:s');
+
         // Pengalihan Halaman
-        return view('anggota.cetak', ['anggota' => $anggota]);
+        // return view('anggota.cetak', ['anggota' => $anggota, 'watermarknama' => $watermarknama ?? null]);
+        return view('anggota.cetak', [
+            'anggota' => $anggota,
+            'watermarknama' => $watermarknama,
+            'watermarkwaktu' => $watermarkwaktu // Menyertakan watermarkwaktu
+        ]);
+    }
+
+    public function login(User $user)
+    {
+        Auth::login($user);
+        return redirect('/dashboard');
+        // return redirect()->route('dashboard.dashboard');
+
+        return redirect()->back()->with('error', 'Unauthorized');
     }
 }

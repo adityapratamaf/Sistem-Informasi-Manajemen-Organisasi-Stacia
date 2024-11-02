@@ -194,8 +194,10 @@
                         <div class="info-box mb-3">
                             <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-file-alt"></i></span>
                             <div class="info-box-content">
-                                <span class="info-box-text">Dokumen</span>
-                                <span class="info-box-number">6</span>
+                                <span class="info-box-text">Total Ukuran File</span>
+                                <span class="info-box-number">
+                                    {{ number_format($totalSize / (1024 * 1024), 2) }} MB / 1.024 MB
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -486,6 +488,15 @@
                     {{-- Kanan --}}
                 </div>
 
+            </div>
+        </section>
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="callout callout-info">
+                    <p>this application is built using open source technology and using open licenses</p>
+                </div>
+            </div>
         </section>
 
     </div>

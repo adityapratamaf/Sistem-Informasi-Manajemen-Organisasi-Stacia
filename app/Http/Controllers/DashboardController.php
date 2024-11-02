@@ -19,6 +19,7 @@ use App\Models\Tugas;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\File;
 
 class DashboardController extends Controller
 {
@@ -29,7 +30,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        // ===== Menampilkan Data
+        // ===== Menampilkan Data =====
 
         // Model
         $user = User::find(Auth::id());
@@ -47,8 +48,9 @@ class DashboardController extends Controller
         $jumlahLaporanSelesai = Laporan::where('status', 'Selesai')->count();
         $jumlahPemasukan = Pemasukan::sum('jumlah');
         $jumlahPengeluaran = Pengeluaran::sum('jumlah');
+        //$totalSize = $this->calculateFolderSize(public_path());
 
-        // Mengambil jumlah program per status dan per bulan
+        // Fungsi Grafik Program
         $programs = DB::table('program')
             ->select(
                 DB::raw("DATE_FORMAT(tgl_mulai, '%M %Y') as bulan"),
@@ -72,7 +74,28 @@ class DashboardController extends Controller
             $dataBatal[] = $program->batal;
             $dataTunggu[] = $program->tunggu;
         }
+        // Fungsi Grafik Program
 
-        return view('dashboard.dashboard', compact('user', 'totalAnggota', 'totalLogistik', 'totalSuratMasuk', 'totalSuratKeluar', 'totalSuratKeterangan', 'dataPengumuman', 'dataProgram', 'dataPengurus', 'jumlahTugas', 'jumlahTugasSelesai', 'jumlahLaporan', 'jumlahLaporanSelesai', 'jumlahPemasukan', 'jumlahPengeluaran', 'labels', 'dataSukses', 'dataBatal', 'dataTunggu'));
+        // Fungsi Menghitung Total Size File Di Direktori Public
+        $totalSize = 0;
+        // Mengambil Semua File & Folder 
+        foreach (File::allFiles(public_path()) as $file) {
+            $totalSize += $file->getSize();
+        }
+
+        return view('dashboard.dashboard', compact('user', 'totalAnggota', 'totalLogistik', 'totalSuratMasuk', 'totalSuratKeluar', 'totalSuratKeterangan', 'dataPengumuman', 'dataProgram', 'dataPengurus', 'jumlahTugas', 'jumlahTugasSelesai', 'jumlahLaporan', 'jumlahLaporanSelesai', 'jumlahPemasukan', 'jumlahPengeluaran', 'labels', 'dataSukses', 'dataBatal', 'dataTunggu', 'totalSize'));
     }
+
+    // Fungsi Menghitung Total File Size Di Public
+    // private function calculateFolderSize($dir)
+    // {
+    //     $totalSize = 0;
+
+    //     // Mengambil semua file dan folder dalam direktori
+    //     foreach (File::allFiles($dir) as $file) {
+    //         $totalSize += $file->getSize();
+    //     }
+
+    //     return $totalSize;
+    // }
 }
