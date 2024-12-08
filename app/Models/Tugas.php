@@ -11,7 +11,7 @@ class Tugas extends Model
 
     protected $table = 'tugas';
 
-    protected $fillable = ['nama', 'deskripsi', 'status', 'program_id'];
+    protected $fillable = ['nama', 'deskripsi', 'status', 'users_id', 'program_id'];
 
     // Relasi Ke Tabel Program
     public function program()
@@ -23,5 +23,11 @@ class Tugas extends Model
     public function laporan()
     {
         return $this->hasMany(Laporan::class);
+    }
+
+    // Relasi Ke Tabel User
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'users_id');
     }
 }

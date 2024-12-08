@@ -51,6 +51,13 @@
             label.textContent = input.files[0].name;
         }
     </script>
+
+    {{-- Select 2 Multiple --}}
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
+    </script>
 @endpush
 
 @section('isi')
@@ -119,8 +126,12 @@
                                                 <td>
                                                     {{ $data->nama }}
                                                     <br>
-                                                    <small class="summernote">
-                                                        {!! $data->deskripsi !!}</small>
+                                                    <small class="sumernote">
+                                                        <i class="fas fa-user"></i> :
+                                                        {{ optional($data->users)->nama ?? 'Nama Tidak Tersedia' }}
+                                                        <br>
+                                                        {!! $data->deskripsi !!}
+                                                    </small>
                                                 </td>
                                                 <td>
                                                     @if ($data->status == 'Tunggu')
@@ -294,6 +305,20 @@
                         @enderror
 
                         <div class="form-group">
+                            <label for="users_id">Pelaksana</label>
+                            <select name="users_id" class="form-control" data-placeholder="Pelaksana">
+                                @foreach ($pelaksana as $data)
+                                    <option value="{{ $data->id }}">{{ $data->nama }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        @error('users_id')
+                            <div class="alert alert-danger">
+                                Data Wajib Di Isi
+                            </div>
+                        @enderror
+
+                        <div class="form-group">
                             <label for="deskripsi">Deskripsi</label>
                             <textarea name="deskripsi" id="summernote" class="form-control" placeholder="Deskripsi"></textarea>
                         </div>
@@ -354,6 +379,20 @@
                                 <textarea name="deskripsi" id="summernote2" class="form-control" placeholder="Deskripsi">{{ $data->deskripsi }}</textarea>
                             </div>
                             @error('deskripsi')
+                                <div class="alert alert-danger">
+                                    Data Wajib Di Isi
+                                </div>
+                            @enderror
+
+                            <div class="form-group">
+                                <label for="users_id">Pelaksana</label>
+                                <select name="users_id" class="form-control" data-placeholder="Pelaksana">
+                                    @foreach ($pelaksana as $data)
+                                        <option value="{{ $data->id }}">{{ $data->nama }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            @error('users_id')
                                 <div class="alert alert-danger">
                                     Data Wajib Di Isi
                                 </div>

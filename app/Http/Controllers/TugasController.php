@@ -6,22 +6,21 @@ use App\Models\Program;
 use App\Models\Tugas;
 use Illuminate\Http\Request;
 use App\Models\Laporan;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class TugasController extends Controller
 {
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index($program_id)
     {
         // ===== Daftar Data =====
 
         // Temukan Program Berdasarkan ID 
         $program = Program::findOrFail($program_id);
+
+        // Ambil Data Panitia Sesuai Program
+        $pelaksana = $program->user;
 
         // Ambil Semua Tugas Yang Berelasi Dengan Program Tersebut
         $tugas = Tugas::where('program_id', $program_id)->orderBy('created_at', 'DESC')->get();
@@ -35,25 +34,14 @@ class TugasController extends Controller
             ->exists();
 
         // Pengalihan Halaman
-        return view('program.pekerjaan', compact('program', 'tugas', 'laporan', 'isPanitia'));
+        return view('program.pekerjaan', compact('program', 'tugas', 'laporan', 'pelaksana', 'isPanitia'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request, $program_id)
     {
         // ===== Request Tambah Data =====
@@ -63,6 +51,7 @@ class TugasController extends Controller
             'nama' => 'required',
             'deskripsi' => 'required',
             'status' => 'required',
+            'users_id' => 'required|exists:users,id',
         ]);
 
         // Mengambil Pekerjaan Program Berdasarkan ID
@@ -73,6 +62,7 @@ class TugasController extends Controller
             'nama' => $request->input('nama'),
             'deskripsi' => $request->input('deskripsi'),
             'status' => $request->input('status'),
+            'users_id' => $request->input('users_id'),
             'program_id' => $program_id,
         ]);
 
@@ -89,35 +79,16 @@ class TugasController extends Controller
         return redirect()->route('program.pekerjaan', $program_id)->with($notifikasi);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Tugas $tugas)
     {
         // ===== Request Ubah Data =====
@@ -131,6 +102,7 @@ class TugasController extends Controller
         $tugas->nama = $request->nama;
         $tugas->deskripsi = $request->deskripsi;
         $tugas->status = $request->status;
+        $tugas->users_id = $request->users_id;
         $tugas->save();
 
         // Notifikasi
@@ -143,12 +115,6 @@ class TugasController extends Controller
         return redirect()->route('program.pekerjaan', $tugas->program_id)->with($notifikasi);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Tugas $tugas)
     {
         // ===== Hapus Data =====

@@ -87,7 +87,6 @@
             </div>
         </div>
 
-
         <section class="content">
             <div class="container-fluid">
 
@@ -494,7 +493,9 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="callout callout-info">
-                    <p>this application is built using open source technology and using open licenses</p>
+                    <p> <b>Open Declaration</b> this application is built using open source technology and using open
+                        licenses
+                    </p>
                 </div>
             </div>
         </section>

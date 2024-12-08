@@ -43,7 +43,7 @@
                 data-accordion="false">
 
                 <li class="nav-header">Menu</li>
-
+                <!-- Dashboard -->
                 <li class="nav-item">
                     <a href="/dashboard" class="nav-link {{ \Route::is('dashboard.*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -53,43 +53,47 @@
                     </a>
                 </li>
 
-                <li class="nav-item {{ \Route::is('.*') ? 'menu-open' : '' }}">
-                    <a href="surat"
-                        class="nav-link {{ \Route::is('suratkeluar.*', 'suratmasuk.*', 'suratketerangan.*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-archive"></i>
-                        <p>
-                            Surat
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="/suratmasuk" class="nav-link {{ \Route::is('suratmasuk.*') ? 'active' : '' }}">
-                                <i class="fas fa-file-alt nav-icon"></i>
-                                <p>Surat Masuk</p>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="/suratkeluar" class="nav-link {{ \Route::is('suratkeluar.*') ? 'active' : '' }}">
-                                <i class="fas fa-file-alt nav-icon"></i>
-                                <p>Surat Keluar</p>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="/suratketerangan"
-                                class="nav-link {{ \Route::is('suratketerangan.*') ? 'active' : '' }}">
-                                <i class="fas fa-file-alt nav-icon"></i>
-                                <p>Surat Keterangan</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                @if (Auth::check() && (Auth::user()->role == 1 || Auth::user()->role == 2))
+                    <!-- Surat -->
+                    <li class="nav-item {{ \Route::is('.*') ? 'menu-open' : '' }}">
+                        <a href="surat"
+                            class="nav-link {{ \Route::is('suratkeluar.*', 'suratmasuk.*', 'suratketerangan.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-archive"></i>
+                            <p>
+                                Surat
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/suratmasuk" class="nav-link {{ \Route::is('suratmasuk.*') ? 'active' : '' }}">
+                                    <i class="fas fa-file-alt nav-icon"></i>
+                                    <p>Surat Masuk</p>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/suratkeluar"
+                                    class="nav-link {{ \Route::is('suratkeluar.*') ? 'active' : '' }}">
+                                    <i class="fas fa-file-alt nav-icon"></i>
+                                    <p>Surat Keluar</p>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/suratketerangan"
+                                    class="nav-link {{ \Route::is('suratketerangan.*') ? 'active' : '' }}">
+                                    <i class="fas fa-file-alt nav-icon"></i>
+                                    <p>Surat Keterangan</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
 
-                @if (Auth::check() && (Auth::user()->role == 4 || Auth::user()->role == 1))
+                @if (Auth::check() && (Auth::user()->role == 1 || Auth::user()->role == 4))
                     <!-- Logistik -->
                     <li class="nav-item">
                         <a href="/logistik" class="nav-link {{ \Route::is('logistik.*') ? 'active' : '' }}"
@@ -102,16 +106,7 @@
                     </li>
                 @endif
 
-                {{-- <li class="nav-item">
-                    <a href="/peminjaman" class="nav-link {{ \Route::is('peminjaman.*') ? 'active' : '' }}"
-                        data-toggle="tooltip" data-placement="top" title="Peminjaman">
-                        <i class="nav-icon fas fa-luggage-cart"></i>
-                        <p>
-                            Peminjaman
-                        </p>
-                    </a>
-                </li> --}}
-
+                <!-- Program -->
                 <li class="nav-item">
                     <a href="/program" class="nav-link {{ \Route::is('program.*') ? 'active' : '' }}"
                         data-toggle="tooltip" data-placement="top" title="Program">
@@ -122,45 +117,9 @@
                     </a>
                 </li>
 
-                {{-- <li class="nav-item {{ \Route::is('dashboard.dashboard') ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ \Route::is('dashboard.dashboard') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-wallet"></i>
-                        <p>
-                            Keuangan
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="./index.html"
-                                class="nav-link {{ \Route::is('dashboard.dashboard') ? 'active' : '' }}">
-                                <i class="fas fa-receipt nav-icon"></i>
-                                <p>Kategori</p>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="./index.html"
-                                class="nav-link {{ \Route::is('dashboard.dashboard') ? 'active' : '' }}">
-                                <i class="fas fa-receipt nav-icon"></i>
-                                <p>Pemasukan</p>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="./index.html"
-                                class="nav-link {{ \Route::is('dashboard.dashboard') ? 'active' : '' }}">
-                                <i class="fas fa-receipt nav-icon"></i>
-                                <p>Pengeluaran</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li> --}}
-
-                @if (Auth::check() && (Auth::user()->role == 4 || Auth::user()->role == 1))
+                @if (Auth::check() && (Auth::user()->role == 1 || Auth::user()->role == 2))
                     <li class="nav-header">Manajemen</li>
+                    <!-- Pengumuman -->
                     <li class="nav-item">
                         <a href="/pengumuman" class="nav-link {{ \Route::is('pengumuman.*') ? 'active' : '' }}"
                             data-toggle="tooltip" data-placement="top" title="Pengumuman">
@@ -171,6 +130,7 @@
                         </a>
                     </li>
 
+                    <!-- Pengurus -->
                     <li class="nav-item">
                         <a href="/pengurus" class="nav-link {{ \Route::is('pengurus.*') ? 'active' : '' }}"
                             data-toggle="tooltip" data-placement="top" title="Pengurus">
@@ -181,6 +141,7 @@
                         </a>
                     </li>
 
+                    <!-- Anggota -->
                     <li class="nav-item">
                         <a href="/anggota" class="nav-link {{ \Route::is('anggota.*') ? 'active' : '' }}"
                             data-toggle="tooltip" data-placement="top" title="Anggota">
@@ -193,7 +154,7 @@
                 @endif
 
                 <li class="nav-header">Konfigurasi</li>
-
+                <!-- Profil -->
                 <li class="nav-item">
                     <a href="/profil" class="nav-link {{ \Route::is('profil.*') ? 'active' : '' }}"
                         data-toggle="tooltip" data-placement="top" title="Profil">
@@ -203,6 +164,8 @@
                         </p>
                     </a>
                 </li>
+
+                <!-- Keluar -->
                 <li class="nav-item">
                     <a href="/logout" class="nav-link {{ \Route::is('logout.*') ? 'active' : '' }}"
                         data-toggle="tooltip" data-placement="top" title="Keluar">

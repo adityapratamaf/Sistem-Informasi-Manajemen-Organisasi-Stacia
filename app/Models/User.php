@@ -27,7 +27,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password', 'remember_token'
+        'password',
+        'remember_token'
     ];
 
     /**
@@ -55,5 +56,11 @@ class User extends Authenticatable
     public function panitia()
     {
         return $this->belongsToMany(Program::class, 'panitia')->withPivot('role');
+    }
+
+    // Relasi Ke Tabel Tugas = 1 User Mempunyai Banyak Tugas
+    public function tugas()
+    {
+        return $this->hasMany(Tugas::class, 'nama', 'deskripsi', 'status', 'users_id');
     }
 }

@@ -102,10 +102,12 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ route('login', $data->user->id) }}"
-                                                class="btn btn-success btn-sm mx-2" data-toggle="tooltip"
-                                                data-placement="top" title="Login"> <i class="fas fa-user"></i>
-                                            </a>
+                                            @if (Auth::check() && Auth::user()->role == 1)
+                                                <a href="{{ route('login', $data->user->id) }}"
+                                                    class="btn btn-success btn-sm mx-2" data-toggle="tooltip"
+                                                    data-placement="top" title="Login"> <i class="fas fa-user"></i>
+                                                </a>
+                                            @endif
                                             <a href="/anggota/{{ $data->id }}" class="btn btn-secondary btn-sm mx-2"
                                                 data-toggle="tooltip" data-placement="top" title="Detail"> <i
                                                     class="fas fa-sticky-note"></i>

@@ -15,11 +15,7 @@ use File;
 
 class ProgramController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         // Model Data
@@ -46,11 +42,6 @@ class ProgramController extends Controller
         // return view('program.daftar', compact('program'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         // ===== Tambah Data =====
@@ -61,12 +52,6 @@ class ProgramController extends Controller
         return view('program.tambah', ['pengurus' => $pengurus, 'user' => $user]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         // ===== Request Tambah Data =====
@@ -156,12 +141,6 @@ class ProgramController extends Controller
         return Redirect('/program')->with($notifikasi);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         // ===== Detail Data =====
@@ -173,12 +152,6 @@ class ProgramController extends Controller
         return view('program.detail', compact('program'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         // ===== Ubah Data =====
@@ -210,13 +183,6 @@ class ProgramController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         // ===== Request Update Data =====
@@ -313,12 +279,6 @@ class ProgramController extends Controller
         return Redirect('/program')->with($notifikasi);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         // Mengambil Data Program Berdasarkan ID
@@ -350,11 +310,6 @@ class ProgramController extends Controller
         return redirect('/program')->with($notifikasi);
     }
 
-    /**
-     * Download a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function download()
     {
         // ===== Download PDF Data =====
@@ -364,24 +319,5 @@ class ProgramController extends Controller
 
         // Pengalihan Halaman
         return view('program.cetak', ['program' => $program]);
-    }
-
-    public function search(Request $request)
-    {
-        // Ambil semua tahun_periode untuk dropdown filter
-        $tahunPeriode = Pengurus::select('tahun_periode')->distinct()->get();
-
-        // Ambil tahun yang dipilih dari request (jika ada)
-        $selectedYear = $request->get('tahun_periode');
-
-        // Query untuk mendapatkan data program yang difilter
-        $programs = Program::when($selectedYear, function ($query, $selectedYear) {
-            return $query->whereHas('pengurus', function ($q) use ($selectedYear) {
-                $q->where('tahun_periode', $selectedYear);
-            });
-        })->get();
-
-        // Kirim data ke view
-        return view('program.index', compact('programs', 'tahunPeriode', 'selectedYear'));
     }
 }

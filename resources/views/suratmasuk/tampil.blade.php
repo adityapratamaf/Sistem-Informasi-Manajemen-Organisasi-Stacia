@@ -12,7 +12,6 @@
             <div class="container-fluid">
                 <div class="row mb-0">
                     <div class="col-sm-6">
-                        {{-- <h5 class="m-0 float-sm-left"> # </h5> --}}
                         <a href="/suratmasuk/create" class="mx-2 float-sm-left btn btn-primary btn-sm" data-toggle="tooltip"
                             data-placement="top" title="Tambah"> <i class="fas fa-database"></i>
                         </a>
