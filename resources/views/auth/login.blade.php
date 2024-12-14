@@ -124,7 +124,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    Saya Bertindak Atas Nama Kepentingan Mapala Stacia UMJ Dalam Setiap Penggunaan Data Maupun Informasi
+                    Saya Bertindak Atas Nama Kepentingan Mapala STACIA UMJ Dalam Setiap Penggunaan Data Maupun Informasi
                     & Melindungi Data Dari Akses Pihak Yang Tidak Bertanggung Jawab.
                 </div>
             </div>

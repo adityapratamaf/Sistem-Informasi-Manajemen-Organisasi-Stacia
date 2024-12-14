@@ -8,6 +8,7 @@
     <!-- Memuat JavaScript Summernote -->
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 
+    {{-- CSS --}}
     <style>
         #body {
             margin-top: 20px;
@@ -64,12 +65,6 @@
             color: white;
         }
 
-        @media print {
-            @page {
-                size: landscape;
-            }
-        }
-
         .watermark {
             position: absolute;
             top: 50%;
@@ -106,12 +101,14 @@
 
 <body id="body">
 
+    {{-- Watermark --}}
     <div class="watermark">
         {{ $watermarknama }}
         <br>
         {{ $watermarkwaktu }}
     </div>
 
+    {{-- Kop Surat --}}
     <div id="head">
         <table id="kop">
             <tr>
@@ -120,7 +117,7 @@
                 </th>
                 <th>
                     <div>
-                        <h1> <b>DAFTAR DATA ANGGOTA <br> MAPALA STACIA UMJ </b> </h1>
+                        <h1> <b>DETAIL DATA PROGRAM <br> MAPALA STACIA UMJ </b> </h1>
                         <font size="3">Universitas Muhammadiyah Jakarta</font> <br>
                         <font size="2">Jl. K.H. Ahmad Dahlan, Cireundeu, Ciputat Timur, Kota
                             Tangerang Selatan, Banten 15419</font>
@@ -130,51 +127,99 @@
         </table>
     </div>
 
+    {{-- Garis --}}
     <hr id="double">
 
+    {{-- Konten --}}
     <div id="content">
+
+        {{ $program->nama }}
+
         <table id="table">
             <colgroup>
                 <col width="3%">
-                <col width="20%">
-                <col width="20%">
-                <col width="20%">
-                <col width="20%">
-                <col width="20%">
-                <col width="20%">
+                <col width="41%">
+                <col width="41%">
+                <col width="15%">
             </colgroup>
             <tr>
                 <th>No</th>
-                <th>NRA</th>
-                <th>Nama</th>
-                <th>Status Anggota</th>
-                <th>Tempat Tanggal Lahir</th>
-                <th>Email</th>
-                <th>Telepon</th>
+                <th>Tugas</th>
+                <th>Laporan</th>
+                <th>Status</th>
             </tr>
             <?php $nomor = 1; ?>
-            @foreach ($anggota as $data)
+
+            @if ($tugas->isEmpty())
                 <tr>
-                    <td>{{ $nomor++ }}</td>
-                    <td>{{ $data->nra }}</td>
-                    <td>{{ $data->user->nama }}</td>
                     <td>
-                        @if ($data->user->role == 1)
-                            Anggota Biasa
-                        @elseif ($data->jenis_anggota == 2)
-                            Anggota Istimewa
-                        @elseif ($data->jenis_anggota == 3)
-                            Anggota Luar Biasa
-                        @elseif ($data->jenis_anggota == 4)
-                            Anggota Kehormatan
-                        @endif
+                        <p>Tidak Ada Data Pekerjaan</p>
                     </td>
-                    <td>{{ $data->tempat_lahir }}, {{ $data->tanggal_lahir }}</td>
-                    <td>{{ $data->user->email }}</td>
-                    <td>{{ $data->telepon }}</td>
                 </tr>
-            @endforeach
+            @else
+                @foreach ($tugas as $data)
+                    <tr>
+                        <td>{{ $nomor++ }}</td>
+                        <td style="text-align: left;">
+                            {{ $data->nama }}
+                            <br>
+                            <small>
+                                Deskripsi : {{ strip_tags($data->deskripsi) }}
+                                <br>
+                                Pelaksana : {{ $data->users->nama }}
+                            </small>
+                        </td>
+                        <td style="text-align: left;">
+                            @php
+                                // Cari laporan yang terkait dengan tugas ini
+                                $laporanItem = $laporan->where('tugas_id', $data->id)->first();
+
+                                // Hapus tag <p> atau tag HTML lainnya dari deskripsi laporan
+                                $deskripsiLaporan = $laporanItem
+                                    ? str_replace(['<p>', '</p>'], '', $laporanItem->deskripsi)
+                                    : '-';
+
+                                // Ambil tanggal mulai jika ada, atau beri tanda '-'
+                                $tanggalMulai = $laporanItem
+                                    ? \Carbon\Carbon::parse($laporanItem->tgl_mulai)
+                                        ->locale('id')
+                                        ->isoFormat('dddd D MMMM YYYY')
+                                    : '-';
+
+                                // Ambil tanggal mulai jika ada, atau beri tanda '-'
+                                $tanggalSelesai = $laporanItem
+                                    ? \Carbon\Carbon::parse($laporanItem->tgl_selesai)
+                                        ->locale('id')
+                                        ->isoFormat('dddd D MMMM YYYY')
+                                    : '-';
+
+                                // Ambil pelaksana berdasarkan users_id
+                                $pelaksana = $laporanItem && $laporanItem->users ? $laporanItem->users->nama : '-';
+                            @endphp
+
+                            <span>{{ $deskripsiLaporan }}</span>
+                            <br>
+                            <small>
+                                Waktu : {{ $tanggalMulai }} - {{ $tanggalSelesai }}
+                                <br>
+                                Pelaksana : {{ $pelaksana }}
+                            </small>
+                        </td>
+                        <td>
+                            {{ $data->status }}
+                        </td>
+                    </tr>
+                @endforeach
+            @endif
         </table>
+
+
+
+
+
+
+
+
     </div>
 
     <div id="footer">

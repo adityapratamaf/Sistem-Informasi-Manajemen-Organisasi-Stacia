@@ -45,7 +45,7 @@ class Program extends Model
     // Relasi Ke Tabel Tugas
     public function tugas()
     {
-        return $this->hasMany(Tugas::class, 'nama', 'deskripsi', 'status', 'program_id');
+        return $this->hasMany(Tugas::class, 'nama', 'deskripsi', 'status', 'users_id', 'program_id');
     }
 
     // Relasi Ke Tabel Laporan

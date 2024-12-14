@@ -19,6 +19,7 @@ use App\Http\Controllers\TugasController;
 use App\Models\Laporan;
 use App\Models\Pemasukan;
 use App\Models\Pengeluaran;
+use App\Models\Tugas;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -33,9 +34,9 @@ use Illuminate\Support\Facades\Auth;
 */
 
 // ========== WELCOME LARAVEL ==========
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 // ========== TEMPLATE ==========
 // Route::get('/master', function () {
@@ -91,9 +92,9 @@ Route::group(['middleware' => 'auth'], function () { // ========== MIDDLEWARE ==
     Route::resource('program', ProgramController::class);
     Route::get('/program', [ProgramController::class, 'index'])->name('program.index');
 
-
     // ========== TUGAS ==========
     Route::group(['middleware' => ['auth', 'checkPanitia']], function () { // Midlleware Panitia
+        Route::get('/program/pekerjaan/{program_id}/download', [TugasController::class, 'download'])->name('program.cetakpekerjaan');
         Route::get('/program/pekerjaan/{program_id}', [TugasController::class, 'index'])->name('program.pekerjaan');
         Route::post('/tugas/store/{program_id}', [TugasController::class, 'store'])->name('tugas.store');
         Route::put('/tugas/update/{tugas}', [TugasController::class, 'update'])->name('tugas.update');

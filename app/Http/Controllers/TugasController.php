@@ -7,6 +7,7 @@ use App\Models\Tugas;
 use Illuminate\Http\Request;
 use App\Models\Laporan;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class TugasController extends Controller
@@ -133,5 +134,34 @@ class TugasController extends Controller
 
         // Pengalihan Halaman
         return redirect()->route('program.pekerjaan', $program_id)->with($notifikasi);
+    }
+
+    public function download($program_id)
+    {
+        // ===== Download PDF Data =====
+
+        // Ambil Data Program Berdasarkan ID
+        $program = Program::findOrFail($program_id);
+
+        // Ambil Semua Tugas Yang Berelasi Dengan Program Tersebut
+        $tugas = Tugas::where('program_id', $program_id)->orderBy('created_at', 'DESC')->get();
+        $laporan = Laporan::where('program_id', $program_id)->get();
+
+        // Watermark User Login Model
+        $user = Auth::user();
+        $watermarknama = $user->nama;
+
+        // Watermark Waktu
+        $waktu = Carbon::now();
+        $watermarkwaktu = $waktu->format('Y-m-d H:i:s');
+
+        // Pengalihan Halaman
+        return view('program.cetakpekerjaan', [
+            'program' => $program,
+            'tugas' => $tugas,
+            'laporan' => $laporan,
+            'watermarknama' => $watermarknama,
+            'watermarkwaktu' => $watermarkwaktu,
+        ]);
     }
 }

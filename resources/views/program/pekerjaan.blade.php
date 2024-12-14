@@ -65,19 +65,32 @@
 
         <div class="content-header">
             <div class="container-fluid">
+
                 <div class="row mb-0">
+
                     <div class="col-sm-6">
+                        <!-- Tombol Kembali Halaman Program -->
                         <a href="/program" class="mx-2 float-sm-left btn btn-primary btn-sm" data-toggle="tooltip"
                             data-placement="top" title="Kembali"> <i class="fas fa-step-backward"></i>
                         </a>
+
+                        <!-- Tombol Print -->
+                        <a href="/program/pekerjaan/{{ $program->id }}/download"
+                            class="m-0 float-sm-left btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top"
+                            title="Print" id="downloadBtn" target="_blank">
+                            <i class="fas fa-print"></i>
+                        </a>
                     </div>
+
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Program</a></li>
                             <li class="breadcrumb-item active">Pekerjaan</li>
                         </ol>
                     </div>
+
                 </div>
+
             </div>
         </div>
 
