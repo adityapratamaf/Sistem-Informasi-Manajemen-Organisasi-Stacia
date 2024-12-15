@@ -48,7 +48,7 @@ Route::get('/login', [AuthController::class, 'index'])->middleware('guest');
 Route::post('/store', [AuthController::class, 'store']);
 route::get('/logout', [AuthController::class, 'logout']);
 
-Route::group(['middleware' => 'auth'], function () { // ========== MIDDLEWARE ==========
+Route::group(['middleware' => 'auth'], function () { // ========== MIDDLEWARE LOGIN ==========
     // ========== DASHBOARD ==========
     Route::resource('dashboard', DashboardController::class);
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.dashboard');
@@ -60,37 +60,51 @@ Route::group(['middleware' => 'auth'], function () { // ========== MIDDLEWARE ==
     });
 
     // ========== PENGUMUMAN ==========
-    Route::middleware(['checkRole:1'])->group(function () { // ========== MIDDLEWARE ROLE ADMIN ==========
+    Route::middleware(['checkRole:1,2'])->group(function () { // ========== MIDDLEWARE ROLE ADMIN ==========
         Route::resource('pengumuman', PengumumanController::class);
     });
 
     // ========== SURAT MASUK ==========
-    Route::get('suratmasuk/download', [SuratMasukController::class, 'download']);
-    Route::resource('suratmasuk', SuratMasukController::class);
+    Route::middleware(['checkRole:1,2'])->group(function () { // ========== MIDDLEWARE ROLE ADMIN ==========
+        Route::get('suratmasuk/download', [SuratMasukController::class, 'download']);
+        Route::resource('suratmasuk', SuratMasukController::class);
+    });
 
     // ========== SURAT KELUAR ==========
-    Route::get('suratkeluar/download', [SuratKeluarController::class, 'download']);
-    Route::resource('suratkeluar', SuratKeluarController::class);
+    Route::middleware(['checkRole:1,2'])->group(function () { // ========== MIDDLEWARE ROLE ADMIN ==========
+        Route::get('suratkeluar/download', [SuratKeluarController::class, 'download']);
+        Route::resource('suratkeluar', SuratKeluarController::class);
+    });
 
     // ========== ANGGOTA ==========
-    Route::get('anggota/download', [AnggotaController::class, 'download']);
-    Route::resource('anggota', AnggotaController::class);
-    Route::get('anggota/{user}/login', [AnggotaController::class, 'login'])->name('login');
+    Route::middleware(['checkRole:1,2'])->group(function () { // ========== MIDDLEWARE ROLE ADMIN ==========
+        Route::get('anggota/download', [AnggotaController::class, 'download']);
+        Route::resource('anggota', AnggotaController::class);
+        Route::get('anggota/{user}/login', [AnggotaController::class, 'login'])->name('login');
+    });
 
     // ========== SURAT KETERANGAN ==========
-    Route::get('suratketerangan/download', [SuratKeteranganController::class, 'download']);
-    Route::resource('suratketerangan', SuratKeteranganController::class);
+    Route::middleware(['checkRole:1,2'])->group(function () { // ========== MIDDLEWARE ROLE ADMIN ==========
+        Route::get('suratketerangan/download', [SuratKeteranganController::class, 'download']);
+        Route::resource('suratketerangan', SuratKeteranganController::class);
+    });
 
     // ========== PROFIL ==========
-    Route::resource('profil', ProfilController::class);
+    Route::middleware(['checkRole:1,2,3,4,5,6'])->group(function () { // ========== MIDDLEWARE ROLE ADMIN ==========
+        Route::resource('profil', ProfilController::class);
+    });
 
     // ========== PENGURUS ==========
-    Route::resource('pengurus', PengurusController::class);
+    Route::middleware(['checkRole:1,2'])->group(function () { // ========== MIDDLEWARE ROLE ADMIN ==========
+        Route::resource('pengurus', PengurusController::class);
+    });
 
     // ========== PROGRAM ==========
-    Route::get('program/download', [ProgramController::class, 'download']);
-    Route::resource('program', ProgramController::class);
-    Route::get('/program', [ProgramController::class, 'index'])->name('program.index');
+    Route::middleware(['checkRole:1,2,3,4,5,6'])->group(function () { // ========== MIDDLEWARE ROLE ADMIN ==========
+        Route::get('program/download', [ProgramController::class, 'download']);
+        Route::resource('program', ProgramController::class);
+        Route::get('/program', [ProgramController::class, 'index'])->name('program.index');
+    });
 
     // ========== TUGAS ==========
     Route::group(['middleware' => ['auth', 'checkPanitia']], function () { // Midlleware Panitia
@@ -111,6 +125,7 @@ Route::group(['middleware' => 'auth'], function () { // ========== MIDDLEWARE ==
 
     // ========== PEMASUKAN ==========
     Route::group(['middleware' => ['auth', 'checkPanitia']], function () { // Midlleware Panitia
+        Route::get('/program/keuangan/{program_id}/download', [PemasukanController::class, 'download'])->name('program.cetakkeuangan');
         Route::get('/program/keuangan/{program_id}', [PemasukanController::class, 'index'])->name('program.keuangan');
         Route::post('/pemasukan/store/{program_id}', [PemasukanController::class, 'store'])->name('pemasukan.store');
         Route::put('/pemasukan/update/{pemasukan}', [PemasukanController::class, 'update'])->name('pemasukan.update');

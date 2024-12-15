@@ -111,17 +111,22 @@
                                                 data-toggle="tooltip" data-placement="top" title="Detail"> <i
                                                     class="fas fa-sticky-note"></i>
                                             </a>
-                                            <a href="/program/{{ $data->id }}/edit" class="btn btn-info btn-sm mx-2"
-                                                data-toggle="tooltip" data-placement="top" title="Ubah"> <i
-                                                    class="fas fa-pen-alt"></i>
-                                            </a>
-                                            <form action="/program/{{ $data->id }}" class="d-inline" method="POST"
-                                                onclick="return confirm('Hapus Data ?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-danger btn-sm mx-2" data-toggle="tooltip"
-                                                    data-placement="top" title="Hapus"> <i class="fas fa-trash-alt"></i>
-                                                </button>
+
+                                            @if (Auth::check() && (Auth::user()->role == 1 || Auth::user()->role == 5))
+                                                <a href="/program/{{ $data->id }}/edit"
+                                                    class="btn btn-info btn-sm mx-2" data-toggle="tooltip"
+                                                    data-placement="top" title="Ubah"> <i class="fas fa-pen-alt"></i>
+                                                </a>
+                                                <form action="/program/{{ $data->id }}" class="d-inline" method="POST"
+                                                    onclick="return confirm('Hapus Data ?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-danger btn-sm mx-2" data-toggle="tooltip"
+                                                        data-placement="top" title="Hapus"> <i
+                                                            class="fas fa-trash-alt"></i>
+                                                    </button>
+                                            @endif
+
                                             </form>
                                         </td>
                                     </tr>

@@ -76,7 +76,7 @@
             pointer-events: none;
         }
 
-        /* Mengulang watermark di setiap halaman cetak */
+        /* Mengulang Watermark Setiap Halaman */
         @media print {
             .watermark {
                 position: fixed;
@@ -117,7 +117,7 @@
                 </th>
                 <th>
                     <div>
-                        <h1> <b>LAPORAN PEKERJAAN PROGRAM <br> MAPALA STACIA UMJ </b> </h1>
+                        <h1> <b>LAPORAN KEUANGAN PROGRAM <br> MAPALA STACIA UMJ </b> </h1>
                         <font size="3">Universitas Muhammadiyah Jakarta</font> <br>
                         <font size="2">Jl. K.H. Ahmad Dahlan, Cireundeu, Ciputat Timur, Kota
                             Tangerang Selatan, Banten 15419</font>
@@ -141,89 +141,42 @@
         </table>
 
         <table id="table">
-            <colgroup>
-                <col width="3%">
-                <col width="41%">
-                <col width="41%">
-                <col width="15%">
-            </colgroup>
-            <tr>
-                <th>No</th>
-                <th>Tugas</th>
-                <th>Laporan</th>
-                <th>Status</th>
-            </tr>
-            <?php $nomor = 1; ?>
-
-            @if ($tugas->isEmpty())
+            <thead>
+                <colgroup>
+                    <col width="15%">
+                    <col width="40%">
+                    <col width="15%">
+                    <col width="15%">
+                    <col width="15%">
+                </colgroup>
                 <tr>
-                    <td>
-                        <p>Tidak Ada Data Pekerjaan</p>
-                    </td>
+                    <th>Tanggal</th>
+                    <th>Keterangan</th>
+                    <th>Debet</th>
+                    <th>Kredit</th>
+                    <th>Saldo</th>
                 </tr>
-            @else
-                @foreach ($tugas as $data)
+            </thead>
+            <tbody>
+                @foreach ($laporan as $row)
                     <tr>
-                        <td>{{ $nomor++ }}</td>
-                        <td style="text-align: left;">
-                            {{ $data->nama }}
-                            <br>
-                            <small>
-                                Deskripsi : {{ strip_tags($data->deskripsi) }}
-                                <br>
-                                Pelaksana : {{ $data->users->nama }}
-                            </small>
-                        </td>
-                        <td style="text-align: left;">
-                            @php
-                                // Cari laporan yang terkait dengan tugas ini
-                                $laporanItem = $laporan->where('tugas_id', $data->id)->first();
-
-                                // Hapus tag <p> atau tag HTML lainnya dari deskripsi laporan
-                                $deskripsiLaporan = $laporanItem
-                                    ? str_replace(['<p>', '</p>'], '', $laporanItem->deskripsi)
-                                    : '-';
-
-                                // Ambil tanggal mulai jika ada, atau beri tanda '-'
-                                $tanggalMulai = $laporanItem
-                                    ? \Carbon\Carbon::parse($laporanItem->tgl_mulai)
-                                        ->locale('id')
-                                        ->isoFormat('dddd D MMMM YYYY')
-                                    : '-';
-
-                                // Ambil tanggal mulai jika ada, atau beri tanda '-'
-                                $tanggalSelesai = $laporanItem
-                                    ? \Carbon\Carbon::parse($laporanItem->tgl_selesai)
-                                        ->locale('id')
-                                        ->isoFormat('dddd D MMMM YYYY')
-                                    : '-';
-
-                                // Ambil pelaksana berdasarkan users_id
-                                $pelaksana = $laporanItem && $laporanItem->users ? $laporanItem->users->nama : '-';
-                            @endphp
-
-                            <span>{{ $deskripsiLaporan }}</span>
-                            <br>
-                            <small>
-                                Waktu : {{ $tanggalMulai }} - {{ $tanggalSelesai }}
-                                <br>
-                                Pelaksana : {{ $pelaksana }}
-                            </small>
-                        </td>
-                        <td>
-                            {{ $data->status }}
-                        </td>
+                        <td>{{ \Carbon\Carbon::parse($row['tanggal'])->translatedFormat('d F Y') }}</td>
+                        <td style="text-align: left;">{{ $row['keterangan'] }}</td>
+                        <td style="text-align: left;">{{ 'Rp ' . number_format($row['debet'], 2, ',', '.') }}</td>
+                        <td style="text-align: left;">{{ 'Rp ' . number_format($row['kredit'], 2, ',', '.') }}</td>
+                        <td style="text-align: left;">{{ 'Rp ' . number_format($row['saldo'], 2, ',', '.') }}</td>
                     </tr>
                 @endforeach
-            @endif
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="2">Jumlah</th>
+                    <th style="text-align: left;">{{ 'Rp ' . number_format($totalPemasukan, 2, ',', '.') }}</th>
+                    <th style="text-align: left;">{{ 'Rp ' . number_format($totalPengeluaran, 2, ',', '.') }}</th>
+                    <th style="text-align: left;">{{ 'Rp ' . number_format($saldo, 2, ',', '.') }}</th>
+                </tr>
+            </tfoot>
         </table>
-
-
-
-
-
-
-
 
     </div>
 

@@ -6,19 +6,14 @@ use App\Models\Program;
 use App\Models\Panitia;
 use App\Models\Pemasukan;
 use App\Models\Pengeluaran;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
-// Hapus File Lama
-use File;
+use File; // Hapus File Lama
 
 class PemasukanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index($program_id)
     {
         // ===== Daftar Data =====
@@ -29,7 +24,6 @@ class PemasukanController extends Controller
         // Ambil Semua Pemasukan & Pengeluaran Yang Berelasi Dengan Program
         $pemasukan = Pemasukan::where('program_id', $program_id)->orderBy('created_at', 'DESC')->get();
         $pengeluaran = Pengeluaran::where('program_id', $program_id)->orderBy('created_at', 'DESC')->get();
-
 
         // Middleware Jika User Yang Login Adalah Panitia Dari Suatu Program
         // $isPanitia = \DB::table('panitia')
@@ -48,26 +42,17 @@ class PemasukanController extends Controller
         $totalPemasukan = Pemasukan::where('program_id', $program_id)->sum('jumlah');
         $totalPengeluaran = Pengeluaran::where('program_id', $program_id)->sum('jumlah');
         $totalSaldo = $totalPemasukan - $totalPengeluaran;
+
         // Pengalihan Halaman
         return view('program.keuangan', compact('program', 'pemasukan', 'pengeluaran', 'isPanitia', 'totalPemasukan', 'totalPengeluaran', 'totalSaldo'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request, $program_id)
     {
         // ===== Request Tambah Data =====
@@ -97,10 +82,6 @@ class PemasukanController extends Controller
             'users_id' => Auth::id(),
         ]);
 
-        // // Var Dump untuk Melihat Isi Data
-        // var_dump($pemasukan->toArray());
-        // die(); // Menghentikan eksekusi script untuk melihat hasil dump
-
         // Menyimpan Data Ke Database
         $pemasukan->save();
 
@@ -114,35 +95,16 @@ class PemasukanController extends Controller
         return redirect()->route('program.keuangan', $program_id)->with($notifikasi);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Pemasukan $pemasukan)
     {
         //
@@ -187,12 +149,6 @@ class PemasukanController extends Controller
         return redirect()->route('program.keuangan', $pemasukan->program_id)->with($notifikasi);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Pemasukan $pemasukan)
     {
         // ===== Hapus Data =====
@@ -215,5 +171,80 @@ class PemasukanController extends Controller
 
         // Pengalihan Halaman
         return redirect()->route('program.keuangan', $program_id)->with($notifikasi);
+    }
+
+    public function download($program_id)
+    {
+        // ===== Download PDF Data =====
+
+        // Ambil Data Program Berdasarkan ID
+        $program = Program::findOrFail($program_id);
+
+        // Watermark User Login Model
+        $user = Auth::user();
+        $watermarknama = $user->nama;
+
+        // Watermark Waktu
+        $waktu = Carbon::now();
+        $watermarkwaktu = $waktu->format('Y-m-d H:i:s');
+
+        // Ambil Data Pemasukan Berdasarkan Program
+        $pemasukan = Pemasukan::where('program_id', $program_id)
+            ->orderBy('tanggal', 'asc')
+            ->get();
+
+        // Ambil Data Pengeluaran Berdasarkan Program
+        $pengeluaran = Pengeluaran::where('program_id', $program_id)
+            ->orderBy('tanggal', 'asc')
+            ->get();
+
+        // Hitung Total Pemasukan, Pengeluaran, dan Saldo
+        $totalPemasukan = $pemasukan->sum('jumlah');
+        $totalPengeluaran = $pengeluaran->sum('jumlah');
+        $saldo = $totalPemasukan - $totalPengeluaran;
+
+        // Gabungkan Data Menjadi Satu Array
+        $laporan = [];
+
+        foreach ($pemasukan as $item) {
+            $laporan[] = [
+                'tanggal' => $item->tanggal,
+                'keterangan' => $item->nama,
+                'debet' => $item->jumlah,
+                'kredit' => 0,
+            ];
+        }
+
+        foreach ($pengeluaran as $item) {
+            $laporan[] = [
+                'tanggal' => $item->tanggal,
+                'keterangan' => $item->nama,
+                'debet' => 0,
+                'kredit' => $item->jumlah,
+            ];
+        }
+
+        // Urutkan Data Berdasarkan Tanggal
+        usort($laporan, function ($a, $b) {
+            return strtotime($a['tanggal']) - strtotime($b['tanggal']);
+        });
+
+        // Hitung Saldo Per Baris
+        $runningSaldo = 0;
+        foreach ($laporan as &$row) {
+            $runningSaldo += $row['debet'] - $row['kredit'];
+            $row['saldo'] = $runningSaldo;
+        }
+
+        // Pengalihan Halaman
+        return view('program.cetakkeuangan', [
+            'program' => $program,
+            'watermarknama' => $watermarknama,
+            'watermarkwaktu' => $watermarkwaktu,
+            'laporan' => $laporan,
+            'totalPemasukan' => $totalPemasukan,
+            'totalPengeluaran' => $totalPengeluaran,
+            'saldo' => $saldo,
+        ]);
     }
 }
