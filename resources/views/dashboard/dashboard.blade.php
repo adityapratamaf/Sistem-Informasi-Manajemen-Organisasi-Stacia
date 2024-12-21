@@ -5,7 +5,7 @@
 @endsection
 
 @push('script')
-    {{-- Grafik Program Masing-Masing Tampilan Status --}}
+    {{-- Grafik Program --}}
     <script>
         const labels = @json($labels);
         const dataSukses = @json($dataSukses);
@@ -64,7 +64,24 @@
             }
         });
     </script>
-    {{-- Grafik Program Masing-Masing Tampilan Status --}}
+    {{-- Grafik Program --}}
+
+    {{-- Kalender Program --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: @json($event),
+                timezone: 'local',
+                editable: false,
+                droppable: false,
+            });
+            calendar.render();
+        });
+    </script>
+    {{-- Kalender Program --}}
 @endpush
 
 @section('isi')
@@ -90,7 +107,7 @@
         <section class="content">
             <div class="container-fluid">
 
-                {{-- CARD DASHBOARD 1 --}}
+                {{-- CARD DASHBOARD 1 / GENERAL --}}
                 <div class="row">
                     <div class="col-lg-3 col-6">
 
@@ -153,7 +170,7 @@
                 </div>
                 {{-- CARD DASHBOARD 1 --}}
 
-                {{-- CARD DASHBOARD 2 --}}
+                {{-- CARD DASHBOARD 2 / SURAT --}}
                 <div class="row">
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box">
@@ -203,7 +220,7 @@
                 </div>
                 {{-- CARD DASHBOARD 2 --}}
 
-                {{-- CARD DASHBOARD 3 --}}
+                {{-- CARD DASHBOARD 3 / TUGAS --}}
                 <div class="row">
                     <div class="col-12 col-sm-6 col-md-6">
                         <div class="info-box">
@@ -255,7 +272,7 @@
                 </div>
                 {{-- CARD DASHBOARD 3 --}}
 
-                {{-- CARD DASHBOARD 4 --}}
+                {{-- CARD DASHBOARD 4 / KEUANGAN --}}
                 <div class="row">
                     <div class="col-12 col-sm-6 col-md-6">
                         <div class="info-box">
@@ -394,6 +411,22 @@
                                     <div class="chart tab-pane active" id="chartProgramTunggu"
                                         style="position: relative; width: 100%; margin: auto;">
                                         <canvas id="programChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Kalender Program --}}
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fas fa-calendar-alt mr-1"></i>
+                                    Kalender
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="tab-content p-0">
+                                    <div id="calendar">
                                     </div>
                                 </div>
                             </div>

@@ -74,7 +74,6 @@ class DashboardController extends Controller
             $dataBatal[] = $program->batal;
             $dataTunggu[] = $program->tunggu;
         }
-        // Fungsi Grafik Program
 
         // Fungsi Menghitung Total Size File Di Direktori Public
         $totalSize = 0;
@@ -83,7 +82,17 @@ class DashboardController extends Controller
             $totalSize += $file->getSize();
         }
 
-        return view('dashboard.dashboard', compact('user', 'totalAnggota', 'totalLogistik', 'totalSuratMasuk', 'totalSuratKeluar', 'totalSuratKeterangan', 'dataPengumuman', 'dataProgram', 'dataPengurus', 'jumlahTugas', 'jumlahTugasSelesai', 'jumlahLaporan', 'jumlahLaporanSelesai', 'jumlahPemasukan', 'jumlahPengeluaran', 'labels', 'dataSukses', 'dataBatal', 'dataTunggu', 'totalSize'));
+        // Fungsi Kalender Program
+        $program = Program::all();
+        $event = $program->map(function ($program) {
+            return [
+                'title' => $program->nama,
+                'start' => Carbon::parse($program->tgl_mulai)->format('Y-m-d'),
+                'end' => Carbon::parse($program->tgl_selesai)->addDay()->format('Y-m-d'),
+            ];
+        });
+
+        return view('dashboard.dashboard', compact('user', 'totalAnggota', 'totalLogistik', 'totalSuratMasuk', 'totalSuratKeluar', 'totalSuratKeterangan', 'dataPengumuman', 'dataProgram', 'dataPengurus', 'jumlahTugas', 'jumlahTugasSelesai', 'jumlahLaporan', 'jumlahLaporanSelesai', 'jumlahPemasukan', 'jumlahPengeluaran', 'labels', 'dataSukses', 'dataBatal', 'dataTunggu', 'totalSize', 'event'));
     }
 
     // Fungsi Menghitung Total File Size Di Public

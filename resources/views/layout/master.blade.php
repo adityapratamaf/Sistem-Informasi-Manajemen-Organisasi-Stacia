@@ -52,6 +52,10 @@
         }
     </script>
 
+    <!-- FullCalendar -->
+    <link rel="stylesheet" href="{{ asset('template/plugins/fullcalendar/dist/index.global.css') }}">
+
+
     {{-- <script nonce="828b2fe7-5fe9-4506-9d71-c42a859d8829">
         try {
             (function(w, d) {
@@ -160,8 +164,8 @@
 
     </div>
 
+    {{-- JQuery --}}
     <script src="{{ asset('template/plugins/jquery/jquery.min.js') }}"></script>
-
     <script src="{{ asset('template/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
 
     {{-- <script>
@@ -180,7 +184,7 @@
 
     <script src="{{ asset('template/plugins/jquery-knob/jquery.knob.min.js') }}"></script>
 
-    <script src="{{ asset('template/plugins/moment/moment.min.js') }}"></script>
+    {{-- <script src="{{ asset('template/plugins/moment/moment.min.js') }}"></script> --}}
 
     <script src="{{ asset('template/plugins/daterangepicker/daterangepicker.js') }}"></script>
 
@@ -315,6 +319,9 @@
         });
     </script>
     <!-- DataTables -->
+
+    <!-- FullCalendar -->
+    <script src="{{ asset('template/plugins/fullcalendar/dist/index.global.js') }}"></script>
 
     @stack('script')
 
