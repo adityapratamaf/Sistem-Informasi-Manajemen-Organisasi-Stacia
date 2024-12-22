@@ -67,12 +67,12 @@
 
     <section class="content">
         <div class="error-page">
-            <h2 class="headline text-warning">
-                <bold>404</bold>
+            <h2 class="headline text-danger">
+                <bold>500</bold>
             </h2>
             <div class="error-content">
-                <h3><i class="fas fa-exclamation-triangle text-warning"></i></h3>
-                <h3>Halaman Tidak Ditemukan !</h3>
+                <h3><i class="fas fa-exclamation-triangle text-danger"></i></h3>
+                <h3>Terjadi Kesalahan !</h3>
             </div>
         </div>
     </section>

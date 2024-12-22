@@ -77,6 +77,7 @@
                 timezone: 'local',
                 editable: false,
                 droppable: false,
+                schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
             });
             calendar.render();
         });
@@ -162,7 +163,7 @@
                             <div class="icon">
                                 <i class="fas fa-sitemap"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i
+                            <a href="#" class="small-box-footer">Pengurus <i
                                     class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
@@ -278,7 +279,7 @@
                         <div class="info-box">
                             <span class="info-box-icon bg-info elevation-1"><i class="fas fa-money-check"></i></span>
                             <div class="info-box-content">
-                                <span class="info-box-text">Total Pemasukan</span>
+                                <span class="info-box-text">Total Pemasukan Program</span>
                                 <span class="info-box-number">
                                     Rp. {{ number_format($jumlahPemasukan, 2, ',', '.') }}
                                 </span>
@@ -292,7 +293,7 @@
                             <span class="info-box-icon bg-warning elevation-1"><i
                                     class="fas fa-money-check"></i></i></span>
                             <div class="info-box-content">
-                                <span class="info-box-text">Total Pengeluaran</span>
+                                <span class="info-box-text">Total Pengeluaran Program</span>
                                 <span class="info-box-number">
                                     Rp. {{ number_format($jumlahPengeluaran, 2, ',', '.') }}
                                 </span>
