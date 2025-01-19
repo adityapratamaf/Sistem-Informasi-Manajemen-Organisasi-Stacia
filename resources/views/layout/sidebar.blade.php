@@ -53,6 +53,15 @@
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a href="/map" class="nav-link {{ \Route::is('map.*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-map"></i>
+                        <p>
+                            Map
+                        </p>
+                    </a>
+                </li>
+
                 @if (Auth::check() && (Auth::user()->role == 1 || Auth::user()->role == 2))
                     <!-- Surat -->
                     <li class="nav-item {{ \Route::is('.*') ? 'menu-open' : '' }}">

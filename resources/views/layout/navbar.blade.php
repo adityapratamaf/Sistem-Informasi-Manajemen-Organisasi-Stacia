@@ -1,6 +1,7 @@
 {{-- NAVBAR --}}
 
-<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+{{-- <nav class="main-header navbar navbar-expand navbar-white navbar-light"> --}}
+<nav class="main-header navbar navbar-expand ">
 
     <ul class="navbar-nav">
         <li class="nav-item">
@@ -38,7 +39,7 @@
         {{-- Pesan --}}
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
-                <i class="far fa-comments"></i>
+                <i class="fas fa-comments"></i>
                 <span class="badge badge-danger navbar-badge">0</span>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
@@ -67,7 +68,7 @@
         {{-- Notifikasi --}}
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
-                <i class="far fa-bell"></i>
+                <i class="fas fa-bell"></i>
                 <span class="badge badge-warning navbar-badge">0</span>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
@@ -84,10 +85,17 @@
         {{-- Notifikasi --}}
 
         <li class="nav-item">
+            <a class="nav-link" id="toggle-theme" role="button">
+                <i class="fas fa-lightbulb"></i>
+            </a>
+        </li>
+
+        <li class="nav-item">
             <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                 <i class="fas fa-expand-arrows-alt"></i>
             </a>
         </li>
+
         <li class="nav-item">
             <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#"
                 role="button">

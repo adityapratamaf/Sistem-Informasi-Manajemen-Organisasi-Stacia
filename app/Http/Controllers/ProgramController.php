@@ -59,7 +59,7 @@ class ProgramController extends Controller
         // Validasi Jika Form Tidak Di Isi
         $this->validate($request, [
             'nama'          => 'required',
-            'deskripsi'     => 'required',
+            'deskripsi'     => 'required|string',
             'jenis'         => 'required',
             'status'        => 'required',
             'tgl_mulai'     => 'required',
@@ -113,10 +113,13 @@ class ProgramController extends Controller
             $fileLpj = '';
         }
 
+        // Hapus Tag HTML Summernote
+        $deskripsi = strip_tags($request->deskripsi);
+
         // Simpan Data Ke Database
         $program = new Program();
         $program->nama = $request->nama;
-        $program->deskripsi = $request->deskripsi;
+        $program->deskripsi = $deskripsi;
         $program->jenis = $request->jenis;
         $program->status = $request->status;
         $program->tgl_mulai = $request->tgl_mulai;
@@ -256,9 +259,12 @@ class ProgramController extends Controller
             $program->lpj = $fileLpj;
         }
 
+        // Hapus Tag HTML Summernote
+        $deskripsi = strip_tags($request['deskripsi']);
+
         // Simpan Data Ke Database
         $program->nama = $request['nama'];
-        $program->deskripsi = $request['deskripsi'];
+        $program->deskripsi = $deskripsi;
         $program->jenis = $request['jenis'];
         $program->status = $request['status'];
         $program->tgl_mulai = $request['tgl_mulai'];

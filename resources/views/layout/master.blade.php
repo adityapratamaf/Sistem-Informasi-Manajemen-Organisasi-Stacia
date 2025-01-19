@@ -323,6 +323,39 @@
     <!-- FullCalendar -->
     <script src="{{ asset('template/plugins/fullcalendar/dist/index.global.js') }}"></script>
 
+    {{-- Bootstrap Switch Toogle --}}
+    <script src="{{ asset('template/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
+
+    {{-- Mode Tema Dark / Light --}}
+    <script>
+        const toggleButton = document.getElementById('toggle-theme');
+        toggleButton.addEventListener('click', () => {
+            const body = document.body;
+
+            // Toggle kelas dark-mode
+            body.classList.toggle('dark-mode');
+
+            // Simpan preferensi ke localStorage
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Muat tema berdasarkan localStorage saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark-mode');
+            }
+        });
+    </script>
+
+    {{-- Inisialisasi Bootstrap Switch --}}
+    <script>
+        $('input[name="my-checkbox"]').bootstrapSwitch();
+    </script>
+
     @stack('script')
 
 </body>

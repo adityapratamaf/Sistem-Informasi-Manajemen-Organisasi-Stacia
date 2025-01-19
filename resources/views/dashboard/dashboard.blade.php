@@ -5,8 +5,8 @@
 @endsection
 
 @push('script')
-    {{-- Grafik Program --}}
-    <script>
+    {{-- Grafik Program All --}}
+    {{-- <script>
         const labels = @json($labels);
         const dataSukses = @json($dataSukses);
         const dataBatal = @json($dataBatal);
@@ -63,8 +63,98 @@
                 }
             }
         });
+    </script> --}}
+    {{-- Grafik Program All --}}
+
+    {{-- Grafik Program Per Tahun --}}
+    <script>
+        const labels = @json($labels); // Contoh: ['Jan 2024', 'Feb 2024', ...]
+        const dataSukses = @json($dataSukses);
+        const dataBatal = @json($dataBatal);
+        const dataTunggu = @json($dataTunggu);
+
+        // buat daftar tahun unik
+        const years = [...new Set(labels.map(label => label.split(' ')[1]))];
+        const yearSelector = document.getElementById('yearSelector');
+        years.forEach(year => {
+            const option = document.createElement('option');
+            option.value = year;
+            option.textContent = year;
+            yearSelector.appendChild(option);
+        });
+
+        // inisialisasi grafik
+        const ctx = document.getElementById('programChart').getContext('2d');
+        let programChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [], // Akan diisi saat tahun dipilih
+                datasets: [{
+                        label: 'Program Sukses',
+                        data: [],
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Program Batal',
+                        data: [],
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Program Tunggu',
+                        data: [],
+                        backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                        borderColor: 'rgba(255, 206, 86, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value; // ubah sesuai kebutuhan
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // fungsi untuk memperbarui data berdasarkan tahun
+        function updateChart(year) {
+            const filteredLabels = labels.filter(label => label.includes(year));
+            const filteredDataSukses = dataSukses.slice(labels.indexOf(filteredLabels[0]), labels.indexOf(filteredLabels[
+                filteredLabels.length - 1]) + 1);
+            const filteredDataBatal = dataBatal.slice(labels.indexOf(filteredLabels[0]), labels.indexOf(filteredLabels[
+                filteredLabels.length - 1]) + 1);
+            const filteredDataTunggu = dataTunggu.slice(labels.indexOf(filteredLabels[0]), labels.indexOf(filteredLabels[
+                filteredLabels.length - 1]) + 1);
+
+            programChart.data.labels = filteredLabels;
+            programChart.data.datasets[0].data = filteredDataSukses;
+            programChart.data.datasets[1].data = filteredDataBatal;
+            programChart.data.datasets[2].data = filteredDataTunggu;
+            programChart.update();
+        }
+
+        // event listener untuk dropdown
+        yearSelector.addEventListener('change', (event) => {
+            updateChart(event.target.value);
+        });
+
+        // inisialisasi dengan tahun pertama
+        if (years.length > 0) {
+            yearSelector.value = years[0];
+            updateChart(years[0]);
+        }
     </script>
-    {{-- Grafik Program --}}
+    {{-- Grafik Program Per Tahun --}}
 
     {{-- Kalender Program --}}
     <script>
@@ -391,24 +481,54 @@
                     {{-- Kanan --}}
                     <section class="col-lg-6 connectedSortable">
 
-                        {{-- Grafik Program --}}
-                        <div class="card">
+                        {{-- Grafik Program ALL --}}
+                        {{-- <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">
                                     <i class="fas fa-briefcase mr-1"></i>
                                     Program
                                 </h3>
                                 <div class="card-tools">
-                                    {{-- <ul class="nav nav-pills ml-auto">
+                                    <ul class="nav nav-pills ml-auto">
                                         <li class="nav-item">
                                             <a class="nav-link active" href="#chartProgramTunggu"
                                                 data-toggle="tab">Tunggu</a>
                                         </li>
-                                    </ul> --}}
+                                    </ul>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <div class="tab-content p-0">
+                                    <div class="chart tab-pane active" id="chartProgramTunggu"
+                                        style="position: relative; width: 100%; margin: auto;">
+                                        <canvas id="programChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> --}}
+
+                        {{-- Grafik Program Per Tahun --}}
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fas fa-briefcase mr-1"></i>
+                                    Program
+                                </h3>
+                                {{-- <div class="card-tools"> --}}
+                                {{-- <select id="yearSelector" class="form-control form-control-sm"
+                                    style="width: auto; margin: 1px;">
+                                    <!-- Dropdown Data Tahun -->
+                                </select> --}}
+                                {{-- </div> --}}
+                            </div>
+                            <div class="card-body">
+                                <div class="tab-content p-0">
+                                    <div class="card-tools">
+                                        <select id="yearSelector" class="form-control form-control-sm"
+                                            style="width: auto; margin: 1px;">
+                                            <!-- Dropdown Data Tahun -->
+                                        </select>
+                                    </div>
                                     <div class="chart tab-pane active" id="chartProgramTunggu"
                                         style="position: relative; width: 100%; margin: auto;">
                                         <canvas id="programChart"></canvas>

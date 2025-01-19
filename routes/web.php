@@ -10,6 +10,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SuratKeteranganController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\MapController;
 use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\PengurusController;
@@ -97,6 +98,11 @@ Route::group(['middleware' => 'auth'], function () { // ========== MIDDLEWARE LO
     // ========== PENGURUS ==========
     Route::middleware(['checkRole:1,2'])->group(function () { // ========== MIDDLEWARE ROLE ADMIN ==========
         Route::resource('pengurus', PengurusController::class);
+    });
+
+    // ========== MAP ==========
+    Route::middleware(['checkRole:1,2,3,4,5,6'])->group(function () { // ========== MIDDLEWARE ROLE ADMIN ==========
+        Route::resource('map', MapController::class);
     });
 
     // ========== PROGRAM ==========
