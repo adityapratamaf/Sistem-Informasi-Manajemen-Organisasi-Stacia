@@ -14,9 +14,7 @@
 @endpush
 
 @section('isi')
-    {{-- ======================================== --}}
     <div class="content-wrapper">
-
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-0">
@@ -220,8 +218,8 @@
                         </div>
 
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary btn-sm" data-toggle="tooltip"
-                                data-placement="bottom" title="Simpan"> <i class="fas fa-database"></i> </i>
+                            <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom"
+                                title="Simpan"> <i class="fas fa-database"></i> </i>
                             </button>
                         </div>
                     </form>
@@ -232,5 +230,4 @@
         </section>
 
     </div>
-    {{-- ======================================== --}}
 @endsection

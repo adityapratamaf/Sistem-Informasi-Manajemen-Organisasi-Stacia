@@ -100,13 +100,12 @@
             <div class="container-fluid">
                 <div class="row mb-0">
                     <div class="col-sm-6">
-                        <a href="/program" class="mx-2 float-sm-left btn btn-primary btn-sm" data-toggle="tooltip"
+                        <a href="/program" class="mx-2 float-sm-left btn btn-primary " data-toggle="tooltip"
                             data-placement="top" title="Kembali"> <i class="fas fa-step-backward"></i>
                         </a>
                         <!-- Tombol Print -->
-                        <a href="/program/keuangan/{{ $program->id }}/download"
-                            class="m-0 float-sm-left btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top"
-                            title="Print" id="downloadBtn" target="_blank">
+                        <a href="/program/keuangan/{{ $program->id }}/download" class="m-0 float-sm-left btn btn-danger "
+                            data-toggle="tooltip" data-placement="top" title="Print" id="downloadBtn" target="_blank">
                             <i class="fas fa-print"></i>
                         </a>
                     </div>
@@ -124,7 +123,6 @@
             <div class="container-fluid">
 
                 <div class="row">
-
                     {{-- Pemasukan --}}
                     <div class="col-12 col-sm-6">
                         <div class="card card-primary card-outline">
@@ -134,7 +132,7 @@
                             <div class="card-body">
 
                                 @if ($isPanitia)
-                                    <a href="#" class="btn btn-primary btn-sm mb-3" data-toggle="modal"
+                                    <a href="#" class="btn btn-primary mb-3" data-toggle="modal"
                                         data-target="#tambahpemasukan" data-toggle="tooltip" data-placement="top"
                                         title="Tambah">
                                         <i class="fas fa-database"></i>
@@ -146,7 +144,7 @@
                                         <col width="1%">
                                         <col width="30%">
                                         <col width="15%">
-                                        <col width="20%">
+                                        <col width="25%">
                                     </colgroup>
                                     <thead>
                                         <tr>
@@ -176,15 +174,13 @@
                                                     Rp. {{ number_format($data->jumlah, 2, ',', '.') }}
                                                 </td>
                                                 <td>
-                                                    <a href="" class="btn btn-secondary btn-sm mx-2"
-                                                        data-toggle="modal"
+                                                    <a href="" class="btn btn-secondary  mx-2" data-toggle="modal"
                                                         data-target="#detailpemasukan{{ $data->id }}"
                                                         data-toggle="tooltip" data-placement="top" title="Detail"> <i
                                                             class="fas fa-sticky-note"></i>
                                                     </a>
                                                     @if ($isPanitia)
-                                                        <a href="" class="btn btn-info btn-sm mx-2"
-                                                            data-toggle="modal"
+                                                        <a href="" class="btn btn-info  mx-2" data-toggle="modal"
                                                             data-target="#ubahpemasukan{{ $data->id }}"
                                                             data-toggle="tooltip" data-placement="top" title="Ubah"> <i
                                                                 class="fas fa-pen-alt"></i>
@@ -194,7 +190,7 @@
                                                             onclick="return confirm('Hapus Data ?')">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button class="btn btn-danger btn-sm mx-2" data-toggle="tooltip"
+                                                            <button class="btn btn-danger  mx-2" data-toggle="tooltip"
                                                                 data-placement="top" title="Hapus"> <i
                                                                     class="fas fa-trash-alt"></i>
                                                             </button>
@@ -231,7 +227,7 @@
                             <div class="card-body">
 
                                 @if ($isPanitia)
-                                    <a href="#" class="btn btn-primary btn-sm mb-3" data-toggle="modal"
+                                    <a href="#" class="btn btn-primary  mb-3" data-toggle="modal"
                                         data-target="#tambahpengeluaran" data-toggle="tooltip" data-placement="top"
                                         title="Tambah">
                                         <i class="fas fa-database"></i>
@@ -243,7 +239,7 @@
                                         <col width="1%">
                                         <col width="30%">
                                         <col width="15%">
-                                        <col width="20%">
+                                        <col width="25%">
                                     </colgroup>
                                     <thead>
                                         <tr>
@@ -272,15 +268,13 @@
                                                     Rp. {{ number_format($data->jumlah, 2, ',', '.') }}
                                                 </td>
                                                 <td>
-                                                    <a href="" class="btn btn-secondary btn-sm mx-2"
-                                                        data-toggle="modal"
+                                                    <a href="" class="btn btn-secondary  mx-2" data-toggle="modal"
                                                         data-target="#detailpengeluaran{{ $data->id }}"
                                                         data-toggle="tooltip" data-placement="top" title="Detail"> <i
                                                             class="fas fa-sticky-note"></i>
                                                     </a>
                                                     @if ($isPanitia)
-                                                        <a href="" class="btn btn-info btn-sm mx-2"
-                                                            data-toggle="modal"
+                                                        <a href="" class="btn btn-info  mx-2" data-toggle="modal"
                                                             data-target="#ubahpengeluaran{{ $data->id }}"
                                                             data-toggle="tooltip" data-placement="top" title="Ubah"> <i
                                                                 class="fas fa-pen-alt"></i>
@@ -290,9 +284,9 @@
                                                             onclick="return confirm('Hapus Data ?')">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button class="btn btn-danger btn-sm mx-2"
-                                                                data-toggle="tooltip" data-placement="top"
-                                                                title="Hapus"> <i class="fas fa-trash-alt"></i>
+                                                            <button class="btn btn-danger  mx-2" data-toggle="tooltip"
+                                                                data-placement="top" title="Hapus"> <i
+                                                                    class="fas fa-trash-alt"></i>
                                                             </button>
                                                         </form>
                                                     @endif
@@ -322,7 +316,6 @@
                         </div>
                     </div>
                     {{-- Pengeluran --}}
-
                 </div>
 
             </div>
@@ -401,8 +394,8 @@
                     </div>
 
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary btn-sm" data-toggle="tooltip"
-                            data-placement="bottom" title="Simpan"> <i class="fas fa-database"></i> </i>
+                        <button type="submit" class="btn btn-primary " data-toggle="tooltip" data-placement="bottom"
+                            title="Simpan"> <i class="fas fa-database"></i> </i>
                         </button>
                     </div>
 
@@ -495,9 +488,8 @@
                         </div>
 
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary btn-sm toastrDefaultSuccess"
-                                data-toggle="tooltip" data-placement="bottom" title="Simpan"> <i
-                                    class="fas fa-database"></i> </i>
+                            <button type="submit" class="btn btn-primary  toastrDefaultSuccess" data-toggle="tooltip"
+                                data-placement="bottom" title="Simpan"> <i class="fas fa-database"></i> </i>
                             </button>
                         </div>
 
@@ -615,8 +607,8 @@
                     </div>
 
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary btn-sm" data-toggle="tooltip"
-                            data-placement="bottom" title="Simpan"> <i class="fas fa-database"></i> </i>
+                        <button type="submit" class="btn btn-primary " data-toggle="tooltip" data-placement="bottom"
+                            title="Simpan"> <i class="fas fa-database"></i> </i>
                         </button>
                     </div>
 
@@ -709,9 +701,8 @@
                         </div>
 
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary btn-sm toastrDefaultSuccess"
-                                data-toggle="tooltip" data-placement="bottom" title="Simpan"> <i
-                                    class="fas fa-database"></i> </i>
+                            <button type="submit" class="btn btn-primary  toastrDefaultSuccess" data-toggle="tooltip"
+                                data-placement="bottom" title="Simpan"> <i class="fas fa-database"></i> </i>
                             </button>
                         </div>
 

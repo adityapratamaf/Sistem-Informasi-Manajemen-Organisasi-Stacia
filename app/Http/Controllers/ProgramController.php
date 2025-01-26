@@ -16,12 +16,40 @@ use File;
 class ProgramController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        // Model Data
-        $program = Program::with('pengurus')->orderBy('created_at', 'DESC')->get();
+        // Ambil Data Tunggal
+        // $program = Program::with('pengurus')->orderBy('created_at', 'DESC')->get();
 
-        // Looping Untuk Setiap Program
+        // Ambil Data Periode
+        $periodeOptions = Pengurus::select('tahun_periode')->distinct()->orderBy('tahun_periode', 'DESC')->pluck('tahun_periode');
+
+        // Ambil Parameter Pencarian Data Dari Request
+        $search = $request->get('search');
+        $status = $request->get('status');
+        $jenis  = $request->get('jenis');
+        $periode = $request->get('periode');
+
+        // Query Untuk Mendapatkan Data Program 
+        $program = Program::with('pengurus')
+            ->when($search, function ($query) use ($search) {
+                $query->where('nama', 'LIKE', "%{$search}%");
+            })
+            ->when($status, function ($query) use ($status) {
+                $query->where('status', $status);
+            })
+            ->when($jenis, function ($query) use ($jenis) {
+                $query->where('jenis', $jenis);
+            })
+            ->when($periode, function ($query) use ($periode) {
+                $query->whereHas('pengurus', function ($query) use ($periode) {
+                    $query->where('tahun_periode', $periode);
+                });
+            })
+            ->orderBy('created_at', 'DESC')
+            ->get();
+
+        // Looping Untuk Hitung Persentase Tugas Setiap Program
         foreach ($program as $data) {
             // Ambil Semua Tugas Yang Terkait Dengan Setiap Program
             $tugas = Tugas::where('program_id', $data->id)->get();
@@ -29,17 +57,23 @@ class ProgramController extends Controller
             // Hitung Jumlah Tugas Yang Sudah Selesai
             $jumlahSelesai = $tugas->where('status', 'Selesai')->count();
 
-            // Hitung Persentase Progres
+            // Hitung Total Tugas
             $totalTugas = $tugas->count();
-            $persentaseProgres = ($totalTugas > 0) ? ($jumlahSelesai / $totalTugas) * 100 : 0;
+
+            // Hitung Persentase Progres (Hindari Pembagian dengan Nol)
+            $persentaseProgres = $totalTugas > 0 ? round(($jumlahSelesai / $totalTugas) * 100, 2) : 0;
 
             // Tambahkan Persentase Progres Ke Dalam Program Sebagai Atribut Baru
             $data->persentaseProgres = $persentaseProgres;
         }
 
         // Pengalihan Halaman
-        return view('program.daftar', ['program' => $program]);
-        // return view('program.daftar', compact('program'));
+        return view('program.daftar', [
+            'program' => $program,
+            'search' => $search,
+            'status' => $status,
+            'periodeOptions' => $periodeOptions,
+        ]);
     }
 
     public function create()
@@ -133,7 +167,6 @@ class ProgramController extends Controller
         // Simpan Data Ke Pivot Table
         $program->user()->sync($request->users_id);
 
-
         // Notifikasi
         $notifikasi = array(
             'pesan' => 'DATA BERHASIL DI SIMPAN',
@@ -158,8 +191,6 @@ class ProgramController extends Controller
     public function edit($id)
     {
         // ===== Ubah Data =====
-
-        // Model
 
         // Mengambil Data Program Berdasarkan ID
         $program = Program::with('user')->findOrFail($id);

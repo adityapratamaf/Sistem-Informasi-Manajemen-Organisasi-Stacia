@@ -20,6 +20,7 @@ use App\Http\Controllers\TugasController;
 use App\Models\Laporan;
 use App\Models\Pemasukan;
 use App\Models\Pengeluaran;
+use App\Models\Program;
 use App\Models\Tugas;
 use Illuminate\Support\Facades\Auth;
 
@@ -109,7 +110,7 @@ Route::group(['middleware' => 'auth'], function () { // ========== MIDDLEWARE LO
     Route::middleware(['checkRole:1,2,3,4,5,6'])->group(function () { // ========== MIDDLEWARE ROLE ADMIN ==========
         Route::get('program/download', [ProgramController::class, 'download']);
         Route::resource('program', ProgramController::class);
-        Route::get('/program', [ProgramController::class, 'index'])->name('program.index');
+        Route::get('program', [ProgramController::class, 'index'])->name('program.daftar');
     });
 
     // ========== TUGAS ==========
