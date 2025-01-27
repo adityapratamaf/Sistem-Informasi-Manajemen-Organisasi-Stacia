@@ -10,10 +10,10 @@
             <div class="container-fluid">
                 <div class="row mb-0">
                     <div class="col-sm-6">
-                        <a href="/program/create" class="mx-2 float-sm-left btn btn-primary" data-toggle="tooltip"
+                        <a href="/program/create" class="mr-2 float-sm-left btn btn-primary" data-toggle="tooltip"
                             data-placement="top" title="Tambah"> <i class="fas fa-database"></i>
                         </a>
-                        <a href="/program/download" class="mx-2 float-sm-left btn btn-danger" data-toggle="tooltip"
+                        <a href="/program/download" class="mr-2 float-sm-left btn btn-danger" data-toggle="tooltip"
                             data-placement="top" title="Print" target="_blank"> <i class="fas fa-print"></i>
                         </a>
                     </div>
@@ -30,6 +30,7 @@
         <section class="content">
             <div class="container-fluid">
 
+                {{-- Search --}}
                 <div class="card card-primary card-outline">
                     <div class="card-header">
                         <h3 class="card-title"><b>Pencarian Data Program</b></h3>
@@ -77,11 +78,11 @@
                             </div>
                             <div class="row mt-3">
                                 <div class="col text-end">
-                                    <button type="submit" class="btn btn-primary" data-toggle="tooltip"
+                                    <button type="submit" class="btn btn-primary mr-2" data-toggle="tooltip"
                                         data-placement="top" title="Pencarian">
                                         <i class="fas fa-search"></i>
                                     </button>
-                                    <a href="{{ route('program.daftar') }}" class="btn btn-secondary mx-2"
+                                    <a href="{{ route('program.daftar') }}" class="btn btn-secondary mr-2"
                                         data-toggle="tooltip" data-placement="top" title="Reset">
                                         <i class="fas fa-sync"></i>
                                     </a>
@@ -91,6 +92,7 @@
                     </div>
                 </div>
 
+                {{-- Daftar --}}
                 <div class="card card-primary card-outline">
                     <div class="card-header">
                         <h3 class="card-title"> <b>Daftar Data Program</b> </h3>
@@ -162,21 +164,21 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="program/keuangan/{{ $data->id }}" class="btn btn-primary  mx-2"
+                                            <a href="program/keuangan/{{ $data->id }}" class="btn btn-primary mr-2"
                                                 data-toggle="tooltip" data-placement="top" title="Keuangan"> <i
                                                     class="fas fa-shopping-bag"></i>
                                             </a>
-                                            <a href="program/pekerjaan/{{ $data->id }}" class="btn btn-success  mx-2"
+                                            <a href="program/pekerjaan/{{ $data->id }}" class="btn btn-success mr-2"
                                                 data-toggle="tooltip" data-placement="top" title="Pekerjaan"> <i
                                                     class="fas fa-server"></i>
                                             </a>
-                                            <a href="/program/{{ $data->id }}" class="btn btn-secondary mx-2"
+                                            <a href="/program/{{ $data->id }}" class="btn btn-secondary mr-2"
                                                 data-toggle="tooltip" data-placement="top" title="Detail"> <i
                                                     class="fas fa-sticky-note"></i>
                                             </a>
 
                                             @if (Auth::check() && (Auth::user()->role == 1 || Auth::user()->role == 5))
-                                                <a href="/program/{{ $data->id }}/edit" class="btn btn-info  mx-2"
+                                                <a href="/program/{{ $data->id }}/edit" class="btn btn-info mr-2"
                                                     data-toggle="tooltip" data-placement="top" title="Ubah"> <i
                                                         class="fas fa-pen-alt"></i>
                                                 </a>
@@ -184,7 +186,7 @@
                                                     method="POST" onclick="return confirm('Hapus Data ?')">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button class="btn btn-danger mx-2" data-toggle="tooltip"
+                                                    <button class="btn btn-danger mr-2" data-toggle="tooltip"
                                                         data-placement="top" title="Hapus"> <i
                                                             class="fas fa-trash-alt"></i>
                                                     </button>

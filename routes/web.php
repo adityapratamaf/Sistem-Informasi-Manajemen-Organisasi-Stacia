@@ -17,6 +17,7 @@ use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\TugasController;
+use App\Models\Anggota;
 use App\Models\Laporan;
 use App\Models\Pemasukan;
 use App\Models\Pengeluaran;
@@ -80,9 +81,10 @@ Route::group(['middleware' => 'auth'], function () { // ========== MIDDLEWARE LO
 
     // ========== ANGGOTA ==========
     Route::middleware(['checkRole:1,2'])->group(function () { // ========== MIDDLEWARE ROLE ADMIN ==========
-        Route::get('anggota/download', [AnggotaController::class, 'download']);
-        Route::resource('anggota', AnggotaController::class);
-        Route::get('anggota/{user}/login', [AnggotaController::class, 'login'])->name('login');
+        Route::get('anggota/download', [AnggotaController::class, 'download']);                 // Download
+        Route::resource('anggota', AnggotaController::class);                                   // General
+        Route::get('anggota/{user}/login', [AnggotaController::class, 'login'])->name('login'); // Login As
+        Route::get('anggota', [AnggotaController::class, 'index'])->name('anggota.daftar');     // Search
     });
 
     // ========== SURAT KETERANGAN ==========

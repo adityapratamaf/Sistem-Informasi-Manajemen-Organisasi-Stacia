@@ -17,15 +17,47 @@ use File;
 class AnggotaController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        // ===== Daftar Data =====
+        // Model Tunggal
+        // $anggota = Anggota::with('user')->orderBy('created_at', 'DESC')->get();
 
-        // Model
-        $anggota = Anggota::with('user')->orderBy('created_at', 'DESC')->get();
+        // Ambil Parameter Pencarian Data Dari Request
+        $search         = $request->get('search');
+        $status         = $request->get('status');
+        $role           = $request->get('role');
+        $jenis_anggota  = $request->get('jenis_anggota');
+
+        // Model Jamak & Pencarian
+        $anggota = Anggota::with('user')
+            ->when($search, function ($query) use ($search) {
+                $query->whereHas('user', function ($q) use ($search) {
+                    $q->where('nama', 'LIKE', "%{$search}%"); // Pencarian Nama Tabel User
+                });
+            })
+            ->when($status, function ($query) use ($status) {
+                $query->whereHas('user', function ($q) use ($status) {
+                    $q->where('status', $status); // Filter Status Tabel User
+                });
+            })
+            ->when($role, function ($query) use ($role) {
+                $query->whereHas('user', function ($q) use ($role) {
+                    $q->where('role', $role); // Filter Role Tabel User
+                });
+            })
+            ->when($jenis_anggota, function ($query) use ($jenis_anggota) {
+                $query->where('jenis_anggota', $jenis_anggota);
+            })
+            ->orderBy('created_at', 'DESC')
+            ->get();
 
         // Pengalihan Halaman
-        return view('anggota.daftar', ['anggota' => $anggota]);
+        return view('anggota.daftar', [
+            'anggota'   => $anggota,
+            'search'    => $search,
+            'status'    => $status,
+            'role'      => $role,
+        ]);
     }
 
     public function create()

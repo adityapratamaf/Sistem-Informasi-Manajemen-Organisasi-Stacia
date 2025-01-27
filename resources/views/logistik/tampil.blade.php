@@ -12,10 +12,10 @@
             <div class="container-fluid">
                 <div class="row mb-0">
                     <div class="col-sm-6">
-                        <a href="/logistik/create" class="mx-2 float-sm-left btn btn-primary btn-sm" data-toggle="tooltip"
+                        <a href="/logistik/create" class="mx-2 float-sm-left btn btn-primary" data-toggle="tooltip"
                             data-placement="top" title="Tambah"> <i class="fas fa-database"></i>
                         </a>
-                        <a href="/logistik/download" class="mx-2 float-sm-left btn btn-danger btn-sm" data-toggle="tooltip"
+                        <a href="/logistik/download" class="mx-2 float-sm-left btn btn-danger" data-toggle="tooltip"
                             data-placement="top" title="Print" target="_blank"> <i class="fas fa-print"></i>
                         </a>
                     </div>
@@ -80,11 +80,11 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="/logistik/{{ $data->id }}" class="btn btn-secondary btn-sm mx-2"
+                                            <a href="/logistik/{{ $data->id }}" class="btn btn-secondary mx-2"
                                                 data-toggle="tooltip" data-placement="top" title="Detail"> <i
                                                     class="fas fa-sticky-note"></i>
                                             </a>
-                                            <a href="/logistik/{{ $data->id }}/edit" class="btn btn-info btn-sm mx-2"
+                                            <a href="/logistik/{{ $data->id }}/edit" class="btn btn-info mx-2"
                                                 data-toggle="tooltip" data-placement="top" title="Ubah"> <i
                                                     class="fas fa-pen-alt"></i>
                                             </a>
@@ -92,7 +92,7 @@
                                                 onclick="return confirm('Hapus Data ?')">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button class="btn btn-danger btn-sm mx-2" data-toggle="tooltip"
+                                                <button class="btn btn-danger mx-2" data-toggle="tooltip"
                                                     data-placement="top" title="Hapus"> <i class="fas fa-trash-alt"></i>
                                                 </button>
                                             </form>

@@ -90,16 +90,16 @@
 
                     <div class="row">
                         <div class="col-8">
-                            <div class="icheck-primary">
-                                <input type="checkbox" id="kd">
-                                <label for="kd" id="rahasiaData">
-                                    Kerahasiaan Data
+                            <div class="icheck-primary" style="display: flex; align-items: center;">
+                                <input type="checkbox" id="kd" style="margin-right: 8px;">
+                                <label for="kd" id="rahasiaData" style="margin: 0;">
+                                    SMKI
                                 </label>
                             </div>
                         </div>
 
                         <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block btn-sm" id="login" disabled> <i
+                            <button type="submit" class="btn btn-primary btn-block" id="login" disabled> <i
                                     class="nav-icon fas fa-sign-in-alt"></i>
                             </button>
                         </div>
@@ -118,7 +118,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"><b>Kerahasiaan Data</b></h5>
+                    <h5 class="modal-title"><b>Sistem Manajemen Keamanan Informasi</b></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

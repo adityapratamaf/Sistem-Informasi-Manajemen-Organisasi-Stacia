@@ -12,8 +12,8 @@
                 <div class="row mb-0">
                     <div class="col-sm-6">
                         {{-- <h5 class="m-0 float-sm-left"> # </h5> --}}
-                        <a onclick="return printArea('area')" class="m-0 float-sm-left btn btn-danger btn-sm"
-                            data-toggle="tooltip" data-placement="top" title="Print"> <i class="fas fa-print"></i> </a>
+                        <a onclick="return printArea('area')" class="m-0 float-sm-left btn btn-danger" data-toggle="tooltip"
+                            data-placement="top" title="Print"> <i class="fas fa-print"></i> </a>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">

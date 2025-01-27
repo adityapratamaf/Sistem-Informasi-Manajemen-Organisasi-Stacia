@@ -60,7 +60,7 @@
                         </div>
 
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary btn-sm toastrDefaultSuccess" data-toggle="tooltip"
+                            <button type="submit" class="btn btn-primary toastrDefaultSuccess" data-toggle="tooltip"
                                 data-placement="bottom" title="Simpan"> <i class="fas fa-database"></i> </i>
                             </button>
                         </div>

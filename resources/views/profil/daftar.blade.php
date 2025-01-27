@@ -311,7 +311,7 @@
 
                                             </div>
 
-                                            <button type="submit" class="btn btn-primary btn-sm" data-toggle="tooltip"
+                                            <button type="submit" class="btn btn-primary" data-toggle="tooltip"
                                                 data-placement="bottom" title="Simpan"> <i class="fas fa-database"></i>
                                                 </i>
                                             </button>

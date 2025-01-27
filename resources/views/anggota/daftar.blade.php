@@ -13,10 +13,10 @@
                 <div class="row mb-0">
                     <div class="col-sm-6">
                         {{-- <h5 class="m-0 float-sm-left"> # </h5> --}}
-                        <a href="/anggota/create" class="mx-2 float-sm-left btn btn-primary btn-sm" data-toggle="tooltip"
+                        <a href="/anggota/create" class="mx-2 float-sm-left btn btn-primary" data-toggle="tooltip"
                             data-placement="top" title="Tambah"> <i class="fas fa-database"></i>
                         </a>
-                        <a href="/anggota/download" class="mx-2 float-sm-left btn btn-danger btn-sm" data-toggle="tooltip"
+                        <a href="/anggota/download" class="mx-2 float-sm-left btn btn-danger" data-toggle="tooltip"
                             data-placement="top" title="Print" target="_blank"> <i class="fas fa-print"></i>
                         </a>
                     </div>
@@ -36,6 +36,86 @@
 
                 <div class="card card-primary card-outline">
                     <div class="card-header">
+                        <h3 class="card-title"><b>Pencarian Data Anggota</b></h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="GET" action="{{ route('anggota.daftar') }}">
+                            <div class="row g-3 align-items-center">
+                                <div class="col-md-3">
+                                    <input type="text" name="search" class="form-control" placeholder="Nama"
+                                        value="{{ request('search') }}">
+                                </div>
+                                <div class="col-md-3">
+                                    <select name="status" class="form-control">
+                                        <option value="">Status Akun</option>
+                                        <option value="1" {{ request('status') == '1' ? 'selected' : '' }}>
+                                            Aktif
+                                        </option>
+                                        <option value="2" {{ request('status') == '2' ? 'selected' : '' }}>
+                                            Non Aktif
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <select name="role" class="form-control">
+                                        <option value="">Jenis Akun</option>
+                                        <option value="1" {{ request('role') == '1' ? 'selected' : '' }}>
+                                            Administrator
+                                        </option>
+                                        <option value="2" {{ request('role') == '2' ? 'selected' : '' }}>
+                                            Sekertaris
+                                        </option>
+                                        <option value="3" {{ request('role') == '3' ? 'selected' : '' }}>
+                                            Bendahara
+                                        </option>
+                                        <option value="4" {{ request('role') == '4' ? 'selected' : '' }}>
+                                            Logistik
+                                        </option>
+                                        <option value="5" {{ request('role') == '5' ? 'selected' : '' }}>
+                                            Kepala Bidang
+                                        </option>
+                                        <option value="6" {{ request('role') == '6' ? 'selected' : '' }}>
+                                            User
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <select name="jenis_anggota" class="form-control">
+                                        <option value="">Jenis Anggota</option>
+                                        <option value="1" {{ request('jenis_anggota') == '1' ? 'selected' : '' }}>
+                                            Anggota Biasa
+                                        </option>
+                                        <option value="2" {{ request('jenis_anggota') == '2' ? 'selected' : '' }}>
+                                            Anggota Istimewa
+                                        </option>
+                                        <option value="3" {{ request('jenis_anggota') == '3' ? 'selected' : '' }}>
+                                            Anggota Luar Biasa
+                                        </option>
+                                        <option value="4" {{ request('jenis_anggota') == '3' ? 'selected' : '' }}>
+                                            Anggota Kehormatan
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col text-end">
+                                    <button type="submit" class="btn btn-primary" data-toggle="tooltip"
+                                        data-placement="top" title="Pencarian">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                    <a href="{{ route('anggota.daftar') }}" class="btn btn-secondary mx-2"
+                                        data-toggle="tooltip" data-placement="top" title="Reset">
+                                        <i class="fas fa-sync"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
                         <h3 class="card-title"> <b>Daftar Data Anggota</b> </h3>
                     </div>
 
@@ -44,11 +124,11 @@
                             <colgroup>
                                 <col width="1%">
                                 <col width="20%">
-                                <col width="25%">
-                                <col width="15%">
-                                <col width="15%">
-                                <col width="5%">
                                 <col width="20%">
+                                <col width="15%">
+                                <col width="10%">
+                                <col width="10%">
+                                <col width="25%">
                             </colgroup>
                             <thead>
                                 <tr>
@@ -97,22 +177,22 @@
                                         <td>
                                             @if ($data->user->status == 1)
                                                 <span class="badge badge-success">Aktif</span>
-                                            @else
+                                            @elseif ($data->user->status == 2)
                                                 <span class="badge badge-danger">Non Aktif</span>
                                             @endif
                                         </td>
                                         <td>
                                             @if (Auth::check() && Auth::user()->role == 1)
                                                 <a href="{{ route('login', $data->user->id) }}"
-                                                    class="btn btn-success btn-sm mx-2" data-toggle="tooltip"
-                                                    data-placement="top" title="Login"> <i class="fas fa-user"></i>
+                                                    class="btn btn-success mx-2" data-toggle="tooltip" data-placement="top"
+                                                    title="Login"> <i class="fas fa-user"></i>
                                                 </a>
                                             @endif
-                                            <a href="/anggota/{{ $data->id }}" class="btn btn-secondary btn-sm mx-2"
+                                            <a href="/anggota/{{ $data->id }}" class="btn btn-secondary mx-2"
                                                 data-toggle="tooltip" data-placement="top" title="Detail"> <i
                                                     class="fas fa-sticky-note"></i>
                                             </a>
-                                            <a href="/anggota/{{ $data->id }}/edit" class="btn btn-info btn-sm mx-2"
+                                            <a href="/anggota/{{ $data->id }}/edit" class="btn btn-info mx-2"
                                                 data-toggle="tooltip" data-placement="top" title="Ubah"> <i
                                                     class="fas fa-pen-alt"></i>
                                             </a>
@@ -120,7 +200,7 @@
                                                 onclick="return confirm('Hapus Data ?')">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button class="btn btn-danger btn-sm mx-2" data-toggle="tooltip"
+                                                <button class="btn btn-danger mx-2" data-toggle="tooltip"
                                                     data-placement="top" title="Hapus"> <i class="fas fa-trash-alt"></i>
                                                 </button>
                                             </form>
@@ -128,7 +208,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6" class="text-center">Tidak Ada Data</td>
+                                        <td colspan="7" class="text-center">Tidak Ada Data</td>
                                     </tr>
                                 @endforelse
                             </tbody>
