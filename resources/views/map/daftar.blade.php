@@ -54,19 +54,19 @@
                                 // inisialisasi tampilan peta Indonesia
                                 var map = L.map('map').setView([-1.7, 120.0], 5);
 
-                                // L.tileLayer(
-                                //     'https://tile.opentopomap.org/{z}/{x}/{y}.png', {
-                                //         maxZoom: 17, // Maksimal zoom untuk OpenTopoMap
-                                //         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://opentopomap.org/">OpenTopoMap</a>'
-                                //     }
-                                // ).addTo(map);
-
                                 L.tileLayer(
-                                    'https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
-                                        maxZoom: 20, // CyclOSM mendukung hingga zoom level 20
-                                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://cyclosm.org/">CyclOSM</a>'
+                                    'https://tile.opentopomap.org/{z}/{x}/{y}.png', {
+                                        maxZoom: 17, // Maksimal zoom untuk OpenTopoMap
+                                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://opentopomap.org/">OpenTopoMap</a>'
                                     }
                                 ).addTo(map);
+
+                                // L.tileLayer(
+                                //     'https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
+                                //         maxZoom: 20, // CyclOSM mendukung hingga zoom level 20
+                                //         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://cyclosm.org/">CyclOSM</a>'
+                                //     }
+                                // ).addTo(map);
 
                                 // array untuk menyimpan koordinat polyline
                                 var coordinates = [];
