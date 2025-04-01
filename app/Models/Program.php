@@ -57,6 +57,6 @@ class Program extends Model
     // Role Panitia
     public function panitia()
     {
-        return $this->belongsToMany(User::class, 'panitia')->withPivot('role');
+        return $this->belongsToMany(User::class, 'panitia', 'program_id', 'users_id')->withPivot('role');
     }
 }

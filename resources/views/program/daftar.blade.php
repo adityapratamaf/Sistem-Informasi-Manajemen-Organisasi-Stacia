@@ -84,7 +84,7 @@
                                     </button>
                                     <a href="{{ route('program.daftar') }}" class="btn btn-secondary mr-2"
                                         data-toggle="tooltip" data-placement="top" title="Reset">
-                                        <i class="fas fa-sync"></i>
+                                        <i class="fas fa-sync-alt"></i>
                                     </a>
                                 </div>
                             </div>

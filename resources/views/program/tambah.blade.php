@@ -21,7 +21,9 @@
             <div class="container-fluid">
                 <div class="row mb-0">
                     <div class="col-sm-6">
-                        {{-- <h5 class="m-0 float-sm-left">#</h5> --}}
+                        <a href="/program" class="mx-2 float-sm-left btn btn-primary" data-toggle="tooltip" data-placement="top"
+                            title="Kembali"> <i class="fas fa-step-backward"></i>
+                        </a>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -94,6 +96,49 @@
                                         </div>
                                     @enderror
 
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="proposal">Proposal</label>
+                                                <div class="input-group">
+                                                    <div class="custom-file">
+                                                        <input type="file" name="proposal" class="custom-file-input"
+                                                            onchange="previewImage('image-source1', 'image-preview1');"
+                                                            id="image-source1">
+                                                        <label class="custom-file-label">File</label>
+                                                    </div>
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">Unggah</span>
+                                                    </div>
+                                                </div>
+                                                <div class="product-image-thumb mt-2">
+                                                    <embed src="{{ asset('proposal-file/no-document.pdf') }}" width="95"
+                                                        height="88" id="image-preview1" alt="Pratinjau File" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="lpj">Laporan Pertanggung Jawaban</label>
+                                                <div class="input-group">
+                                                    <div class="custom-file">
+                                                        <input type="file" name="lpj" class="custom-file-input"
+                                                            onchange="previewImage('image-source2', 'image-preview2');"
+                                                            id="image-source2">
+                                                        <label class="custom-file-label">File</label>
+                                                    </div>
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">Unggah</span>
+                                                    </div>
+                                                </div>
+                                                <div class="product-image-thumb mt-2">
+                                                    <embed src="{{ asset('lpj-file/no-document.pdf') }}" width="95"
+                                                        height="88" id="image-preview2" alt="Pratinjau File" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
 
                                 <div class="col-md-6">
@@ -140,21 +185,66 @@
                                         value="Tunggu">
 
                                     <div class="form-group">
-                                        <label for="users_id">Panitia</label>
-                                        <select name="users_id[]" class="form-control select2" multiple="multiple"
-                                            data-placeholder="Panitia">
+                                        <label for="ketua_id">Ketua</label>
+                                        <select name="ketua_id" class="form-control" data-placeholder="Ketua">
+                                            <option value="#" disabled selected>Ketua</option>
                                             @foreach ($user as $data)
                                                 <option value="{{ $data->id }}">{{ $data->nama }}</option>
                                             @endforeach
                                         </select>
                                     </div>
-                                    @error('users_id')
+                                    @error('ketua_id')
                                         <div class="alert alert-danger">
                                             Data Wajib Di Isi
                                         </div>
                                     @enderror
 
-                                    <div class="row">
+                                    <div class="form-group">
+                                        <label for="sekretaris_id">Sekretaris</label>
+                                        <select name="sekretaris_id" class="form-control" data-placeholder="Sekretaris">
+                                            <option value="#" disabled selected>Sekretaris</option>
+                                            @foreach ($user as $data)
+                                                <option value="{{ $data->id }}">{{ $data->nama }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    @error('sekretaris_id')
+                                        <div class="alert alert-danger">
+                                            Data Wajib Di Isi
+                                        </div>
+                                    @enderror
+
+                                    <div class="form-group">
+                                        <label for="bendahara_id">Bendahara</label>
+                                        <select name="bendahara_id" class="form-control" data-placeholder="Bendahara">
+                                            <option value="#" disabled selected>Bendahara</option>
+                                            @foreach ($user as $data)
+                                                <option value="{{ $data->id }}">{{ $data->nama }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    @error('bendahara_id')
+                                        <div class="alert alert-danger">
+                                            Data Wajib Di Isi
+                                        </div>
+                                    @enderror
+
+                                    <div class="form-group">
+                                        <label for="anggota_id">Anggota</label>
+                                        <select name="anggota_id[]" class="form-control select2" multiple="multiple"
+                                            data-placeholder="Anggota">
+                                            @foreach ($user as $data)
+                                                <option value="{{ $data->id }}">{{ $data->nama }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    @error('anggota_id')
+                                        <div class="alert alert-danger">
+                                            Data Wajib Di Isi
+                                        </div>
+                                    @enderror
+
+                                    {{-- <div class="row">
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="proposal">Proposal</label>
@@ -196,7 +286,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                 </div>
 
@@ -205,9 +295,8 @@
                         </div>
 
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary btn-sm toastrDefaultSuccess"
-                                data-toggle="tooltip" data-placement="bottom" title="Simpan"> <i
-                                    class="fas fa-database"></i> </i>
+                            <button type="submit" class="btn btn-primary toastrDefaultSuccess" data-toggle="tooltip"
+                                data-placement="bottom" title="Simpan"> <i class="fas fa-database"></i> </i>
                             </button>
                         </div>
                     </form>

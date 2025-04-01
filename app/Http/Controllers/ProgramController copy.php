@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Panitia;
 use App\Models\Program;
 use App\Models\User;
 use App\Models\Pengurus;
@@ -100,11 +99,8 @@ class ProgramController extends Controller
             'tgl_mulai'     => 'required',
             'tgl_selesai'   => 'required',
             'pengurus_id'   => 'required|exists:pengurus,id',
-            'anggota_id'    => 'required|array',
-            'anggota_id.*'  => 'exists:users,id',
-            'ketua_id'      => 'required|exists:users,id',
-            'sekretaris_id' => 'required|exists:users,id',
-            'bendahara_id'  => 'required|exists:users,id',
+            'users_id'      => 'required|array',
+            'users_id.*'    => 'exists:users,id',
             'proposal'      => 'file|mimes:pdf',
             'lpj'           => 'file|mimes:pdf',
         ]);
@@ -168,43 +164,8 @@ class ProgramController extends Controller
 
         $program->save();
 
-        // Simpan Ketua Ke Pivot Table
-        DB::table('panitia')->insert([
-            'users_id'   => $request->ketua_id,
-            'program_id' => $program->id,
-            'role'       => 'Ketua',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        DB::table('panitia')->insert([
-            'users_id'   => $request->sekretaris_id,
-            'program_id' => $program->id,
-            'role'       => 'Sekretaris',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        // Simpan Bendahara Ke Pivot Table
-        DB::table('panitia')->insert([
-            'users_id'   => $request->bendahara_id,
-            'program_id' => $program->id,
-            'role'       => 'Bendahara',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        // Simpan Anggota Ke Pivot Table & Tidak Boleh Sama Dengan Ketua Bendahara
-        $panitia_ids = array_diff($request->anggota_id, [$request->ketua_id, $request->sekretaris_id, $request->bendahara_id]);
-        foreach ($panitia_ids as $panitia_id) {
-            DB::table('panitia')->insert([
-                'users_id'   => $panitia_id,
-                'program_id' => $program->id,
-                'role'       => 'Anggota',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-        }
+        // Simpan Data Ke Pivot Table
+        $program->user()->sync($request->users_id);
 
         // Notifikasi
         $notifikasi = array(
@@ -244,24 +205,7 @@ class ProgramController extends Controller
         $user = User::all();
 
         // Mengambil ID Pengguna Yang Sudah Terhubung Dengan Program
-        // $panitia = $program->user->pluck('id')->toArray();
-
-        $anggota_id = Panitia::where('program_id', $program->id)
-            ->where('role', 'Anggota')
-            ->pluck('users_id')
-            ->toArray();
-
-        $ketua_id = Panitia::where('program_id', $program->id)
-            ->where('role', 'Ketua')
-            ->value('users_id');
-
-        $sekretaris_id = Panitia::where('program_id', $program->id)
-            ->where('role', 'Sekretaris')
-            ->value('users_id');
-
-        $bendahara_id = Panitia::where('program_id', $program->id)
-            ->where('role', 'Bendahara')
-            ->value('users_id');
+        $panitia = $program->user->pluck('id')->toArray();
 
         // Pengalihan Halaman
         return view('program.ubah', [
@@ -269,12 +213,7 @@ class ProgramController extends Controller
             'user'              => $user,
             'program'           => $program,
             'pengurusId'        => $pengurusId,
-            // 'panitia'           => $panitia,
-            'ketua_id'          => $ketua_id,
-            'sekretaris_id'     => $sekretaris_id,
-            'bendahara_id'      => $bendahara_id,
-            'anggota_id'        => $anggota_id,
-
+            'panitia'           => $panitia,
         ]);
     }
 
@@ -291,11 +230,8 @@ class ProgramController extends Controller
             'tgl_mulai'     => 'required|date',
             'tgl_selesai'   => 'required|date',
             'pengurus_id'   => 'required|exists:pengurus,id',
-            'anggota_id'    => 'required|array',
-            'anggota_id.*'  => 'exists:users,id',
-            'ketua_id'      => 'required|exists:users,id',
-            'sekretaris_id' => 'required|exists:users,id',
-            'bendahara_id'  => 'required|exists:users,id',
+            'users_id'      => 'required|array',
+            'users_id.*'    => 'exists:users,id',
             'proposal'      => 'file|mimes:pdf',
             'lpj'           => 'file|mimes:pdf',
         ]);
@@ -367,47 +303,8 @@ class ProgramController extends Controller
         $program->pengurus_id = $request['pengurus_id'];
         $program->save();
 
-        // Hapus panitia lama
-        DB::table('panitia')->where('program_id', $program->id)->delete();
-
-        // Simpan Ketua Ke Pivot Table
-        DB::table('panitia')->insert([
-            'users_id'   => $request->ketua_id,
-            'program_id' => $program->id,
-            'role'       => 'Ketua',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        // Simpan Sekretaris Ke Pivot Table
-        DB::table('panitia')->insert([
-            'users_id'   => $request->sekretaris_id,
-            'program_id' => $program->id,
-            'role'       => 'Sekretaris',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        // Simpan Bendahara Ke Pivot Table
-        DB::table('panitia')->insert([
-            'users_id'   => $request->bendahara_id,
-            'program_id' => $program->id,
-            'role'       => 'Bendahara',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        // Simpan Anggota Ke Pivot Table
-        $panitia_ids = array_diff($request->anggota_id, [$request->ketua_id, $request->sekretaris_id, $request->bendahara_id]);
-        foreach ($panitia_ids as $panitia_id) {
-            DB::table('panitia')->insert([
-                'users_id'   => $panitia_id,
-                'program_id' => $program->id,
-                'role'       => 'Anggota',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-        }
+        // Perbarui Data Di Pivot Table Dengan Sync
+        $program->user()->sync($request->users_id);
 
         // Notifikasi
         $notifikasi = array(

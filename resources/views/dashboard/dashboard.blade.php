@@ -432,6 +432,48 @@
                             </div>
                         </div>
 
+                        {{-- Daftar Panitia Program --}}
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="nav-icon fas fa-briefcase mr-1"></i>
+                                    Panitia Program
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="tab-content p-0">
+                                    @forelse ($program_panitia as $panitia)
+                                        <div class="callout callout-danger">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <h6> <b>{{ $panitia->nama }}</b> </h6>
+                                                    <p>Posisi : {{ $panitia->pivot->role }}</p>
+                                                </div>
+                                                <div class="col text-right">
+                                                    @if ($panitia->status == 'Tunggu')
+                                                        <span class="badge badge-primary">Tunggu</span>
+                                                    @elseif ($panitia->status == 'Sukses')
+                                                        <span class="badge badge-success">Sukses</span>
+                                                    @elseif ($panitia->status == 'Batal')
+                                                        <span class="badge badge-danger">Batal</span>
+                                                    @endif
+                                                    <p>
+                                                        {{ date('d M Y', strtotime($panitia->tgl_mulai)) }} -
+                                                        {{ date('d M Y', strtotime($panitia->tgl_selesai)) }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @empty
+                                        <div class="callout callout-success">
+                                            <h5> <b>Tidak Ada Program </b></h5>
+                                            <p>Posisi : -</p>
+                                        </div>
+                                    @endforelse
+                                </div>
+                            </div>
+                        </div>
+
                         {{-- Grafik Program New --}}
                         {{-- <div class="card">
                             <div class="card-header">

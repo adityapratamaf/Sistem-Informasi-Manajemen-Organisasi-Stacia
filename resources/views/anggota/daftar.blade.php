@@ -106,7 +106,7 @@
                                     </button>
                                     <a href="{{ route('anggota.daftar') }}" class="btn btn-secondary mx-2"
                                         data-toggle="tooltip" data-placement="top" title="Reset">
-                                        <i class="fas fa-sync"></i>
+                                        <i class="fas fa-sync-alt"></i>
                                     </a>
                                 </div>
                             </div>

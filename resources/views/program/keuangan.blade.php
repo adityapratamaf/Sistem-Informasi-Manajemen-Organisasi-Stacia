@@ -104,10 +104,13 @@
                             data-placement="top" title="Kembali"> <i class="fas fa-step-backward"></i>
                         </a>
                         <!-- Tombol Print -->
-                        <a href="/program/keuangan/{{ $program->id }}/download" class="m-0 float-sm-left btn btn-danger "
-                            data-toggle="tooltip" data-placement="top" title="Print" id="downloadBtn" target="_blank">
-                            <i class="fas fa-print"></i>
-                        </a>
+                        @if ($isBendahara)
+                            <a href="/program/keuangan/{{ $program->id }}/download"
+                                class="m-0 float-sm-left btn btn-danger " data-toggle="tooltip" data-placement="top"
+                                title="Print" id="downloadBtn" target="_blank">
+                                <i class="fas fa-print"></i>
+                            </a>
+                        @endif
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -131,7 +134,7 @@
                             </div>
                             <div class="card-body">
 
-                                @if ($isPanitia)
+                                @if ($isBendahara)
                                     <a href="#" class="btn btn-primary mb-3" data-toggle="modal"
                                         data-target="#tambahpemasukan" data-toggle="tooltip" data-placement="top"
                                         title="Tambah">
@@ -179,7 +182,7 @@
                                                         data-toggle="tooltip" data-placement="top" title="Detail"> <i
                                                             class="fas fa-sticky-note"></i>
                                                     </a>
-                                                    @if ($isPanitia)
+                                                    @if ($isBendahara)
                                                         <a href="" class="btn btn-info  mx-2" data-toggle="modal"
                                                             data-target="#ubahpemasukan{{ $data->id }}"
                                                             data-toggle="tooltip" data-placement="top" title="Ubah"> <i
@@ -226,7 +229,7 @@
 
                             <div class="card-body">
 
-                                @if ($isPanitia)
+                                @if ($isBendahara)
                                     <a href="#" class="btn btn-primary  mb-3" data-toggle="modal"
                                         data-target="#tambahpengeluaran" data-toggle="tooltip" data-placement="top"
                                         title="Tambah">
@@ -273,7 +276,7 @@
                                                         data-toggle="tooltip" data-placement="top" title="Detail"> <i
                                                             class="fas fa-sticky-note"></i>
                                                     </a>
-                                                    @if ($isPanitia)
+                                                    @if ($isBendahara)
                                                         <a href="" class="btn btn-info  mx-2" data-toggle="modal"
                                                             data-target="#ubahpengeluaran{{ $data->id }}"
                                                             data-toggle="tooltip" data-placement="top" title="Ubah"> <i

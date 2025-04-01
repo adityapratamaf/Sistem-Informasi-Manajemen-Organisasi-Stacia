@@ -31,11 +31,23 @@ class TugasController extends Controller
         $isPanitia = \DB::table('panitia')
             ->where('users_id', Auth::id())
             ->where('program_id', $program_id)
-            ->where('role', 'panitia')
+            ->whereIn('role', ['Ketua', 'Sekretaris', 'Bendahara', 'Anggota'])
+            ->exists();
+
+        $isKetua = \DB::table('panitia')
+            ->where('users_id', Auth::id())
+            ->where('program_id', $program_id)
+            ->where('role', 'Ketua')
+            ->exists();
+
+        $isSekretaris = \DB::table('panitia')
+            ->where('users_id', Auth::id())
+            ->where('program_id', $program_id)
+            ->where('role', 'Sekretaris')
             ->exists();
 
         // Pengalihan Halaman
-        return view('program.pekerjaan', compact('program', 'tugas', 'laporan', 'pelaksana', 'isPanitia'));
+        return view('program.pekerjaan', compact('program', 'tugas', 'laporan', 'pelaksana', 'isPanitia', 'isKetua', 'isSekretaris'));
     }
 
     public function create()

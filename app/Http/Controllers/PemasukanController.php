@@ -26,16 +26,9 @@ class PemasukanController extends Controller
         $pengeluaran = Pengeluaran::where('program_id', $program_id)->orderBy('created_at', 'DESC')->get();
 
         // Middleware Jika User Yang Login Adalah Panitia Dari Suatu Program
-        // $isPanitia = \DB::table('panitia')
-        //     ->where('users_id', Auth::id())
-        //     ->where('program_id', $program_id)
-        //     ->where('role', 'panitia')
-        //     ->exists();
-
-        // Middleware Jika User Yang Login Adalah Panitia Dari Suatu Program
-        $isPanitia = Panitia::where('users_id', Auth::id())
+        $isBendahara = Panitia::where('users_id', Auth::id())
             ->where('program_id', $program_id)
-            ->where('role', 'panitia')
+            ->where('role', 'Bendahara')
             ->exists();
 
         // Fungsi Untuk Mengitung Pemasukan & Pengeluaran
@@ -44,9 +37,8 @@ class PemasukanController extends Controller
         $totalSaldo = $totalPemasukan - $totalPengeluaran;
 
         // Pengalihan Halaman
-        return view('program.keuangan', compact('program', 'pemasukan', 'pengeluaran', 'isPanitia', 'totalPemasukan', 'totalPengeluaran', 'totalSaldo'));
+        return view('program.keuangan', compact('program', 'pemasukan', 'pengeluaran', 'isBendahara', 'totalPemasukan', 'totalPengeluaran', 'totalSaldo'));
     }
-
 
     public function create()
     {

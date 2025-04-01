@@ -12,11 +12,7 @@ use File;
 
 class PengeluaranController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index($program_id)
     {
         // ===== Daftar Data =====
@@ -24,22 +20,11 @@ class PengeluaranController extends Controller
         // Tergabung Di Dalam Index Controller Pemasukan
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request, $program_id)
     {
         // ===== Request Tambah Data =====
@@ -82,35 +67,16 @@ class PengeluaranController extends Controller
         return redirect()->route('program.keuangan', $program_id)->with($notifikasi);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Pengeluaran $pengeluaran)
     {
         // ===== Request Ubah Data =====
@@ -155,12 +121,6 @@ class PengeluaranController extends Controller
         return redirect()->route('program.keuangan', $pengeluaran->program_id)->with($notifikasi);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Pengeluaran $pengeluaran)
     {
         // ===== Hapus Data =====

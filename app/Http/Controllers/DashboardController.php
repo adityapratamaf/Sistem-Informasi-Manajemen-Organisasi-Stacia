@@ -50,6 +50,9 @@ class DashboardController extends Controller
         $jumlahPengeluaran = Pengeluaran::sum('jumlah');
         //$totalSize = $this->calculateFolderSize(public_path());
 
+        // Menampilkan Daftar Panitia Program Sesuai User Login
+        $program_panitia = $user->program_panitia()->where('status', 'Tunggu')->get();
+
         // Fungsi Grafik Program
         $programs = DB::table('program')
             ->select(
@@ -92,7 +95,7 @@ class DashboardController extends Controller
             ];
         });
 
-        return view('dashboard.dashboard', compact('user', 'totalAnggota', 'totalLogistik', 'totalSuratMasuk', 'totalSuratKeluar', 'totalSuratKeterangan', 'dataPengumuman', 'dataProgram', 'dataPengurus', 'jumlahTugas', 'jumlahTugasSelesai', 'jumlahLaporan', 'jumlahLaporanSelesai', 'jumlahPemasukan', 'jumlahPengeluaran', 'labels', 'dataSukses', 'dataBatal', 'dataTunggu', 'totalSize', 'event'));
+        return view('dashboard.dashboard', compact('user', 'totalAnggota', 'totalLogistik', 'totalSuratMasuk', 'totalSuratKeluar', 'totalSuratKeterangan', 'dataPengumuman', 'dataProgram', 'dataPengurus', 'jumlahTugas', 'jumlahTugasSelesai', 'jumlahLaporan', 'jumlahLaporanSelesai', 'jumlahPemasukan', 'jumlahPengeluaran', 'labels', 'dataSukses', 'dataBatal', 'dataTunggu', 'totalSize', 'event', 'program_panitia'));
     }
 
     // Fungsi Menghitung Total File Size Di Public

@@ -73,12 +73,14 @@
                         <a href="/program" class="mx-2 float-sm-left btn btn-primary" data-toggle="tooltip" data-placement="top"
                             title="Kembali"> <i class="fas fa-step-backward"></i>
                         </a>
-
                         <!-- Tombol Print -->
-                        <a href="/program/pekerjaan/{{ $program->id }}/download" class="m-0 float-sm-left btn btn-danger"
-                            data-toggle="tooltip" data-placement="top" title="Print" id="downloadBtn" target="_blank">
-                            <i class="fas fa-print"></i>
-                        </a>
+                        @if ($isKetua || $isSekretaris)
+                            <a href="/program/pekerjaan/{{ $program->id }}/download"
+                                class="m-0 float-sm-left btn btn-danger" data-toggle="tooltip" data-placement="top"
+                                title="Print" id="downloadBtn" target="_blank">
+                                <i class="fas fa-print"></i>
+                            </a>
+                        @endif
                     </div>
 
                     <div class="col-sm-6">
@@ -104,7 +106,7 @@
                             </div>
                             <div class="card-body">
 
-                                @if ($isPanitia)
+                                @if ($isKetua || $isSekretaris)
                                     <a href="#" class="btn btn-primary mb-3" data-toggle="modal"
                                         data-target="#tambahtugas" data-toggle="tooltip" data-placement="top"
                                         title="Tambah">
@@ -395,36 +397,40 @@
                                 </div>
                             @enderror
 
-                            <div class="form-group">
-                                <label for="users_id">Pelaksana</label>
-                                <select name="users_id" class="form-control" data-placeholder="Pelaksana">
-                                    @foreach ($pelaksana as $data)
-                                        <option value="{{ $data->id }}">{{ $data->nama }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            @error('users_id')
-                                <div class="alert alert-danger">
-                                    Data Wajib Di Isi
+                            @if ($isKetua)
+                                <div class="form-group">
+                                    <label for="users_id">Pelaksana</label>
+                                    <select name="users_id" class="form-control" data-placeholder="Pelaksana">
+                                        @foreach ($pelaksana as $data)
+                                            <option value="{{ $data->id }}">{{ $data->nama }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
-                            @enderror
+                                @error('users_id')
+                                    <div class="alert alert-danger">
+                                        Data Wajib Di Isi
+                                    </div>
+                                @enderror
+                            @endif
 
-                            <div class="form-group">
-                                <label for="status">Status Tugas</label>
-                                <select name="status" class="form-control">
-                                    <option value="Tunggu" {{ $data->status == 'Tunggu' ? 'selected' : '' }}>Tunggu
-                                    </option>
-                                    <option value="Perbaikan" {{ $data->status == 'Perbaikan' ? 'selected' : '' }}>
-                                        Perbaikan</option>
-                                    <option value="Selesai" {{ $data->status == 'Selesai' ? 'selected' : '' }}>Selesai
-                                    </option>
-                                </select>
-                            </div>
-                            @error('status')
-                                <div class="alert alert-danger">
-                                    Data Wajib Di Isi
+                            @if ($isKetua)
+                                <div class="form-group">
+                                    <label for="status">Status Tugas</label>
+                                    <select name="status" class="form-control">
+                                        <option value="Tunggu" {{ $data->status == 'Tunggu' ? 'selected' : '' }}>Tunggu
+                                        </option>
+                                        <option value="Perbaikan" {{ $data->status == 'Perbaikan' ? 'selected' : '' }}>
+                                            Perbaikan</option>
+                                        <option value="Selesai" {{ $data->status == 'Selesai' ? 'selected' : '' }}>Selesai
+                                        </option>
+                                    </select>
                                 </div>
-                            @enderror
+                                @error('status')
+                                    <div class="alert alert-danger">
+                                        Data Wajib Di Isi
+                                    </div>
+                                @enderror
+                            @endif
                         </div>
 
                         <div class="card-footer">

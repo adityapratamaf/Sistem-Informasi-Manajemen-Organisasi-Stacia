@@ -12,8 +12,9 @@
             <div class="container-fluid">
                 <div class="row mb-0">
                     <div class="col-sm-6">
-                        {{-- <a onclick="return printArea('area')" class="m-0 float-sm-left btn btn-danger btn-sm"
-                            data-toggle="tooltip" data-placement="top" title="Print"> <i class="fas fa-print"></i> </a> --}}
+                        <a href="/program" class="mx-2 float-sm-left btn btn-primary" data-toggle="tooltip" data-placement="top"
+                            title="Kembali"> <i class="fas fa-step-backward"></i>
+                        </a>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -41,23 +42,25 @@
                                     <div class="carousel-inner">
                                         <div class="carousel-item active">
                                             <iframe src="{{ asset('proposal-file/' . $program->proposal) }}" height="400"
-                                                width="550" class="card">
+                                                width="660" class="card d-block w-100">
                                             </iframe>
                                         </div>
                                         <div class="carousel-item">
                                             <iframe src="{{ asset('lpj-file/' . $program->lpj) }}" height="400"
-                                                width="550" class="card">
+                                                width="660" class="card d-block w-100">
                                             </iframe>
                                         </div>
                                     </div>
                                     <button class="carousel-control-prev" type="button"
                                         data-target="#carouselExampleControls" data-slide="prev">
-                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span aria-hidden="true"><i class="fa fa-chevron-left fa-2x"
+                                                style="color: black;"></i></span>
                                         <span class="sr-only">Previous</span>
                                     </button>
                                     <button class="carousel-control-next" type="button"
                                         data-target="#carouselExampleControls" data-slide="next">
-                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span aria-hidden="true"><i class="fa fa-chevron-right fa-2x"
+                                                style="color: black;"></i></span>
                                         <span class="sr-only">Next</span>
                                     </button>
                                 </div>
@@ -114,12 +117,12 @@
                                 </div>
 
                                 <div class="tab-pane fade" id="panitia" role="tabpanel" aria-labelledby="panitia-tab">
-                                    @if ($program->user->isEmpty())
-                                        <p>Tidak Terdaftar Di Program</p>
+                                    @if ($program->panitia->isEmpty())
+                                        <p>Tidak Ada Panitia Terdaftar</p>
                                     @else
                                         <ul>
-                                            @foreach ($program->user as $panitia)
-                                                <li>{{ $panitia->nama }}</li>
+                                            @foreach ($program->panitia as $panitia)
+                                                <li>{{ $panitia->nama }} : {{ $panitia->pivot->role }}</li>
                                             @endforeach
                                         </ul>
                                     @endif

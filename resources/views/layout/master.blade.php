@@ -133,8 +133,8 @@
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
-    <div class="wrapper">
 
+    <div class="wrapper">
         {{-- LOADER --}}
         <div class="preloader flex-column justify-content-center align-items-center">
             <img class="animation__shake" src="{{ asset('template/dist/img/AdminLTELogo.png') }}" alt="AdminLTELogo"
@@ -159,9 +159,12 @@
         {{-- FOOTER --}}
 
         <aside class="control-sidebar control-sidebar-dark">
-
         </aside>
 
+        <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button"
+            aria-label="Auto Scroll Top">
+            <i class="fas fa-chevron-up"></i>
+        </a>
     </div>
 
     {{-- JQuery --}}
@@ -356,8 +359,30 @@
         $('input[name="my-checkbox"]').bootstrapSwitch();
     </script>
 
+    {{-- Button Auto Scroll Top --}}
+    <script>
+        $(document).ready(function() {
+            $(window).scroll(function() {
+                if ($(this).scrollTop() > 100) {
+                    $('#back-to-top').fadeIn();
+                } else {
+                    $('#back-to-top').fadeOut();
+                }
+            });
+
+            $('#back-to-top').click(function() {
+                $("html, body").animate({
+                    scrollTop: 0
+                }, 600);
+                return false;
+            });
+        });
+    </script>
+
+
     @stack('script')
 
 </body>
+
 
 </html>

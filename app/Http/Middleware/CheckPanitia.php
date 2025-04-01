@@ -26,7 +26,7 @@ class CheckPanitia
         $isPanitia = \DB::table('panitia')
             ->where('users_id', Auth::id())
             ->where('program_id', $programId)
-            ->where('role', 'panitia')
+            ->whereIn('role', ['Ketua', 'Bendahara', 'Anggota'])
             ->exists();
 
         if ($isPanitia) {

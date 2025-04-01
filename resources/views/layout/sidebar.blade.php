@@ -59,6 +59,7 @@
                         <p>
                             Map
                         </p>
+                        <span class="right badge badge-danger">New</span>
                     </a>
                 </li>
 
