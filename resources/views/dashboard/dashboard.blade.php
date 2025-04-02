@@ -443,27 +443,30 @@
                             <div class="card-body">
                                 <div class="tab-content p-0">
                                     @forelse ($program_panitia as $panitia)
-                                        <div class="callout callout-danger">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <h6> <b>{{ $panitia->nama }}</b> </h6>
-                                                    <p>Posisi : {{ $panitia->pivot->role }}</p>
-                                                </div>
-                                                <div class="col text-right">
-                                                    @if ($panitia->status == 'Tunggu')
-                                                        <span class="badge badge-primary">Tunggu</span>
-                                                    @elseif ($panitia->status == 'Sukses')
-                                                        <span class="badge badge-success">Sukses</span>
-                                                    @elseif ($panitia->status == 'Batal')
-                                                        <span class="badge badge-danger">Batal</span>
-                                                    @endif
-                                                    <p>
-                                                        {{ date('d M Y', strtotime($panitia->tgl_mulai)) }} -
-                                                        {{ date('d M Y', strtotime($panitia->tgl_selesai)) }}
-                                                    </p>
+                                        <a href="{{ route('program.show', $panitia->id) }}"
+                                            style="text-decoration: none; color: inherit;">
+                                            <div class="callout callout-danger">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <h6> <b>{{ $panitia->nama }}</b> </h6>
+                                                        <p>Posisi : {{ $panitia->pivot->role }}</p>
+                                                    </div>
+                                                    <div class="col text-right">
+                                                        @if ($panitia->status == 'Tunggu')
+                                                            <span class="badge badge-primary">Tunggu</span>
+                                                        @elseif ($panitia->status == 'Sukses')
+                                                            <span class="badge badge-success">Sukses</span>
+                                                        @elseif ($panitia->status == 'Batal')
+                                                            <span class="badge badge-danger">Batal</span>
+                                                        @endif
+                                                        <p>
+                                                            {{ date('d M Y', strtotime($panitia->tgl_mulai)) }} -
+                                                            {{ date('d M Y', strtotime($panitia->tgl_selesai)) }}
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </a>
                                     @empty
                                         <div class="callout callout-success">
                                             <h5> <b>Tidak Ada Program </b></h5>

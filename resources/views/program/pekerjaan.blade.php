@@ -119,7 +119,7 @@
                                         <col width="1%">
                                         <col width="30%">
                                         <col width="15%">
-                                        @if ($isPanitia)
+                                        @if ($isKetua || $isSekretaris)
                                             <col width="20%">
                                         @endif
                                     </colgroup>
@@ -128,7 +128,7 @@
                                             <th>No</th>
                                             <th>Nama</th>
                                             <th>Status</th>
-                                            @if ($isPanitia)
+                                            @if ($isKetua || $isSekretaris)
                                                 <th>Aksi</th>
                                             @endif
                                         </tr>
@@ -156,7 +156,7 @@
                                                         <span class="badge badge-success">Selesai</span>
                                                     @endif
                                                 </td>
-                                                @if ($isPanitia)
+                                                @if ($isKetua || $isSekretaris)
                                                     <td>
                                                         <a href="" class="btn btn-info mx-2" data-toggle="modal"
                                                             data-target="#ubahtugas{{ $data->id }}"
@@ -193,7 +193,6 @@
                             </div>
 
                             <div class="card-body">
-
                                 @if ($isPanitia)
                                     <a href="#" class="btn btn-primary mb-3" data-toggle="modal"
                                         data-target="#tambahlaporan" data-toggle="tooltip" data-placement="top"
@@ -207,18 +206,14 @@
                                         <col width="1%">
                                         <col width="30%">
                                         <col width="15%">
-                                        @if ($isPanitia)
-                                            <col width="20%">
-                                        @endif
+                                        <col width="25%">
                                     </colgroup>
                                     <thead>
                                         <tr>
                                             <th>No</th>
                                             <th>Nama</th>
-                                            <th>Status</th>
-                                            @if ($isPanitia)
-                                                <th>Aksi</th>
-                                            @endif
+                                            <th>Deskripsi</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -234,29 +229,29 @@
                                                         {{ date('d M Y', strtotime($data->tgl_selesai)) }}
                                                         <br>
                                                         <i class="fas fa-user"></i> : {{ $data->users->nama }}
-                                                        <br>
-                                                        <i class="fas fa-sticky-note"></i> :
-                                                        @if ($data->file)
-                                                            <a href="{{ route('laporan.file', ['laporan_id' => $data->id]) }}"
-                                                                target="_blank" rel="noopener noreferrer">
-                                                                File
-                                                            </a>
-                                                        @endif
-                                                        <br>
-                                                        {!! $data->deskripsi !!}
                                                     </small>
                                                 </td>
                                                 <td>
-                                                    @if ($data->status == 'Tunggu')
-                                                        <span class="badge badge-primary">Tunggu</span>
-                                                    @elseif ($data->status == 'Perbaikan')
-                                                        <span class="badge badge-warning">Perbaikan</span>
-                                                    @elseif ($data->status == 'Selesai')
-                                                        <span class="badge badge-success">Selesai</span>
-                                                    @endif
+                                                    <small>
+                                                        {!! $data->deskripsi !!}
+                                                        {{-- <br>
+                                                        @if ($data->status == 'Selesai')
+                                                            <i class="fas fa-check"></i>
+                                                        @elseif ($data->status == 'Perbaikan')
+                                                            <i class="fas fa-exclamation"></i>
+                                                        @endif --}}
+                                                    </small>
                                                 </td>
-                                                @if ($isPanitia)
-                                                    <td>
+                                                <td>
+                                                    @if ($data->file)
+                                                        <a href="{{ route('laporan.file', ['laporan_id' => $data->id]) }}"
+                                                            class="btn btn-secondary mx-2" target="_blank"
+                                                            rel="noopener noreferrer" data-toggle="tooltip"
+                                                            data-placement="top" title="File">
+                                                            <i class="fas fa-sticky-note"></i>
+                                                        </a>
+                                                    @endif
+                                                    @if ($isOwner[$data->id] ?? false)
                                                         <a href="" class="btn btn-info mx-2" data-toggle="modal"
                                                             data-target="#ubahlaporan{{ $data->id }}"
                                                             data-toggle="tooltip" data-placement="top" title="Ubah"> <i
@@ -272,8 +267,8 @@
                                                                     class="fas fa-trash-alt"></i>
                                                             </button>
                                                         </form>
-                                                    </td>
-                                                @endif
+                                                    @endif
+                                                </td>
                                             </tr>
                                         @empty
                                             <tr>
@@ -671,6 +666,9 @@
                                     @enderror
                                 </div>
 
+                                <input type="text" name="status" class="form-control" placeholder="Nama"
+                                    autocomplete="off" value="Tunggu">
+                                {{-- 
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="status">Status Laporan</label>
@@ -689,7 +687,7 @@
                                             Data Wajib Di Isi
                                         </div>
                                     @enderror
-                                </div>
+                                </div> --}}
                             </div>
 
                         </div>

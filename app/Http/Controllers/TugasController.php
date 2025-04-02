@@ -23,9 +23,16 @@ class TugasController extends Controller
         // Ambil Data Panitia Sesuai Program
         $pelaksana = $program->user;
 
-        // Ambil Semua Tugas Yang Berelasi Dengan Program Tersebut
+        // Ambil Semua Data Tugas Laporan Yang Berelasi Dengan Program Tersebut
         $tugas = Tugas::where('program_id', $program_id)->orderBy('created_at', 'DESC')->get();
         $laporan = Laporan::where('program_id', $program_id)->orderBy('created_at', 'DESC')->get();
+
+        // Cek Pengguna Yang Login Adalah Pemilik Laporan
+        $userId = auth()->id();  // Dapatkan ID User Login
+        $isOwner = []; // Buat Array Untuk Menyimpan Kepemilikan Laporan
+        foreach ($laporan as $lap) {
+            $isOwner[$lap->id] = $lap->users_id === $userId;
+        }
 
         // Middleware Jika User Yang Login Adalah Panitia Dari Suatu Program
         $isPanitia = \DB::table('panitia')
@@ -47,7 +54,7 @@ class TugasController extends Controller
             ->exists();
 
         // Pengalihan Halaman
-        return view('program.pekerjaan', compact('program', 'tugas', 'laporan', 'pelaksana', 'isPanitia', 'isKetua', 'isSekretaris'));
+        return view('program.pekerjaan', compact('program', 'tugas', 'laporan', 'pelaksana', 'isPanitia', 'isKetua', 'isSekretaris', 'isOwner'));
     }
 
     public function create()
